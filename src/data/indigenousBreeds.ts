@@ -3300,12 +3300,1126 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
   }
 ];
 
-export const INDIAN_BREEDS_CATALOG: BreedInfo[] = INDIAN_BOVINE_BREEDS;
 
-export const REGISTERED_CATTLE_BREEDS: BreedInfo[] = INDIAN_BOVINE_BREEDS.filter(
+// =========================================================================
+// REGISTERED / CERTIFIED INDIAN INDIGENOUS GOAT BREEDS (Capra hircus)
+// Officially Registered by ICAR-NBAGR
+// =========================================================================
+export const INDIAN_GOAT_BREEDS: BreedInfo[] = [
+  {
+    id: 'jamunapari-goat',
+    name: 'Jamunapari',
+    vernacularName: 'जमुनापारी / Jamnapari',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Uttar Pradesh',
+    homeTract: 'Chambal river ravines of Etawah, Agra, and Bhind districts',
+    nbagrCode: 'INDIA_GOAT_2000_JAMUNAPARI_06001',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Premier Indian dairy goat known as the "Pashu-Dhan Gem of Chambal". Renowned for large majestic frame, pronounced convex Roman nose with parrot-mouth, and exceptionally long pendulous drooping ears (up to 30 cm).',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60 (58 acrocentric autosomes, 2 sex chromosomes)',
+      fatRegulatorGene: 'DGAT1 / CSN1S1 allele B/A high casein synthesis',
+      thermalGene: 'HSP70 / HSF1 ravines semi-arid thermal resilience',
+      ncbiLocusLink: 'https://www.ncbi.nlm.nih.gov/gene/100860824',
+      uniprotAccession: 'P18626'
+    },
+    physicalTraits: {
+      horns: 'Short, flat, twisted horns directed backwards and upwards',
+      ears: 'Exceptionally long, flat, pendulous, folded (25-30 cm) with distinct curl',
+      coatColor: 'Predominantly pure white with reddish-tan patches on neck and ears',
+      humpAndDewlap: 'None; characteristic thick hair feathering on thighs and buttocks',
+      sizeAndBuild: 'Largest Indian goat breed, tall long-legged dairy conformation',
+      faceProfile: 'Extremely convex Roman nose with distinctive parrot-mouth profile'
+    },
+    productivity: {
+      primaryUtility: 'Milch (Dairy)',
+      averageYield: '2.0 - 3.5 kg/day (250-320 kg per lactation)',
+      fatPercentage: '4.5% - 5.2% (hypoallergenic caprine milk)',
+      weightMaleKg: '75-90 kg',
+      weightFemaleKg: '50-60 kg',
+      hardiness: 'High',
+      heatTolerance: 'Extreme adaptation to semi-arid ravine grazing and scrub browse'
+    },
+    historicalSignificance: 'Named after the Yamuna (Jamuna) river. Highly valued by pastoralists and exported to Southeast Asia and the Americas to improve indigenous caprine stock.',
+    pastoralCommunities: ['Etawah goat pastoralists', 'Yadavs', 'Gujjars'],
+    careRecommendations: [
+      'Requires tree loppings (Acacia, Neem, Subabul) and extensive ravine browse',
+      'Spacious elevated slatted flooring to prevent foot rot during monsoon',
+      'Regular deworming for gastrointestinal nematodes (Haemonchus contortus)'
+    ],
+    imageUrl: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=800&q=80',
+    tags: ['Milch', 'Roman Nose', 'Uttar Pradesh', 'Chambal', 'Capra hircus', 'ICAR-NBAGR 06001']
+  },
+  {
+    id: 'barbari-goat',
+    name: 'Barbari',
+    vernacularName: 'बरबरी / Barbari',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Uttar Pradesh & Rajasthan',
+    homeTract: 'Agra, Mathura, Etah, Alwar, and Bharatpur districts',
+    nbagrCode: 'INDIA_GOAT_2017_BARBARI_06002',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Compact, highly prolific Indian dual-purpose goat ideal for stall-feeding and intensive commercial farming. Noted for short erect alert ears, gazelle-like grace, and frequent multiple births (twins and triplets).',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60 (58 acrocentric autosomes, 2 sex chromosomes)',
+      fatRegulatorGene: 'BMP15 / GDF9 hyper-fecundity ovulation markers',
+      thermalGene: 'HSP70 stall-feeding and confinement resilience',
+      ncbiLocusLink: 'https://www.ncbi.nlm.nih.gov/gene/100860824',
+      uniprotAccession: 'P18626'
+    },
+    physicalTraits: {
+      horns: 'Short, twisted, directed backwards and slightly outwards',
+      ears: 'Short, tubular, erect pointing outwards like deer ears',
+      coatColor: 'White with distinct light brown, tan, or black spots',
+      humpAndDewlap: 'Compact cylindrical barrel with clean neckline',
+      sizeAndBuild: 'Small to medium, compact, neat dairy wedge build',
+      faceProfile: 'Straight forehead with bulging alert expressive eyes'
+    },
+    productivity: {
+      primaryUtility: 'Dual-Purpose',
+      averageYield: '1.2 - 2.0 kg/day (150-200 kg per lactation)',
+      fatPercentage: '4.8% - 5.0%',
+      weightMaleKg: '38-45 kg',
+      weightFemaleKg: '25-32 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Supreme adaptation to stall-fed zero-grazing intensive systems'
+    },
+    historicalSignificance: 'Bred along the Yamuna and Chambal plains. Popular choice for young livestock entrepreneurs due to high kidding rate (1.8 kids/litter).',
+    pastoralCommunities: ['Brijwasi farmers', 'Peri-urban smallholders'],
+    careRecommendations: [
+      'Stall-fed with concentrate pellets, dry wheat straw, and fresh berseem clover',
+      'Clean drinking water with electrolyte replenishment in peak summer',
+      'Peste des Petits Ruminants (PPR) and Enterotoxaemia (ET) vaccination'
+    ],
+    imageUrl: 'https://images.unsplash.com/photo-1560807707-8cc77767d783?auto=format&fit=crop&w=800&q=80',
+    tags: ['Stall Feeding', 'Prolific', 'Uttar Pradesh', 'Rajasthan', 'ICAR-NBAGR 06002']
+  },
+  {
+    id: 'beetal-goat',
+    name: 'Beetal',
+    vernacularName: 'बीतल / Beetal',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Punjab',
+    homeTract: 'Gurdaspur, Amritsar, and Ferozepur districts',
+    nbagrCode: 'INDIA_GOAT_1600_BEETAL_06003',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Famous giant dairy and meat goat of Punjab. Morphologically resembles the Jamunapari with Roman nose and long pendulous ears, but features a shorter tail, spiral horns, and predominantly brown or black coat.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'CSN1S1 / DGAT1 dairy lipid alleles',
+      thermalGene: 'Alluvial plains seasonal heat-cold resilience'
+    },
+    physicalTraits: {
+      horns: 'Short to medium spiral horns curving backwards and upwards',
+      ears: 'Long, flat, pendulous, drooping with curved tip (20-25 cm)',
+      coatColor: 'Predominantly golden-brown, rich red, or black with white spots',
+      humpAndDewlap: 'Deep body frame with heavy muscular thighs',
+      sizeAndBuild: 'Large, robust, tall frame with well-developed udder',
+      faceProfile: 'Pronounced convex Roman nose with alert expression'
+    },
+    productivity: {
+      primaryUtility: 'Milch (Dairy)',
+      averageYield: '2.2 - 3.8 kg/day (220-280 kg per lactation)',
+      fatPercentage: '4.5% - 5.0%',
+      weightMaleKg: '65-85 kg',
+      weightFemaleKg: '45-55 kg',
+      hardiness: 'High',
+      heatTolerance: 'Adapted to both humid river plains and semi-arid tracts'
+    },
+    historicalSignificance: 'Prized by Punjabi farmers for century-long selective dairy breeding. Known as the "Pride of Majha".',
+    pastoralCommunities: ['Majha & Doaba farmers', 'Dairy goat breeders'],
+    careRecommendations: [
+      'High dry matter intake: chaffed maize fodder, mustard cake, mineral mixture',
+      'Regular hoof trimming and clean dry bedding'
+    ],
+    imageUrl: 'https://images.unsplash.com/photo-1535083783855-76ae62b2914e?auto=format&fit=crop&w=800&q=80',
+    tags: ['Punjab', 'Majha', 'Dairy Goat', 'Roman Nose', 'ICAR-NBAGR 06003']
+  },
+  {
+    id: 'black-bengal-goat',
+    name: 'Black Bengal',
+    vernacularName: 'ব্ল্যাক বেঙ্গল / काला बंगाल',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'West Bengal, Odisha & Bihar',
+    homeTract: 'Gangetic plains, Sundarbans delta, and Chota Nagpur plateau',
+    nbagrCode: 'INDIA_GOAT_2400_BLACKBENGAL_06004',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'World-renowned dwarf meat goat celebrated for exquisite tender meat flavor, exceptionally fine leather skin (export quality), high litter size (3-4 kids per kidding), and early sexual maturity.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'BMPR1B / GDF9 hyper-fecundity loci',
+      thermalGene: 'Humid sub-tropical disease and parasite resistance'
+    },
+    physicalTraits: {
+      horns: 'Short, thin, pointed outwards and upwards (5-8 cm)',
+      ears: 'Short, flat, carried horizontally',
+      coatColor: 'Predominantly jet black; occasionally brown or white',
+      humpAndDewlap: 'Short compact legs, deep barrel',
+      sizeAndBuild: 'Small dwarf stature, tight fine muscularity',
+      faceProfile: 'Straight, alert, fine chiseled muzzle'
+    },
+    productivity: {
+      primaryUtility: 'Meat & Fiber',
+      averageYield: '0.4 - 0.8 kg/day (low dairy; supreme meat and leather)',
+      fatPercentage: '4.5%',
+      weightMaleKg: '20-28 kg',
+      weightFemaleKg: '15-20 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Supreme disease resistance to humid tropical conditions'
+    },
+    historicalSignificance: 'Globally famous for its leather (known as "Kushtia/Bengal Kid" in international markets). A cornerstone of rural livelihoods for women smallholders.',
+    pastoralCommunities: ['Bengal rural artisans', 'Santhal tribal farmers'],
+    careRecommendations: [
+      'Open backyard free-range foraging with kitchen waste and green grass',
+      'Provide dry warm shelter during heavy monsoon downpours'
+    ],
+    imageUrl: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=800&q=80',
+    tags: ['Meat', 'Leather', 'Prolific', 'West Bengal', 'Sundarbans', 'ICAR-NBAGR 06004']
+  },
+  {
+    id: 'sirohi-goat',
+    name: 'Sirohi',
+    vernacularName: 'सिरोही / Sirohi',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Rajasthan & Gujarat',
+    homeTract: 'Aravalli hills of Sirohi, Ajmer, Bhilwara, and Palanpur',
+    nbagrCode: 'INDIA_GOAT_1700_SIROHI_06005',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Hardy dual-purpose goat with compact body, cylindrical horns, leaf-like drooping ears, and brown coat mottled with light or dark brown spots. Highly adaptable to hot semi-arid grazing.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'Dual-purpose lipid and muscle growth markers',
+      thermalGene: 'Thar desert edge heat and water stress tolerance'
+    },
+    physicalTraits: {
+      horns: 'Curved upwards and backwards, cylindrical',
+      ears: 'Medium to long, drooping, leaf-like',
+      coatColor: 'Brown with dark brown or white specks/patches',
+      humpAndDewlap: 'Cylindrical body with strong legs',
+      sizeAndBuild: 'Medium to large dual-purpose conformation',
+      faceProfile: 'Slightly convex forehead'
+    },
+    productivity: {
+      primaryUtility: 'Dual-Purpose',
+      averageYield: '1.0 - 1.8 kg/day',
+      fatPercentage: '4.6%',
+      weightMaleKg: '50-65 kg',
+      weightFemaleKg: '35-45 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Adapted to rocky Aravalli terrain and extreme heat'
+    },
+    historicalSignificance: 'Bred by Raika and Rebari pastoral communities of southern Rajasthan.',
+    pastoralCommunities: ['Raikas', 'Rebaris', 'Gujjars'],
+    careRecommendations: [
+      'Thrives on thorny scrub and tree foliage (Khejri, Ber, Kikar)',
+      'Periodic mineral supplementation in summer'
+    ],
+    imageUrl: 'https://images.unsplash.com/photo-1560807707-8cc77767d783?auto=format&fit=crop&w=800&q=80',
+    tags: ['Rajasthan', 'Aravalli', 'Dual Purpose', 'Rebari', 'ICAR-NBAGR 06005']
+  },
+  {
+    id: 'osmanabadi-goat',
+    name: 'Osmanabadi',
+    vernacularName: 'उस्मानाबादी / Osmanabadi',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Maharashtra',
+    homeTract: 'Osmanabad, Latur, Solapur, and Ahmednagar districts',
+    nbagrCode: 'INDIA_GOAT_1100_OSMANABADI_06006',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Prolific, disease-resistant meat goat adapted to Marathwada drought-prone tracts. Short glossy black coat, semi-pendulous ears, and high twining percentage.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'High lean meat muscle deposition',
+      thermalGene: 'Deccan lava plateau drought tolerance'
+    },
+    physicalTraits: {
+      horns: 'Short, flat, backward curved or polled',
+      ears: 'Medium, drooping',
+      coatColor: 'Glossy jet black (90%), occasionally spotted with white',
+      humpAndDewlap: 'Tight skin with strong bone structure',
+      sizeAndBuild: 'Medium, long legs, hardy meat type',
+      faceProfile: 'Straight to slightly convex'
+    },
+    productivity: {
+      primaryUtility: 'Meat & Fiber',
+      averageYield: '0.8 - 1.5 kg/day',
+      fatPercentage: '4.5%',
+      weightMaleKg: '45-55 kg',
+      weightFemaleKg: '32-40 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Survives drought conditions on dry fodder and stubble'
+    },
+    historicalSignificance: 'Originated in the dry Deccan plateau. Renowned for supreme disease immunity and low mortality.',
+    pastoralCommunities: ['Marathwada dryland farmers', 'Dhangars'],
+    careRecommendations: [
+      'Rotational grazing on scrub grasslands and pigeonpea stalks',
+      'Deworming before and after monsoon'
+    ],
+    imageUrl: 'https://images.unsplash.com/photo-1535083783855-76ae62b2914e?auto=format&fit=crop&w=800&q=80',
+    tags: ['Maharashtra', 'Marathwada', 'Meat Goat', 'Black Coat', 'ICAR-NBAGR 06006']
+  },
+  {
+    id: 'changthangi-goat',
+    name: 'Changthangi',
+    vernacularName: 'ལྡང་ཐང་ར་ / चांगथांगी / Pashmina Goat',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Ladakh',
+    homeTract: 'Changthang high-altitude cold desert plateau (4,000-5,000m)',
+    nbagrCode: 'INDIA_GOAT_0700_CHANGTHANGI_06010',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Producer of the world finest Pashmina cashmere fiber (12-14 microns). Reared by nomadic Changpa pastoralists under extreme sub-zero (-40°C) high-altitude desert plateaus.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'FGF5 / KRTAP hair follicle cashmere development gene',
+      thermalGene: 'EPAS1 / EGLN1 high-altitude hypoxia and sub-zero adaptation'
+    },
+    physicalTraits: {
+      horns: 'Large, twisted, outward and backward sweeping',
+      ears: 'Small, erect or horizontal, protected from freezing wind',
+      coatColor: 'White (most prized), grey, black, or brown',
+      humpAndDewlap: 'Dense undercoat of fine pashmina under long coarse guard hair',
+      sizeAndBuild: 'Medium, compact, deep chest, sturdy sure-footed mountain hooves',
+      faceProfile: 'Straight with thick facial hair'
+    },
+    productivity: {
+      primaryUtility: 'Meat & Fiber',
+      averageYield: '200 - 350 grams of ultra-fine Pashmina fiber per year',
+      fatPercentage: '4.8%',
+      weightMaleKg: '35-45 kg',
+      weightFemaleKg: '25-35 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Extreme tolerance to sub-zero cold (-40°C) and low oxygen'
+    },
+    historicalSignificance: 'Reared by the nomadic Buddhist Changpa tribe. Pashmina from this breed is woven into GI-tagged authentic Kashmiri Pashmina shawls.',
+    pastoralCommunities: ['Changpa nomadic pastoralists of Ladakh'],
+    careRecommendations: [
+      'High-altitude pasture grazing on Caragana and alpine grasses',
+      'Combing (not shearing) in spring to harvest fine undercoat',
+      'Protected winter corrals against snowstorms and Himalayan wolves'
+    ],
+    imageUrl: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=800&q=80',
+    tags: ['Pashmina', 'Ladakh', 'Changthang', 'Cashmere', 'ICAR-NBAGR 06010']
+  },
+  {
+    id: 'malabari-goat',
+    name: 'Malabari',
+    vernacularName: 'മലബാറി / തലശ്ശേരി / Tellicherry',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Kerala',
+    homeTract: 'Kozhikode, Kannur, Malappuram, and Wayanad districts',
+    nbagrCode: 'INDIA_GOAT_0900_MALABARI_06008',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Adapted to humid tropical rainfall zones of Malabar. Highly prolific dairy and meat goat with varied coat colors and high parasite resilience.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'High milk fat and prolific twinning alleles',
+      thermalGene: 'Humid tropical climate and gastrointestinal worm tolerance'
+    },
+    physicalTraits: {
+      horns: 'Small, slightly twisted and pointing backwards',
+      ears: 'Medium, flat, drooping or semi-pendulous',
+      coatColor: 'White, black, brown, or mottled combinations',
+      humpAndDewlap: 'Smooth skin with moderate frame',
+      sizeAndBuild: 'Medium dairy conformation with well-shaped udder',
+      faceProfile: 'Straight to slightly Roman'
+    },
+    productivity: {
+      primaryUtility: 'Dual-Purpose',
+      averageYield: '1.2 - 2.2 kg/day (180-220 kg per lactation)',
+      fatPercentage: '4.6% - 5.1%',
+      weightMaleKg: '45-55 kg',
+      weightFemaleKg: '30-38 kg',
+      hardiness: 'High',
+      heatTolerance: 'Exceptional resilience against humid coastal heat'
+    },
+    historicalSignificance: 'Developed by Arab-influenced seafaring coastal communities of Malabar over centuries of trade.',
+    pastoralCommunities: ['Mappila smallholders', 'Kerala coastal farmers'],
+    careRecommendations: [
+      'Jackfruit leaves, hybrid Napier grass, and coconut oil cake feeding',
+      'Elevated wooden slatted goat sheds for humid hygiene'
+    ],
+    imageUrl: 'https://images.unsplash.com/photo-1560807707-8cc77767d783?auto=format&fit=crop&w=800&q=80',
+    tags: ['Kerala', 'Malabar', 'Tellicherry', 'Dual Purpose', 'ICAR-NBAGR 06008']
+  },
+  {
+    id: 'jakhrana-goat',
+    name: 'Jakhrana',
+    vernacularName: 'जखराना / Jakhrana',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Rajasthan',
+    homeTract: 'Jakhrana village and surrounding Behror tehsil in Alwar district',
+    nbagrCode: 'INDIA_GOAT_1700_JAKHRANA_06007',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Premier milch goat of eastern Rajasthan. Lustrous jet-black coat with distinctive white specks on muzzle and ears; yields 3-4 kg of milk daily under semi-arid conditions.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'High casein and daily lactation volume loci',
+      thermalGene: 'Arid climate thermoregulation and browse foraging'
+    },
+    physicalTraits: {
+      horns: 'Short to medium, directed backwards',
+      ears: 'Medium, pendulous, drooping with white spots',
+      coatColor: 'Jet black with white spots on ears and muzzle',
+      humpAndDewlap: 'Compact straight top-line with capacious udder',
+      sizeAndBuild: 'Large, tall, dairy frame',
+      faceProfile: 'Straight to slightly Roman face'
+    },
+    productivity: {
+      primaryUtility: 'Milch (Dairy)',
+      averageYield: '2.5 - 4.0 kg/day (280-350 kg per lactation)',
+      fatPercentage: '4.7%',
+      weightMaleKg: '60-75 kg',
+      weightFemaleKg: '45-55 kg',
+      hardiness: 'High',
+      heatTolerance: 'Extreme tolerance to semi-arid summer spikes (>46°C)'
+    },
+    historicalSignificance: 'Bred in the historic Mewat tract. Named after its home village Jakhrana.',
+    pastoralCommunities: ['Alwar smallholders', 'Meo farmers'],
+    careRecommendations: ['Extensive browse grazing on Khejri loppings', 'Mineral lick blocks in stalls'],
+    imageUrl: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=800&q=80',
+    tags: ['Rajasthan', 'Alwar', 'Dairy Goat', 'Jakhrana', 'ICAR-NBAGR 06007']
+  },
+  {
+    id: 'chegu-goat',
+    name: 'Chegu',
+    vernacularName: 'छेगु / Chegu',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Himachal Pradesh & Ladakh',
+    homeTract: 'Spiti, Kinnaur, and Lahaul high alpine valleys (>3,500m)',
+    nbagrCode: 'INDIA_GOAT_0600_CHEGU_06009',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Mountain pashmina goat carrying a dense, fine cashmere underdown protected by long coarse outer guard hairs against sub-zero Himalayan winters.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'FGF5 hair length and secondary follicle density',
+      thermalGene: 'Himalayan alpine cold and hypoxia adaptation'
+    },
+    physicalTraits: {
+      horns: 'Long, twisted, curving upward and backward',
+      ears: 'Small, alert, horizontal',
+      coatColor: 'White, grey, or black with long silky fleece',
+      humpAndDewlap: 'Dense inner cashmere undercoat',
+      sizeAndBuild: 'Small to medium, compact, agile mountain climber',
+      faceProfile: 'Straight profile'
+    },
+    productivity: {
+      primaryUtility: 'Meat & Fiber',
+      averageYield: '150 - 250g fine cashmere underdown per year',
+      fatPercentage: '4.5%',
+      weightMaleKg: '35-42 kg',
+      weightFemaleKg: '25-32 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Sub-zero cold adapted; intolerant of humid heat'
+    },
+    historicalSignificance: 'Spiti and Kinnaur high-altitude pastoralism pillar.',
+    pastoralCommunities: ['Kinnaura and Spiti shepherds'],
+    careRecommendations: ['Alpine pasture grazing and protected dry winter corrals'],
+    imageUrl: 'https://images.unsplash.com/photo-1535083783855-76ae62b2914e?auto=format&fit=crop&w=800&q=80',
+    tags: ['Himachal', 'Spiti', 'Cashmere', 'Alpine', 'ICAR-NBAGR 06009']
+  },
+  {
+    id: 'surti-goat',
+    name: 'Surti Goat',
+    vernacularName: 'સુરતી બકરી / Surti',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Gujarat',
+    homeTract: 'Surat, Bharuch, and Vadodara districts',
+    nbagrCode: 'INDIA_GOAT_0400_SURTI_06011',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Pure white docile dairy goat popular with urban households in Gujarat for stall-fed milk production.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'High milk fat and solid content markers',
+      thermalGene: 'Coastal Gujarat humid-heat adaptation'
+    },
+    physicalTraits: {
+      horns: 'Small, flat, pointing backwards',
+      ears: 'Medium, drooping',
+      coatColor: 'Pristine pure white',
+      humpAndDewlap: 'Compact clean frame',
+      sizeAndBuild: 'Small to medium dairy conformation',
+      faceProfile: 'Straight forehead'
+    },
+    productivity: {
+      primaryUtility: 'Milch (Dairy)',
+      averageYield: '1.5 - 2.5 kg/day (180-240 kg per lactation)',
+      fatPercentage: '4.8% - 5.2%',
+      weightMaleKg: '40-50 kg',
+      weightFemaleKg: '28-36 kg',
+      hardiness: 'High',
+      heatTolerance: 'Well-adapted to urban stall feeding'
+    },
+    historicalSignificance: 'Traditional household dairy goat of coastal Gujarat.',
+    pastoralCommunities: ['Gujarati urban smallholders'],
+    careRecommendations: ['Stall-fed green fodder and pulses chuni'],
+    imageUrl: 'https://images.unsplash.com/photo-1560807707-8cc77767d783?auto=format&fit=crop&w=800&q=80',
+    tags: ['Gujarat', 'Surat', 'White Goat', 'Milch', 'ICAR-NBAGR 06011']
+  },
+  {
+    id: 'sangamneri-goat',
+    name: 'Sangamneri',
+    vernacularName: 'संगमनेरी / Sangamneri',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Maharashtra',
+    homeTract: 'Sangamner, Rahuri, and Kopargaon tehsils of Ahmednagar',
+    nbagrCode: 'INDIA_GOAT_1100_SANGAMNERI_06012',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Dual-purpose medium-sized goat producing quality mutton and 1-2 liters of milk daily.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'Balanced dairy-meat dual-purpose markers',
+      thermalGene: 'Deccan rain-shadow heat tolerance'
+    },
+    physicalTraits: {
+      horns: 'Medium, directed backwards and upwards',
+      ears: 'Medium, drooping',
+      coatColor: 'White, black, or brown mottled',
+      humpAndDewlap: 'Compact cylindrical body',
+      sizeAndBuild: 'Medium, sturdy frame',
+      faceProfile: 'Slightly convex forehead'
+    },
+    productivity: {
+      primaryUtility: 'Dual-Purpose',
+      averageYield: '1.2 - 2.0 kg/day',
+      fatPercentage: '4.5%',
+      weightMaleKg: '45-55 kg',
+      weightFemaleKg: '30-40 kg',
+      hardiness: 'High',
+      heatTolerance: 'High resistance to drought stress'
+    },
+    historicalSignificance: 'Bred in the Pravara river basin of Maharashtra.',
+    pastoralCommunities: ['Sangamner pastoralists'],
+    careRecommendations: ['Rotational grazing and legume crop residue'],
+    imageUrl: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=800&q=80',
+    tags: ['Maharashtra', 'Sangamner', 'Dual Purpose', 'ICAR-NBAGR 06012']
+  },
+  {
+    id: 'ganjam-goat',
+    name: 'Ganjam',
+    vernacularName: 'ଗଞ୍ଜାମ / गंजाम',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Odisha',
+    homeTract: 'Ganjam, Gajapati, and Rayagada districts',
+    nbagrCode: 'INDIA_GOAT_1500_GANJAM_06013',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Tall, long-legged meat breed with prominent curved horns, bred by traditional Golla pastoralists in Odisha hills.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'High muscle mass and walking stamina',
+      thermalGene: 'Eastern Ghats humid forest adaptation'
+    },
+    physicalTraits: {
+      horns: 'Long, twisted, curving upward and backward',
+      ears: 'Medium, horizontal to drooping',
+      coatColor: 'Brown, black, or variegated',
+      humpAndDewlap: 'Long slender muscular legs',
+      sizeAndBuild: 'Tall, rangy, draft-adapted frame',
+      faceProfile: 'Convex Roman nose'
+    },
+    productivity: {
+      primaryUtility: 'Meat & Fiber',
+      averageYield: '0.8 - 1.2 kg/day',
+      fatPercentage: '4.6%',
+      weightMaleKg: '45-55 kg',
+      weightFemaleKg: '32-42 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Excellent stamina for hilly forest grazing'
+    },
+    historicalSignificance: 'Bred by traditional Golla herdsmen of southern Odisha.',
+    pastoralCommunities: ['Golla pastoralists'],
+    careRecommendations: ['Extensive forest fringe pasture grazing'],
+    imageUrl: 'https://images.unsplash.com/photo-1535083783855-76ae62b2914e?auto=format&fit=crop&w=800&q=80',
+    tags: ['Odisha', 'Ganjam', 'Eastern Ghats', 'Meat Goat', 'ICAR-NBAGR 06013']
+  },
+  {
+    id: 'attappady-black-goat',
+    name: 'Attappady Black',
+    vernacularName: 'അട്ടപ്പാടി ബ്ലാക്ക് / Attappady Black',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Kerala',
+    homeTract: 'Attappady tribal valley of Palakkad district',
+    nbagrCode: 'INDIA_GOAT_0900_ATTAPPADYBLACK_06014',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Slender black mountain goat reared by Irula, Muduga, and Kurumba tribes in the Nilgiri biosphere reserve.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'Disease resistance and lean meat profile',
+      thermalGene: 'Western Ghats hill climate and rain resistance'
+    },
+    physicalTraits: {
+      horns: 'Curved backwards and outwards',
+      ears: 'Medium, horizontal or drooping',
+      coatColor: 'Jet black with glossy sheen',
+      humpAndDewlap: 'Slender agile mountain build',
+      sizeAndBuild: 'Small to medium, nimble cliff climber',
+      faceProfile: 'Straight profile'
+    },
+    productivity: {
+      primaryUtility: 'Meat & Fiber',
+      averageYield: '0.6 - 1.0 kg/day',
+      fatPercentage: '4.4%',
+      weightMaleKg: '35-42 kg',
+      weightFemaleKg: '25-32 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Resistant to damp mountain rot and leeches'
+    },
+    historicalSignificance: 'Conserved by indigenous tribes of the Nilgiri hills for centuries.',
+    pastoralCommunities: ['Irula, Muduga & Kurumba tribes'],
+    careRecommendations: ['Hill pasture browse and sheltered rain stalls'],
+    imageUrl: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=800&q=80',
+    tags: ['Kerala', 'Attappady', 'Nilgiris', 'Tribal Breed', 'ICAR-NBAGR 06014']
+  }
+];
+
+export const INDIAN_DOG_BREEDS: BreedInfo[] = [
+  {
+    id: 'mudhol-hound',
+    name: 'Mudhol Hound',
+    vernacularName: 'ಮುಧೋಳ್ ಹೌಂಡ್ / Caravan Hound',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Karnataka & Maharashtra',
+    homeTract: 'Mudhol, Bagalkot, and Vijayapura Deccan plateau',
+    nbagrCode: 'INDIA_DOG_0800_MUDHOL_09001',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Ancient Indian sighthound renowned for aerodynamic lean anatomy, 270-degree panoramic vision, and lightning acceleration (>55 km/h). First native dog breed inducted into the Indian Army for border surveillance and search operations.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78 (76 acrocentric autosomes, 2 sex chromosomes)',
+      fatRegulatorGene: 'MSTN sprint muscle fast-twitch hypertrophy',
+      thermalGene: 'Deep thoracic cavity and heat-dissipating thin skin'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Medium, pendulous, carried close to the skull',
+      coatColor: 'Fawn, black, brindle, white, or chocolate',
+      humpAndDewlap: 'Tuck-up waist with deep chest and aerodynamic tuck',
+      sizeAndBuild: 'Large, lean, muscular rib cage, long slender legs',
+      faceProfile: 'Long narrow tapering muzzle with dark alert eyes'
+    },
+    productivity: {
+      primaryUtility: 'Sighthound / Hunting',
+      averageYield: 'Working Sighthound (Speed >55 km/h)',
+      fatPercentage: 'Athletic body fat <8%',
+      weightMaleKg: '22-28 kg',
+      weightFemaleKg: '18-22 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Supreme stamina under hot arid Deccan plateau conditions'
+    },
+    historicalSignificance: 'Bred by the Ghorpade dynasty of the Princely State of Mudhol. Shrimant Rajesaheb Malojirao presented a pair to King George V in 1914. Officially inducted into the Indian Army in 2017.',
+    pastoralCommunities: ['Raja of Mudhol lineage', 'Deccan pastoral hunters'],
+    careRecommendations: [
+      'Requires daily high-speed sprint exercise and open paddock running',
+      'High-protein diet with bone meal and clean lean meats',
+      'Thin coat requires warm bedding during cool Deccan winter nights'
+    ],
+    imageUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80',
+    tags: ['Sighthound', 'Indian Army', 'Karnataka', 'Mudhol', 'Canis lupus familiaris']
+  },
+  {
+    id: 'rajapalayam-dog',
+    name: 'Rajapalayam',
+    vernacularName: 'ராஜபாளையம் நாய் / Polygar Hound',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Tamil Nadu',
+    homeTract: 'Rajapalayam town in Virudhunagar district',
+    nbagrCode: 'INDIA_DOG_1800_RAJAPALAYAM_09002',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Royal guard and boar-hunting sighthound prized by the Nayak kings of Tamil Nadu. Characterized by pristine milky-white short coat, flesh-colored pink nose, golden eyes, and courageous territorial loyalty.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78',
+      fatRegulatorGene: 'KIT / MITF extreme piebald coat locus',
+      thermalGene: 'Reflective white coat preventing solar overheating'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Semi-drooping, folded forward, medium size',
+      coatColor: 'Pure milky white with distinct pink skin and nose',
+      humpAndDewlap: 'Deep chest with broad shoulders, tucked abdomen',
+      sizeAndBuild: 'Large, aristocratic, muscular sighthound frame',
+      faceProfile: 'Heavy wide skull with flesh-colored muzzle and golden eyes'
+    },
+    productivity: {
+      primaryUtility: 'Livestock Guardian / Working',
+      averageYield: 'Estate Guardian & Boar Hunting',
+      fatPercentage: 'Low body fat',
+      weightMaleKg: '25-32 kg',
+      weightFemaleKg: '20-25 kg',
+      hardiness: 'High',
+      heatTolerance: 'Adapted to tropical dry deciduous tracts of Tamil Nadu'
+    },
+    historicalSignificance: 'Fought alongside Polygar chieftain Veerapandiya Kattabomman against British colonial troops in the Polygar Wars. Featured on a commemorative Indian postage stamp in 2005.',
+    pastoralCommunities: ['Rajus of Rajapalayam', 'Nayak royal lineages'],
+    careRecommendations: [
+      'Requires strong social bonding with family; natural guardian instincts',
+      'Sun protection for pink nose during peak summer noon',
+      'Nutritious ragi porridge with goat meat and calcium'
+    ],
+    imageUrl: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80',
+    tags: ['Tamil Nadu', 'Polygar', 'White Hound', 'Nayak Dynasty', 'Guardian']
+  },
+  {
+    id: 'chippiparai-dog',
+    name: 'Chippiparai',
+    vernacularName: 'சிப்பிப்பாறை / Chippiparai',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Tamil Nadu',
+    homeTract: 'Periyar river basin of Madurai, Thoothukudi, and Tirunelveli',
+    nbagrCode: 'INDIA_DOG_1800_CHIPPIPARAI_09003',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Hardy silver-grey or fawn sighthound, lean and agile with minimal grooming requirements. Renowned for incredible bursts of speed when coursing hare and deer in dry scrub forests.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78',
+      fatRegulatorGene: 'High bone density and light skeletal mass',
+      thermalGene: 'Arid scrubland heat dissipation'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Rose ears or semi-erect, alert',
+      coatColor: 'Silver grey, fawn, silver-tan, or greyish-white',
+      humpAndDewlap: 'Extreme tuck-up with curved whip-like tail',
+      sizeAndBuild: 'Medium to large, streamlined, extremely lean',
+      faceProfile: 'Long tapering head with piercing dark eyes'
+    },
+    productivity: {
+      primaryUtility: 'Sighthound / Hunting',
+      averageYield: 'High-speed Coursing & Watch Dog',
+      fatPercentage: 'Lean athletic',
+      weightMaleKg: '18-24 kg',
+      weightFemaleKg: '15-20 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Extreme heat tolerance with virtually no tick sensitivity'
+    },
+    historicalSignificance: 'Bred by royal families of Chippiparai in Virudhunagar as hunting and companion hounds.',
+    pastoralCommunities: ['Tirunelveli & Madurai pastoralists'],
+    careRecommendations: [
+      'Free running in fenced open grounds',
+      'Minimal grooming needed; weekly brush down'
+    ],
+    imageUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80',
+    tags: ['Tamil Nadu', 'Sighthound', 'Chippiparai', 'Silver Grey', 'Canine']
+  },
+  {
+    id: 'kombai-dog',
+    name: 'Kombai',
+    vernacularName: 'கோம்பை நாய் / Combai',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Tamil Nadu',
+    homeTract: 'Theni, Dindigul, and foothills of Western Ghats',
+    nbagrCode: 'INDIA_DOG_1800_KOMBAI_09004',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Fierce Indian boar hound featuring reddish-tan coat with jet-black muzzle (mask), ridge of hair along the spine, and legendary courage in protecting livestock against predators.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78',
+      fatRegulatorGene: 'Dense bone and jaw muscle hypertrophy',
+      thermalGene: 'Humid hill foothill endurance'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Semi-erect, folded forward',
+      coatColor: 'Reddish tan or brown with black muzzle and dark eyes',
+      humpAndDewlap: 'Powerful neck, muscular shoulders, ridge along back',
+      sizeAndBuild: 'Medium, compact, powerful bite force',
+      faceProfile: 'Broad skull with powerful jaws and dark mask'
+    },
+    productivity: {
+      primaryUtility: 'Livestock Guardian / Working',
+      averageYield: 'Predator Deterrence & Farm Guard',
+      fatPercentage: 'Compact muscular',
+      weightMaleKg: '25-32 kg',
+      weightFemaleKg: '20-25 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'High heat and humidity resilience'
+    },
+    historicalSignificance: 'Used by the Marudhu Pandiyar brothers against wild boars and invaders in 18th-century Sivagangai.',
+    pastoralCommunities: ['Western Ghats forest fringe farmers'],
+    careRecommendations: [
+      'Consistent early socialization and firm leadership',
+      'Nutrient-rich diet with cooked meat and grains'
+    ],
+    imageUrl: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80',
+    tags: ['Tamil Nadu', 'Boar Hound', 'Black Mask', 'Guardian', 'Kombai']
+  },
+  {
+    id: 'indian-pariah-dog',
+    name: 'Indian Pariah Dog',
+    vernacularName: 'देसी कुत्ता / Indian Native Dog (INDog)',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Pan-India',
+    homeTract: 'All agro-climatic zones across the Indian subcontinent',
+    nbagrCode: 'INDIA_DOG_0000_PARIAH_09006',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Ancient natural landrace surviving for thousands of years without artificial breeding. Highly intelligent, wedge-shaped head, curled ring tail, erect prick ears, and phenomenal natural immunity with virtually no genetic disorders.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78',
+      fatRegulatorGene: 'High digestive amylase AMY2B copy numbers',
+      thermalGene: 'Pan-Indian natural climate homeostasis'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Erect, pointed prick ears, mobile',
+      coatColor: 'Reddish fawn, dark brown, pied, or brindle',
+      humpAndDewlap: 'Curled ring tail carried over back',
+      sizeAndBuild: 'Medium, athletic, natural balanced canine conformation',
+      faceProfile: 'Wedge-shaped head with dark expressive almond eyes'
+    },
+    productivity: {
+      primaryUtility: 'Livestock Guardian / Working',
+      averageYield: 'Natural Watch & Companion Dog',
+      fatPercentage: 'Natural balanced build',
+      weightMaleKg: '18-26 kg',
+      weightFemaleKg: '14-20 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Maximum adaptation to all Indian climates, rain, and heat'
+    },
+    historicalSignificance: 'Depicted in Bhimbetka rock paintings dating back over 9,000 years. Mentioned in the Mahabharata accompanying Yudhishthira to heaven.',
+    pastoralCommunities: ['All rural and pastoral communities across India'],
+    careRecommendations: [
+      'Zero specialized diet needed; thrives on balanced household food',
+      'Virtually zero breed-specific hereditary genetic diseases'
+    ],
+    imageUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80',
+    tags: ['Pan-India', 'INDog', 'Ancient Landrace', 'Natural Immunity', 'Canis lupus']
+  },
+  {
+    id: 'gaddi-kutta',
+    name: 'Gaddi Kutta',
+    vernacularName: 'गद्दी कुत्ता / Himalayan Sheepdog / Mahidant',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Himachal Pradesh & Uttarakhand',
+    homeTract: 'Dhauladhar mountains, Chamba, Kangra, and Kumaon hills',
+    nbagrCode: 'INDIA_DOG_0600_GADDI_09009',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Massive, courageous Himalayan livestock guardian bred by nomadic Gaddi pastoralists. Thick double coat, lion-like ruff mane, and fearless protective instinct defending sheep flocks against snow leopards and wolves.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78',
+      fatRegulatorGene: 'Dense muscle mass and cold insulating lipid layers',
+      thermalGene: 'High altitude cold tolerance and hypoxic adaptation'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Drooping, heavily furred',
+      coatColor: 'Solid black, black and tan, or golden fawn',
+      humpAndDewlap: 'Lion-like thick mane around neck, plumed tail',
+      sizeAndBuild: 'Very large, heavy bone structure, powerful chest',
+      faceProfile: 'Broad mastiff-like head with alert deep-set eyes'
+    },
+    productivity: {
+      primaryUtility: 'Livestock Guardian / Working',
+      averageYield: 'High-Altitude Flock Guardian',
+      fatPercentage: 'Heavy bone and muscle',
+      weightMaleKg: '40-52 kg',
+      weightFemaleKg: '32-42 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Supreme sub-zero cold tolerance; prefers temperate climate'
+    },
+    historicalSignificance: 'Bred by nomadic Gaddi transhumant shepherds who migrate each year between the high Himalayas and low foothills.',
+    pastoralCommunities: ['Gaddi shepherds', 'Himachali pastoralists'],
+    careRecommendations: [
+      'Frequent brushing for thick double coat',
+      'Cool shaded housing in warm weather; high protein diet'
+    ],
+    imageUrl: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80',
+    tags: ['Himalayas', 'Gaddi', 'Livestock Guardian', 'Himachal', 'Mastiff']
+  },
+  {
+    id: 'rampur-greyhound',
+    name: 'Rampur Greyhound',
+    vernacularName: 'रामपुर ग्रेहाउंड / Rampur Hound',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Uttar Pradesh',
+    homeTract: 'Rampur district and Rohilkhand region',
+    nbagrCode: 'INDIA_DOG_2000_RAMPUR_09005',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Powerful coursing hound combining speed and bone strength, favored by the Nawabs of Rampur to hunt jackal, wild boar, and antelope.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78',
+      fatRegulatorGene: 'Sprint speed and jaw bite density',
+      thermalGene: 'Gangetic plains heat and winter stamina'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Button ears or rose ears folded back',
+      coatColor: 'Black, grey, brindle, or fawn',
+      humpAndDewlap: 'Wide chest with hare-feet for speed',
+      sizeAndBuild: 'Large, powerful coursing frame',
+      faceProfile: 'Flat skull with pointed tapering muzzle'
+    },
+    productivity: {
+      primaryUtility: 'Sighthound / Hunting',
+      averageYield: 'Coursing Sighthound (Speed >50 km/h)',
+      fatPercentage: 'Lean muscular build',
+      weightMaleKg: '28-36 kg',
+      weightFemaleKg: '22-28 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'High resistance to northern Indian temperature swings'
+    },
+    historicalSignificance: 'Royal favorite hound of His Highness Nawab Ahmad Ali Khan of Rampur.',
+    pastoralCommunities: ['Rohilkhand royal kennels and hunting lineages'],
+    careRecommendations: ['Open ground sprint exercise and high protein diet'],
+    imageUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80',
+    tags: ['Uttar Pradesh', 'Rampur', 'Sighthound', 'Nawab', 'Canine']
+  },
+  {
+    id: 'kanni-dog',
+    name: 'Kanni',
+    vernacularName: 'கன்னி நாய் / Maiden Hound',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Tamil Nadu',
+    homeTract: 'Sattur, Kovilpatti, and Tirunelveli tracts',
+    nbagrCode: 'INDIA_DOG_1800_KANNI_09007',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Agile sighthound with glossy black-and-tan (Kanni) or fawn (Paalakanni) coat. Traditionally presented to brides as a loyal lifelong family guardian and protector.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78',
+      fatRegulatorGene: 'ASIP black and tan coat pattern allele',
+      thermalGene: 'Arid southern plains heat dissipation'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Semi-erect, folded forward',
+      coatColor: 'Black and tan with fawn markings above eyes and on feet',
+      humpAndDewlap: 'Deep chest and athletic curved tail',
+      sizeAndBuild: 'Medium, slim, graceful sighthound',
+      faceProfile: 'Narrow muzzle with gentle expressive eyes'
+    },
+    productivity: {
+      primaryUtility: 'Sighthound / Hunting',
+      averageYield: 'Family Guardian & Small Game Coursing',
+      fatPercentage: 'Lean athletic build',
+      weightMaleKg: '16-22 kg',
+      weightFemaleKg: '14-18 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Supreme adaptation to dry semi-arid heat'
+    },
+    historicalSignificance: 'Named "Kanni" (Maiden) as it was traditionally presented by royal and landlord families to a bride on her wedding.',
+    pastoralCommunities: ['Tirunelveli & Virudhunagar families'],
+    careRecommendations: ['Gentle handling, daily exercise, home cooked meals with meat broth'],
+    imageUrl: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80',
+    tags: ['Tamil Nadu', 'Kanni', 'Sighthound', 'Black and Tan', 'Canine']
+  },
+  {
+    id: 'jonangi-dog',
+    name: 'Jonangi',
+    vernacularName: 'జొనాంగి / Kolleru Dog',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Andhra Pradesh',
+    homeTract: 'Kolleru lake wetland tract, Krishna, and Guntur districts',
+    nbagrCode: 'INDIA_DOG_0100_JONANGI_09008',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Unique wetland duck-herding and hunting dog with ultra-short smooth coat, wrinkled forehead, semi-curled tail, and distinct somersault hunting gait.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78',
+      fatRegulatorGene: 'Smooth micro-coat and wetland swimming adaptation',
+      thermalGene: 'Humid coastal lake basin resilience'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Pricked or semi-pricked',
+      coatColor: 'Fawn, white, black, or pied with extremely short hair',
+      humpAndDewlap: 'Semi-curled tail with somersault jumping gait',
+      sizeAndBuild: 'Medium, compact, athletic swimming body',
+      faceProfile: 'Wrinkled forehead with keen alert eyes'
+    },
+    productivity: {
+      primaryUtility: 'Livestock Guardian / Working',
+      averageYield: 'Duck Herding & Wetland Guardian',
+      fatPercentage: 'Athletic lean',
+      weightMaleKg: '18-24 kg',
+      weightFemaleKg: '14-19 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Outstanding tolerance to high heat and water exposure'
+    },
+    historicalSignificance: 'Bred by duck farmers and fishermen along the freshwater Kolleru lake.',
+    pastoralCommunities: ['Kolleru lake fishing and duck farming communities'],
+    careRecommendations: ['Opportunities for swimming and active fetching exercise'],
+    imageUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80',
+    tags: ['Andhra Pradesh', 'Kolleru', 'Duck Herder', 'Jonangi', 'Canine']
+  },
+  {
+    id: 'bakharwal-dog',
+    name: 'Bakharwal Dog',
+    vernacularName: 'बाखरवाल कुत्ता / Gujjar Watchdog',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Jammu and Kashmir',
+    homeTract: 'Pir Panjal range, Ladakh transit, and Kashmir high meadows',
+    nbagrCode: 'INDIA_DOG_0700_BAKHARWAL_09010',
+    nbagrStatus: 'Endangered / Rare',
+    description: 'Ancient nomadic livestock guardian dog bred by Gujjar and Bakharwal pastoralists. Heavy bone structure, deep chest, dropped ears, and protective temperament during seasonal transhumance.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78',
+      fatRegulatorGene: 'Heavy bone density and lipid insulation',
+      thermalGene: 'High-altitude sub-zero cold tolerance'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Dropped flat against cheeks',
+      coatColor: 'Black with tan points, fawn, or piebald',
+      humpAndDewlap: 'Thick fur collar around neck, heavy bone',
+      sizeAndBuild: 'Large, powerful livestock guardian frame',
+      faceProfile: 'Heavy broad skull with protective gaze'
+    },
+    productivity: {
+      primaryUtility: 'Livestock Guardian / Working',
+      averageYield: 'Transhumant Sheep Flock Guardian',
+      fatPercentage: 'Heavy bone and muscle',
+      weightMaleKg: '40-55 kg',
+      weightFemaleKg: '32-42 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Supreme cold endurance; requires shade in summer'
+    },
+    historicalSignificance: 'Nomadic guardians of the Gujjar-Bakharwal tribes across Pir Panjal passes.',
+    pastoralCommunities: ['Bakharwal and Gujjar nomadic pastoralists'],
+    careRecommendations: ['Heavy daily exercise, spacious outdoor terrain, high protein diet'],
+    imageUrl: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80',
+    tags: ['Kashmir', 'Bakharwal', 'Himalayan', 'Guardian', 'Pir Panjal']
+  },
+  {
+    id: 'pandikona-dog',
+    name: 'Pandikona',
+    vernacularName: 'పండికోన / Kurnool Hunting Dog',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Andhra Pradesh',
+    homeTract: 'Pandikona village and Pattikonda taluk in Kurnool district',
+    nbagrCode: 'INDIA_DOG_0100_PANDIKONA_09011',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Territorial hunting and farm protection dog of Rayalaseema. Medium athletic build, high heat tolerance, and exceptional loyalty to rural families.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78',
+      fatRegulatorGene: 'Lean muscle mass and high bone strength',
+      thermalGene: 'Arid rocky plateau heat resilience'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Erect or semi-erect',
+      coatColor: 'Fawn, red, brindle, or piebald',
+      humpAndDewlap: 'Athletic waist with curved tail',
+      sizeAndBuild: 'Medium, robust, courageous territorial defender',
+      faceProfile: 'Wedge head with sharp dark eyes'
+    },
+    productivity: {
+      primaryUtility: 'Livestock Guardian / Working',
+      averageYield: 'Farm Watch & Wild Boar Deterrence',
+      fatPercentage: 'Athletic medium build',
+      weightMaleKg: '20-26 kg',
+      weightFemaleKg: '16-21 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Survives severe Rayalaseema droughts and heat'
+    },
+    historicalSignificance: 'Bred in Pandikona village of Kurnool for guarding farmsteads against wild boars and predators.',
+    pastoralCommunities: ['Rayalaseema farming families'],
+    careRecommendations: ['Farm patrol, basic homemade food with eggs and rice'],
+    imageUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80',
+    tags: ['Andhra Pradesh', 'Kurnool', 'Pandikona', 'Farm Dog', 'Canine']
+  },
+  {
+    id: 'bully-kutta',
+    name: 'Bully Kutta',
+    vernacularName: 'बुली कुत्ता / Indian Mastiff',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Punjab & Rajasthan',
+    homeTract: 'Arid border tracts of Punjab, Haryana, and Rajasthan',
+    nbagrCode: 'INDIA_DOG_1600_BULLYKUTTA_09012',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Colossal, powerful working mastiff known as the "Beast of the East". Massive head, loose folded neck skin, wide chest, and commanding livestock guard presence.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78',
+      fatRegulatorGene: 'Extreme bone density and jaw masseter hypertrophy',
+      thermalGene: 'Arid desert summer and winter temperature tolerance'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Dropped or cropped traditionally, thick leather',
+      coatColor: 'Predominantly white, black, fawn, or brindle',
+      humpAndDewlap: 'Loose folded skin around throat and neck (dewlap)',
+      sizeAndBuild: 'Giant mastiff, heavy boned, massive chest',
+      faceProfile: 'Broad square skull with powerful jaws and pendulous flews'
+    },
+    productivity: {
+      primaryUtility: 'Livestock Guardian / Working',
+      averageYield: 'High-Level Property & Herd Protector',
+      fatPercentage: 'Heavy mastiff build',
+      weightMaleKg: '60-85 kg',
+      weightFemaleKg: '50-65 kg',
+      hardiness: 'High',
+      heatTolerance: 'Adapted to harsh semi-arid plains'
+    },
+    historicalSignificance: 'Descendant of ancient Persian and Rajput war and catch dogs used by royal houses.',
+    pastoralCommunities: ['Punjabi and Rajasthani estate and livestock owners'],
+    careRecommendations: ['Extensive early obedience training, high protein diet with bone broth'],
+    imageUrl: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80',
+    tags: ['Punjab', 'Indian Mastiff', 'Bully Kutta', 'Guardian', 'Giant Dog']
+  }
+];
+
+export const INDIAN_BREEDS_CATALOG: BreedInfo[] = [
+  ...INDIAN_BOVINE_BREEDS,
+  ...INDIAN_GOAT_BREEDS,
+  ...INDIAN_DOG_BREEDS
+];
+
+export const REGISTERED_CATTLE_BREEDS: BreedInfo[] = INDIAN_BREEDS_CATALOG.filter(
   (b) => b.category === 'Cattle'
 );
 
-export const REGISTERED_BUFFALO_BREEDS: BreedInfo[] = INDIAN_BOVINE_BREEDS.filter(
+export const REGISTERED_BUFFALO_BREEDS: BreedInfo[] = INDIAN_BREEDS_CATALOG.filter(
   (b) => b.category === 'Buffalo'
+);
+
+export const REGISTERED_GOAT_BREEDS: BreedInfo[] = INDIAN_BREEDS_CATALOG.filter(
+  (b) => b.category === 'Goat'
+);
+
+export const REGISTERED_DOG_BREEDS: BreedInfo[] = INDIAN_BREEDS_CATALOG.filter(
+  (b) => b.category === 'Dog'
 );

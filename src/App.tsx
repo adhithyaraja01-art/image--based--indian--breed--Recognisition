@@ -6,6 +6,7 @@ import { BreedExplorer } from './components/BreedExplorer';
 import { BreedComparison } from './components/BreedComparison';
 import { AnatomyGuide } from './components/AnatomyGuide';
 import { HomeView } from './components/HomeView';
+import { BreedDistributionMap } from './components/BreedDistributionMap';
 import { AboutView } from './components/AboutView';
 import { HistoryView } from './components/HistoryView';
 import { BioscienceView } from './components/BioscienceView';
@@ -17,9 +18,10 @@ import { HistoryDrawer } from './components/HistoryDrawer';
 import { ProjectLabReportModal } from './components/ProjectLabReportModal';
 import { StudentJournalDrawer } from './components/StudentJournalDrawer';
 import { AuthProvider } from './firebase/authContext';
-import { SettingsProvider } from './context/SettingsContext';
+import { SettingsProvider, useSettings } from './context/SettingsContext';
 import { SettingsView } from './components/SettingsView';
-import { ClassificationResult, BreedInfo, ScanHistoryItem } from './types/breed';
+import { ProfileView } from './components/ProfileView';
+import { ClassificationResult, BreedInfo, ScanHistoryItem, BreedCategory } from './types/breed';
 import { SampleImageItem, SAMPLE_BREED_IMAGES } from './data/sampleImages';
 import { classifyBreedImage } from './services/classifierService';
 import { INDIAN_BOVINE_BREEDS, INDIAN_BREEDS_CATALOG } from './data/indigenousBreeds';
@@ -38,6 +40,7 @@ import {
 const STORAGE_KEY = 'indian_bovine_history_v2';
 
 function MainAppContent() {
+  const { isDarkMode } = useSettings();
   const [activeTab, setActiveTab] = useState<ActiveTab>('home');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [currentResult, setCurrentResult] = useState<ClassificationResult | null>(null);
@@ -53,6 +56,7 @@ function MainAppContent() {
 
   // Navigation link states
   const [explorerQuery, setExplorerQuery] = useState<string>('');
+  const [explorerCategory, setExplorerCategory] = useState<BreedCategory | 'All'>('All');
   const [compareBreedA, setCompareBreedA] = useState<string>('Gir');
   const [compareBreedB, setCompareBreedB] = useState<string>('Murrah');
 
@@ -101,7 +105,8 @@ function MainAppContent() {
     base64Image: string,
     hint?: string,
     sample?: SampleImageItem,
-    engine?: 'mobilenet' | 'cloud' | 'auto'
+    engine?: 'mobilenet' | 'cloud' | 'auto',
+    category?: BreedCategory
   ) => {
     setCurrentImagePreview(base64Image);
     setIsLoading(true);
@@ -112,7 +117,8 @@ function MainAppContent() {
       const result = await classifyBreedImage({
         imageBase64: base64Image,
         hint: hint || sample?.subtitle,
-        engine: engine || 'auto'
+        engine: engine || 'auto',
+        category
       });
 
       setCurrentResult(result);
@@ -120,7 +126,7 @@ function MainAppContent() {
     } catch (err: any) {
       console.error('Classification failure:', err);
       setClassificationError(
-        err.message || 'Phenotypic classification could not identify registered bovine traits in this image.'
+        err.message || 'Phenotypic classification could not identify registered breed traits in this image.'
       );
     } finally {
       setIsLoading(false);
@@ -170,7 +176,7 @@ function MainAppContent() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#fdfbf7] dark:bg-stone-950 text-stone-900 dark:text-stone-100 selection:bg-amber-500/20 selection:text-amber-900 font-sans transition-colors duration-200">
+    <div className={`min-h-screen flex flex-col font-sans transition-colors duration-200 ${isDarkMode ? 'bg-[#0f1713] text-[#f0fdf4]' : 'bg-[#fbf9f4] text-stone-900'} selection:bg-emerald-600/20 selection:text-emerald-950`}>
       {/* Navigation Bar */}
       <Navbar
         activeTab={activeTab}
@@ -184,16 +190,63 @@ function MainAppContent() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
         {activeTab === 'home' && (
           <HomeView
-            onNavigate={(tab) => {
+            onNavigate={(tab, category) => {
+              if (category) {
+                setExplorerCategory(category);
+              }
               setActiveTab(tab);
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             onSelectSample={(sample) => {
               setActiveTab('classify');
-              handleImageSelected(sample.imageUrl, `${sample.title} (${sample.category} - ${sample.state})`, undefined, 'auto');
+              handleImageSelected(sample.imageUrl, `${sample.title} (${sample.category} - ${sample.state})`, undefined, 'auto', sample.category);
             }}
+            onOpenBreedModal={(breed) => setModalBreed(breed)}
             historyCount={history.length}
           />
+        )}
+
+        {activeTab === 'map' && (
+          <div className="space-y-6 animate-fadeIn">
+            <div className="bg-white rounded-3xl border border-stone-200/90 p-6 sm:p-8 shadow-sm">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <span className="text-emerald-800 font-mono text-xs font-semibold tracking-wider uppercase flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+                    ICAR-NBAGR Geographic Information System
+                  </span>
+                  <h2 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900 mt-1">
+                    Indigenous Livestock &amp; Canine State Distribution Map
+                  </h2>
+                  <p className="text-xs sm:text-sm text-stone-600 mt-1 max-w-2xl">
+                    Interactive D3.js choropleth visualization indexing all 99 certified Indian breeds across Cattle (53), Buffalo (20), Goat (14), and Dog (12).
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    setActiveTab('classify');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="flex items-center gap-2 px-5 py-3 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-semibold text-xs shadow-md transition-all cursor-pointer whitespace-nowrap self-start sm:self-auto"
+                >
+                  <Sparkles className="w-4 h-4 text-emerald-200" />
+                  <span>Launch AI Classifier</span>
+                </button>
+              </div>
+            </div>
+
+            <BreedDistributionMap
+              onSelectBreedForClassification={(imgUrl, title) => {
+                setActiveTab('classify');
+                handleImageSelected(imgUrl, title, undefined, 'auto');
+              }}
+              onOpenBreedModal={(breed) => setModalBreed(breed)}
+              onNavigateToCatalog={() => {
+                setActiveTab('breeds');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+          </div>
         )}
 
         {activeTab === 'classify' && (
@@ -285,6 +338,7 @@ function MainAppContent() {
         {(activeTab === 'breeds' || (activeTab as string) === 'explorer') && (
           <BreedExplorer
             initialSearch={explorerQuery}
+            initialCategory={explorerCategory}
             onSelectBreed={(breed) => setModalBreed(breed)}
             onCompareBreed={handleCompareWith}
             onClassifyBreed={handleClassifyBreedFromExplorer}
@@ -312,17 +366,31 @@ function MainAppContent() {
           />
         )}
 
-        {activeTab === 'guide' && (
-          <div className="space-y-8">
+        {activeTab === 'genomics' && (
+          <div className="space-y-8 animate-fadeIn">
             <BioscienceView />
-            <div className="pt-6 border-t border-stone-200">
-              <h3 className="font-serif text-xl font-bold text-stone-900 mb-4">
-                Field Anatomy &amp; Morphological Identification Guide
-              </h3>
-              <AnatomyGuide />
-            </div>
           </div>
         )}
+
+        {activeTab === 'guide' && (
+          <div className="space-y-8 animate-fadeIn">
+            <AnatomyGuide />
+          </div>
+        )}
+
+        {activeTab === 'profile' && (
+          <ProfileView
+            historyCount={history.length}
+            onNavigate={(tab) => {
+              setActiveTab(tab);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            onSelectBreed={(bName) => handleExploreBreed(bName)}
+            onOpenJournal={() => setIsJournalOpen(true)}
+            onOpenHistory={() => setIsHistoryOpen(true)}
+          />
+        )}
+
         {activeTab === 'settings' && (
           <SettingsView
             historyCount={history.length}

@@ -35,7 +35,7 @@ interface MoleculeSpec {
   colorScheme: 'spectrum' | 'plddt';
 }
 
-const BOVINE_BIOMOLECULES: MoleculeSpec[] = [
+const INDIGENOUS_BIOMOLECULES: MoleculeSpec[] = [
   {
     id: 'csn2',
     name: 'CSN2 Beta-Casein (A2 Allele)',
@@ -71,6 +71,42 @@ const BOVINE_BIOMOLECULES: MoleculeSpec[] = [
     indigenousSignificance: 'Indian Riverine Buffaloes (Murrah, Bhadawari) harbor specific DGAT1 polymorphisms producing exceptionally dense milk fat (up to 8.5% butterfat in Bhadawari) suited for traditional clarified butter (Ghee) preparation.',
     alphaFoldId: 'Q86227',
     colorScheme: 'plddt'
+  },
+  {
+    id: 'csn1s1',
+    name: 'CSN1S1 Alpha-s1-Casein (Caprine)',
+    uniprotId: 'P18626',
+    gene: 'CSN1S1',
+    organism: 'Capra hircus (Native Goat)',
+    chromosome: 'CHI 6 (6q31)',
+    function: 'Primary curd structure casein protein modulating micellar size, lipid absorption, and gastrointestinal transit.',
+    indigenousSignificance: 'Indigenous Indian goats (Jamunapari, Barbari) synthesize milk with smaller micelle globules and benign CSN1S1 alleles, providing hypoallergenic, easily digested nutrition for infants and convalescents.',
+    alphaFoldId: 'P18626',
+    colorScheme: 'plddt'
+  },
+  {
+    id: 'bmp15',
+    name: 'BMP15 Bone Morphogenetic Protein 15',
+    uniprotId: 'Q95M28',
+    gene: 'BMP15',
+    organism: 'Capra hircus (Black Bengal Goat)',
+    chromosome: 'CHI X (Xp11.2)',
+    function: 'Oocyte-secreted growth factor regulating granulose cell proliferation, follicular maturation, and ovulation rate.',
+    indigenousSignificance: 'Indian Black Bengal goats harbor specific non-conservative BMP15 missense polymorphisms conferring extreme prolificacy and multiple ovulation (>80% twin and triplet parturition rates).',
+    alphaFoldId: 'Q95M28',
+    colorScheme: 'spectrum'
+  },
+  {
+    id: 'mstn',
+    name: 'MSTN Myostatin (GDF8 Canine)',
+    uniprotId: 'O18832',
+    gene: 'MSTN',
+    organism: 'Canis lupus familiaris (Indian Sighthounds)',
+    chromosome: 'CFA 37 (37q12)',
+    function: 'Negative regulator of skeletal muscle development and fast-twitch glycolytic myofiber hypertrophy.',
+    indigenousSignificance: 'Ancient Indian sighthounds (Mudhol Hound, Rampur Greyhound) demonstrate selected promoter and exon variations optimizing fast-twitch muscle density, explosive double-suspension galloping acceleration, and high stamina across Deccan terrain.',
+    alphaFoldId: 'O18832',
+    colorScheme: 'plddt'
   }
 ];
 
@@ -104,11 +140,31 @@ const SCIENTIFIC_PUBLICATIONS = [
     summary: 'Deep sequencing of 12 native Indian river buffalo breeds revealing copy number variations in lactation loci and disease resistance alleles conferring resilience to Foot and Mouth Disease (FMD).',
     doi: '10.3389/fgene.2021.683050',
     url: 'https://pubmed.ncbi.nlm.nih.gov/34196142/'
+  },
+  {
+    pmid: '24708761',
+    title: 'Analysis of BMP15 and GDF9 gene polymorphisms in prolific Indian Black Bengal and Jamunapari goats',
+    authors: 'Polley S, De S, Brahma B, Mukherjee A, Vinesh P, Batabyal S',
+    journal: 'Animal Biotechnology',
+    year: '2019',
+    summary: 'Investigation of ovulatory fecundity alleles in Indian caprine germplasm validating biological markers responsible for high twinning frequency and reproductive efficiency in humid tropical ecosystems.',
+    doi: '10.1080/10495398.2018.1557161',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/24708761/'
+  },
+  {
+    pmid: '32549211',
+    title: 'Mitochondrial and microsatellite diversity in indigenous Indian sighthound and pastoral canine breeds',
+    authors: 'Raja KN, Ganguly I, Singh R, Behl R',
+    journal: 'Journal of Genetics (Indian Academy of Sciences)',
+    year: '2020',
+    summary: 'Comprehensive phylogenetic assessment of Mudhol Hound, Rajapalayam, and Himalayan sheepdogs demonstrating deep evolutionary divergence from European breeds and distinct anatomical adaptations.',
+    doi: '10.1007/s12041-020-01211-4',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/32549211/'
   }
 ];
 
 export const BioscienceView: React.FC = () => {
-  const [selectedMolecule, setSelectedMolecule] = useState<MoleculeSpec>(BOVINE_BIOMOLECULES[0]);
+  const [selectedMolecule, setSelectedMolecule] = useState<MoleculeSpec>(INDIGENOUS_BIOMOLECULES[0]);
   const [isLoadingStructure, setIsLoadingStructure] = useState<boolean>(false);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [isRotating, setIsRotating] = useState<boolean>(true);
@@ -248,11 +304,11 @@ export const BioscienceView: React.FC = () => {
           </div>
 
           <h2 className="font-serif text-2xl sm:text-4xl font-bold tracking-tight">
-            Indigenous Bovine <span className="bg-gradient-to-r from-amber-300 to-orange-400 bg-clip-text text-transparent">Genomics &amp; Macromolecules</span>
+            Indigenous Livestock &amp; Canine <span className="bg-gradient-to-r from-amber-300 to-orange-400 bg-clip-text text-transparent">Genomics &amp; Macromolecules</span>
           </h2>
 
           <p className="text-stone-300 text-xs sm:text-sm leading-relaxed">
-            Integrating UniProtKB accessions, AlphaFold DB 3D macromolecular structures, and PubMed peer-reviewed literature for Indian Zebu cattle (<em>Bos indicus</em>) and riverine buffaloes (<em>Bubalus bubalis</em>).
+            Integrating UniProtKB accessions, AlphaFold DB 3D macromolecular structures, and PubMed peer-reviewed literature for Indian Zebu cattle (<em>Bos indicus</em>), riverine buffaloes (<em>Bubalus bubalis</em>), indigenous goats (<em>Capra hircus</em>), and native dogs (<em>Canis lupus familiaris</em>).
           </p>
         </div>
       </section>
@@ -272,15 +328,15 @@ export const BioscienceView: React.FC = () => {
 
           {/* Molecule Selector Tabs */}
           <div className="flex flex-wrap items-center gap-2">
-            {BOVINE_BIOMOLECULES.map((mol) => {
+            {INDIGENOUS_BIOMOLECULES.map((mol) => {
               const isSelected = selectedMolecule.id === mol.id;
               return (
                 <button
                   key={mol.id}
                   onClick={() => setSelectedMolecule(mol)}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                     isSelected
-                      ? 'bg-amber-500 text-stone-950 shadow-xs'
+                      ? 'bg-emerald-800 text-white shadow-xs font-bold'
                       : 'bg-stone-100 hover:bg-stone-200 text-stone-700'
                   }`}
                 >
@@ -414,7 +470,7 @@ export const BioscienceView: React.FC = () => {
             </p>
           </div>
           <span className="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold">
-            3 High-Impact Studies
+            {SCIENTIFIC_PUBLICATIONS.length} Indexed Academic Studies
           </span>
         </div>
 

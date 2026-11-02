@@ -142,33 +142,33 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-3 mt-5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-5">
               {/* Light Mode */}
               <button
                 type="button"
                 onClick={() => updateSettings({ theme: 'light' })}
                 className={`p-3.5 rounded-xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
                   settings.theme === 'light'
-                    ? 'border-amber-600 bg-amber-50/70 dark:bg-amber-950/40 ring-2 ring-amber-500/40 shadow-xs'
-                    : 'border-stone-200 dark:border-stone-800 bg-stone-50/50 dark:bg-stone-800/40 hover:border-stone-300 dark:hover:border-stone-700'
+                    ? 'border-emerald-700 bg-emerald-50 text-emerald-950 ring-2 ring-emerald-600/30 shadow-xs'
+                    : 'border-stone-200 bg-stone-50/50 hover:border-stone-300'
                 }`}
               >
                 <div className="flex items-center justify-between w-full mb-3">
-                  <div className="w-7 h-7 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center">
-                    <Sun className="w-4 h-4 text-amber-600" />
+                  <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center">
+                    <Sun className="w-4 h-4 text-emerald-700" />
                   </div>
                   {settings.theme === 'light' && (
-                    <div className="w-4 h-4 rounded-full bg-amber-600 text-white flex items-center justify-center">
+                    <div className="w-4 h-4 rounded-full bg-emerald-800 text-white flex items-center justify-center">
                       <Check className="w-2.5 h-2.5" />
                     </div>
                   )}
                 </div>
                 <div>
-                  <span className="font-bold text-xs text-stone-900 dark:text-stone-100 block">
+                  <span className="font-bold text-xs text-stone-900 block">
                     {t('theme.light')}
                   </span>
-                  <span className="text-[10px] text-stone-500 dark:text-stone-400 block mt-0.5 leading-tight">
-                    Daylight Field
+                  <span className="text-[10px] text-stone-500 block mt-0.5 leading-tight">
+                    Warm Cream &amp; White (Default)
                   </span>
                 </div>
               </button>
@@ -179,56 +179,26 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                 onClick={() => updateSettings({ theme: 'dark' })}
                 className={`p-3.5 rounded-xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
                   settings.theme === 'dark'
-                    ? 'border-amber-500 bg-amber-50/70 dark:bg-amber-950/40 ring-2 ring-amber-500/40 shadow-xs'
-                    : 'border-stone-200 dark:border-stone-800 bg-stone-50/50 dark:bg-stone-800/40 hover:border-stone-300 dark:hover:border-stone-700'
+                    ? 'border-emerald-600 bg-emerald-950/40 text-emerald-100 ring-2 ring-emerald-500/40 shadow-xs'
+                    : 'border-stone-200 bg-stone-50/50 hover:border-stone-300'
                 }`}
               >
                 <div className="flex items-center justify-between w-full mb-3">
-                  <div className="w-7 h-7 rounded-lg bg-stone-900 text-amber-300 flex items-center justify-center">
-                    <Moon className="w-4 h-4 text-amber-300" />
+                  <div className="w-7 h-7 rounded-lg bg-stone-900 text-emerald-300 flex items-center justify-center">
+                    <Moon className="w-4 h-4 text-emerald-300" />
                   </div>
                   {settings.theme === 'dark' && (
-                    <div className="w-4 h-4 rounded-full bg-amber-500 text-stone-950 flex items-center justify-center">
+                    <div className="w-4 h-4 rounded-full bg-emerald-600 text-white flex items-center justify-center">
                       <Check className="w-2.5 h-2.5" />
                     </div>
                   )}
                 </div>
                 <div>
-                  <span className="font-bold text-xs text-stone-900 dark:text-stone-100 block">
+                  <span className="font-bold text-xs text-stone-900 block">
                     {t('theme.dark')}
                   </span>
-                  <span className="text-[10px] text-stone-500 dark:text-stone-400 block mt-0.5 leading-tight">
-                    Barn Night Mode
-                  </span>
-                </div>
-              </button>
-
-              {/* System Default */}
-              <button
-                type="button"
-                onClick={() => updateSettings({ theme: 'system' })}
-                className={`p-3.5 rounded-xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
-                  settings.theme === 'system'
-                    ? 'border-amber-600 bg-amber-50/70 dark:bg-amber-950/40 ring-2 ring-amber-500/40 shadow-xs'
-                    : 'border-stone-200 dark:border-stone-800 bg-stone-50/50 dark:bg-stone-800/40 hover:border-stone-300 dark:hover:border-stone-700'
-                }`}
-              >
-                <div className="flex items-center justify-between w-full mb-3">
-                  <div className="w-7 h-7 rounded-lg bg-stone-200 dark:bg-stone-700 text-stone-800 dark:text-stone-200 flex items-center justify-center">
-                    <Laptop className="w-4 h-4" />
-                  </div>
-                  {settings.theme === 'system' && (
-                    <div className="w-4 h-4 rounded-full bg-amber-600 text-white flex items-center justify-center">
-                      <Check className="w-2.5 h-2.5" />
-                    </div>
-                  )}
-                </div>
-                <div>
-                  <span className="font-bold text-xs text-stone-900 dark:text-stone-100 block">
-                    {t('theme.system')}
-                  </span>
-                  <span className="text-[10px] text-stone-500 dark:text-stone-400 block mt-0.5 leading-tight">
-                    OS Auto Sync
+                  <span className="text-[10px] text-stone-500 block mt-0.5 leading-tight">
+                    Forest Night Mode
                   </span>
                 </div>
               </button>

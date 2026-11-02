@@ -8,6 +8,7 @@ import {
   SavedScanDoc,
   ProjectObservationDoc
 } from '../firebase/firestoreService';
+import { INDIAN_BREEDS_CATALOG } from '../data/indigenousBreeds';
 import {
   X,
   Cloud,
@@ -273,13 +274,26 @@ export const StudentJournalDrawer: React.FC<StudentJournalDrawerProps> = ({
                             onChange={(e) => setObsBreed(e.target.value)}
                             className="w-full bg-white border border-stone-300 rounded-lg p-2 text-stone-900"
                           >
-                            <option value="Gir">Gir Cattle</option>
-                            <option value="Sahiwal">Sahiwal Cattle</option>
-                            <option value="Kankrej">Kankrej Cattle</option>
-                            <option value="Kangayam">Kangayam Cattle</option>
-                            <option value="Murrah">Murrah Buffalo</option>
-                            <option value="Jaffarabadi">Jaffarabadi Buffalo</option>
-                            <option value="Bhadawari">Bhadawari Buffalo</option>
+                            <optgroup label="🐂 Zebu Cattle (53 Breeds)">
+                              {INDIAN_BREEDS_CATALOG.filter((b) => b.category === 'Cattle').map((b) => (
+                                <option key={b.id} value={b.name}>{b.name} Cattle ({b.stateOfOrigin})</option>
+                              ))}
+                            </optgroup>
+                            <optgroup label="🐃 River Buffalo (20 Breeds)">
+                              {INDIAN_BREEDS_CATALOG.filter((b) => b.category === 'Buffalo').map((b) => (
+                                <option key={b.id} value={b.name}>{b.name} Buffalo ({b.stateOfOrigin})</option>
+                              ))}
+                            </optgroup>
+                            <optgroup label="🐐 Indigenous Goat (14 Breeds)">
+                              {INDIAN_BREEDS_CATALOG.filter((b) => b.category === 'Goat').map((b) => (
+                                <option key={b.id} value={b.name}>{b.name} Goat ({b.stateOfOrigin})</option>
+                              ))}
+                            </optgroup>
+                            <optgroup label="🐕 Native Canine (12 Breeds)">
+                              {INDIAN_BREEDS_CATALOG.filter((b) => b.category === 'Dog').map((b) => (
+                                <option key={b.id} value={b.name}>{b.name} ({b.stateOfOrigin})</option>
+                              ))}
+                            </optgroup>
                           </select>
                         </div>
                         <div>

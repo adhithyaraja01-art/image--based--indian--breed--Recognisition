@@ -10,7 +10,7 @@ import {
   limit
 } from 'firebase/firestore';
 import { db, auth, handleFirestoreError, OperationType } from './config';
-import { ClassificationResult } from '../types/breed';
+import { ClassificationResult, BreedCategory } from '../types/breed';
 
 export interface SavedScanDoc {
   id: string;
@@ -18,7 +18,7 @@ export interface SavedScanDoc {
   userEmail?: string;
   breedName: string;
   vernacularName?: string;
-  category: 'Cattle' | 'Buffalo';
+  category: BreedCategory;
   scientificName: string;
   confidence: number;
   stateOfOrigin: string;
@@ -169,6 +169,75 @@ export async function fetchUserObservations(): Promise<ProjectObservationDoc[]> 
     );
     const snap = await getDocs(q);
     const docs = snap.docs.map((d) => d.data() as ProjectObservationDoc);
+    return docs.sort((a, b) => b.timestamp - a.timestamp);
+  } catch (error) {
+    handleFirestoreError(error, OperationType.LIST, path);
+    return [];
+  }
+}
+
+export interface FavoriteBreedDoc {
+  id: string;
+  userId: string;
+  breedId: string;
+  breedName: string;
+  category: BreedCategory;
+  stateOfOrigin?: string;
+  timestamp: number;
+}
+
+/**
+ * Toggles a bookmarked indigenous breed in Firestore for the current user.
+ */
+export async function toggleFavoriteBreedInFirestore(
+  breedId: string,
+  breedName: string,
+  category: BreedCategory,
+  stateOfOrigin: string = ''
+): Promise<{ isFavorited: boolean }> {
+  const user = auth.currentUser;
+  if (!user) return { isFavorited: false };
+
+  const sanitizedBreedId = breedId.toLowerCase().replace(/[^a-z0-9_-]/g, '-');
+  const path = `users/${user.uid}/favorites/${sanitizedBreedId}`;
+
+  try {
+    const existingFavorites = await fetchUserFavorites();
+    const isAlreadyFavorited = existingFavorites.some((f) => f.breedId === sanitizedBreedId);
+
+    if (isAlreadyFavorited) {
+      await deleteDoc(doc(db, 'users', user.uid, 'favorites', sanitizedBreedId));
+      return { isFavorited: false };
+    } else {
+      const favDoc: FavoriteBreedDoc = {
+        id: sanitizedBreedId,
+        userId: user.uid,
+        breedId: sanitizedBreedId,
+        breedName: breedName.slice(0, 128),
+        category,
+        stateOfOrigin: stateOfOrigin.slice(0, 128),
+        timestamp: Date.now()
+      };
+      await setDoc(doc(db, 'users', user.uid, 'favorites', sanitizedBreedId), favDoc);
+      return { isFavorited: true };
+    }
+  } catch (error) {
+    handleFirestoreError(error, OperationType.WRITE, path);
+    return { isFavorited: false };
+  }
+}
+
+/**
+ * Fetches all bookmarked favorite breeds for the current user.
+ */
+export async function fetchUserFavorites(): Promise<FavoriteBreedDoc[]> {
+  const user = auth.currentUser;
+  if (!user) return [];
+
+  const path = `users/${user.uid}/favorites`;
+  try {
+    const snap = await getDocs(collection(db, 'users', user.uid, 'favorites'));
+    const docs = snap.docs.map((d) => d.data() as FavoriteBreedDoc);
     return docs.sort((a, b) => b.timestamp - a.timestamp);
   } catch (error) {
     handleFirestoreError(error, OperationType.LIST, path);

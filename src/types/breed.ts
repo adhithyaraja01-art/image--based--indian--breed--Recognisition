@@ -1,4 +1,4 @@
-export type BreedCategory = 'Cattle' | 'Buffalo';
+export type BreedCategory = 'Cattle' | 'Buffalo' | 'Goat' | 'Dog';
 
 export interface PhysicalTraits {
   horns: string;
@@ -10,16 +10,16 @@ export interface PhysicalTraits {
 }
 
 export interface GenomicMarkers {
-  csn2Allele: 'A2/A2 (Homozygous)' | 'A2 Predominant';
-  karyotype: string; // e.g. '2n = 60' or '2n = 50'
-  fatRegulatorGene: string; // e.g. 'DGAT1 K232A'
+  csn2Allele: 'A2/A2 (Homozygous)' | 'A2 Predominant' | 'CSN1S1 Caprine Standard' | 'Canine Non-Dairy' | string;
+  karyotype: string; // e.g. '2n = 60' (Cattle/Goat), '2n = 50' (Buffalo), '2n = 78' (Dog)
+  fatRegulatorGene: string; // e.g. 'DGAT1 K232A', 'FGF5', 'MSTN'
   thermalGene: string; // e.g. 'HSP70 / HSF1 high expression'
   ncbiLocusLink?: string;
   uniprotAccession?: string;
 }
 
 export interface ProductivityMetrics {
-  primaryUtility: 'Milch (Dairy)' | 'Draught (Work)' | 'Dual-Purpose';
+  primaryUtility: 'Milch (Dairy)' | 'Draught (Work)' | 'Dual-Purpose' | 'Meat & Fiber' | 'Sighthound / Hunting' | 'Livestock Guardian / Working' | string;
   averageYield: string;
   fatPercentage: string;
   weightMaleKg: number | string;
@@ -40,7 +40,7 @@ export interface BreedInfo {
   id: string;
   name: string;
   vernacularName: string;
-  scientificName: 'Bos indicus' | 'Bubalus bubalis';
+  scientificName: 'Bos indicus' | 'Bubalus bubalis' | 'Capra hircus' | 'Canis lupus familiaris' | string;
   category: BreedCategory;
   stateOfOrigin: string;
   homeTract: string;
@@ -81,6 +81,7 @@ export interface ClassificationResult {
   isIndigenouslyRegistered: boolean;
   distinguishingNotice?: string;
   nonBovineWarning?: string;
+  categorySupported?: boolean;
   aiModelInfo?: {
     modelName: string;
     modelType: 'On-Device MobileNet v2' | 'Cloud Gemini Vision' | 'Pre-Trained Deep Learning Vision';

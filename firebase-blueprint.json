@@ -25,7 +25,7 @@
         "userEmail": { "type": "string", "maxLength": 256 },
         "breedName": { "type": "string", "maxLength": 128 },
         "vernacularName": { "type": "string", "maxLength": 128 },
-        "category": { "type": "string", "enum": ["Cattle", "Buffalo"] },
+        "category": { "type": "string", "enum": ["Cattle", "Buffalo", "Goat", "Dog"] },
         "scientificName": { "type": "string", "maxLength": 128 },
         "confidence": { "type": "number" },
         "stateOfOrigin": { "type": "string", "maxLength": 128 },
@@ -51,6 +51,21 @@
         "timestamp": { "type": "number" }
       },
       "required": ["id", "userId", "title", "breedName", "fieldNotes", "timestamp"]
+    },
+    "favoriteBreed": {
+      "title": "FavoriteBreed",
+      "description": "Indigenous breed bookmarked by the user for field monitoring.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "breedId": { "type": "string", "maxLength": 128 },
+        "breedName": { "type": "string", "maxLength": 128 },
+        "category": { "type": "string", "enum": ["Cattle", "Buffalo", "Goat", "Dog"] },
+        "stateOfOrigin": { "type": "string", "maxLength": 128 },
+        "timestamp": { "type": "number" }
+      },
+      "required": ["id", "userId", "breedId", "breedName", "category", "timestamp"]
     }
   },
   "firestore": {
@@ -60,11 +75,15 @@
     },
     "/scans/{scanId}": {
       "schema": "scanRecord",
-      "description": "College mini-project cattle and buffalo classification scan records"
+      "description": "College project livestock classification scan records"
     },
     "/observations/{observationId}": {
       "schema": "projectObservation",
       "description": "Student project journal field observations"
+    },
+    "/users/{userId}/favorites/{breedId}": {
+      "schema": "favoriteBreed",
+      "description": "User bookmarked indigenous breeds subcollection"
     }
   }
 }

@@ -68,12 +68,12 @@ export const DailyFieldCalculator: React.FC = () => {
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-stone-200 p-5 shadow-xs">
+    <div className="bg-white rounded-3xl border border-stone-200/90 p-6 shadow-sm">
       {/* Header and Segmented Mode Switch */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-stone-100">
         <div>
-          <h3 className="font-serif font-bold text-base text-stone-900 flex items-center gap-2">
-            <Calculator className="w-4 h-4 text-amber-700" />
+          <h3 className="font-serif font-bold text-base sm:text-lg text-stone-900 flex items-center gap-2">
+            <Calculator className="w-4 h-4 text-emerald-800" />
             <span>Daily Herd Field Assistant</span>
           </h3>
           <p className="text-xs text-stone-500 mt-0.5">
@@ -82,12 +82,12 @@ export const DailyFieldCalculator: React.FC = () => {
         </div>
 
         {/* Mode Selector */}
-        <div className="inline-flex p-1 bg-stone-100 rounded-lg text-xs font-medium">
+        <div className="inline-flex p-1 bg-stone-100 rounded-xl text-xs font-medium">
           <button
             onClick={() => setCalcMode('feed')}
-            className={`px-3 py-1.5 rounded-md transition-colors ${
+            className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
               calcMode === 'feed'
-                ? 'bg-white text-stone-900 shadow-xs font-semibold'
+                ? 'bg-emerald-800 text-white shadow-xs font-semibold'
                 : 'text-stone-600 hover:text-stone-900'
             }`}
           >
@@ -95,9 +95,9 @@ export const DailyFieldCalculator: React.FC = () => {
           </button>
           <button
             onClick={() => setCalcMode('thi')}
-            className={`px-3 py-1.5 rounded-md transition-colors ${
+            className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
               calcMode === 'thi'
-                ? 'bg-white text-stone-900 shadow-xs font-semibold'
+                ? 'bg-emerald-800 text-white shadow-xs font-semibold'
                 : 'text-stone-600 hover:text-stone-900'
             }`}
           >
@@ -109,7 +109,7 @@ export const DailyFieldCalculator: React.FC = () => {
       {calcMode === 'feed' ? (
         <div className="mt-4 space-y-4">
           {/* Inputs Row */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label className="block text-[11px] font-medium text-stone-600 mb-1">
                 Select Indigenous Breed
@@ -123,7 +123,7 @@ export const DailyFieldCalculator: React.FC = () => {
                     setBodyWeightKg(parseWeightKg(b.productivity.weightFemaleKg, 400));
                   }
                 }}
-                className="w-full text-xs bg-stone-50 border border-stone-200 rounded-lg px-2.5 py-2 text-stone-900 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                className="w-full text-xs bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-stone-900 focus:outline-none focus:ring-1 focus:ring-emerald-700 cursor-pointer"
               >
                 {INDIAN_BOVINE_BREEDS.slice(0, 25).map((b) => (
                   <option key={b.id} value={b.id}>
@@ -136,7 +136,7 @@ export const DailyFieldCalculator: React.FC = () => {
             <div>
               <label className="block text-[11px] font-medium text-stone-600 mb-1 flex items-center justify-between">
                 <span>Days in Milk (DIM)</span>
-                <span className="font-mono tabular-nums text-amber-800 font-bold">{daysInMilk}d (Wk {week})</span>
+                <span className="font-mono tabular-nums text-emerald-800 font-bold">{daysInMilk}d (Wk {week})</span>
               </label>
               <input
                 type="range"
@@ -145,14 +145,14 @@ export const DailyFieldCalculator: React.FC = () => {
                 step="5"
                 value={daysInMilk}
                 onChange={(e) => setDaysInMilk(parseInt(e.target.value, 10))}
-                className="w-full accent-amber-600"
+                className="w-full accent-emerald-700 cursor-pointer"
               />
             </div>
 
             <div>
               <label className="block text-[11px] font-medium text-stone-600 mb-1 flex items-center justify-between">
                 <span>Animal Body Weight</span>
-                <span className="font-mono tabular-nums text-amber-800 font-bold">{bodyWeightKg} kg</span>
+                <span className="font-mono tabular-nums text-emerald-800 font-bold">{bodyWeightKg} kg</span>
               </label>
               <input
                 type="range"
@@ -161,7 +161,7 @@ export const DailyFieldCalculator: React.FC = () => {
                 step="10"
                 value={bodyWeightKg}
                 onChange={(e) => setBodyWeightKg(parseInt(e.target.value, 10))}
-                className="w-full accent-amber-600"
+                className="w-full accent-emerald-700 cursor-pointer"
               />
             </div>
           </div>

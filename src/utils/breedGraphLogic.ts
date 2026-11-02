@@ -1,7 +1,4 @@
-/**
- * Utility functions for computing biological growth trajectories and lactation curves
- * for Indian indigenous Cattle (Bos indicus) and River Buffalo (Bubalus bubalis).
- */
+import { BreedCategory } from '../types/breed';
 
 export interface YieldParsed {
   min: number;
@@ -111,7 +108,7 @@ export function parseWeightKg(weightVal: string | number | undefined, defaultWei
 export function generateLactationCurve(
   avgLactationYieldKg: number,
   baseFatPercent: number,
-  category: 'Cattle' | 'Buffalo'
+  category: BreedCategory
 ): LactationPoint[] {
   const weeks = [1, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40];
   const peakWeek = category === 'Buffalo' ? 7 : 6;
@@ -168,7 +165,7 @@ export function generateLactationCurve(
 export function generateGrowthCurve(
   maleMatureKg: number,
   femaleMatureKg: number,
-  category: 'Cattle' | 'Buffalo'
+  category: BreedCategory
 ): GrowthPoint[] {
   // Birth weights are typically 6-8% of mature female weight
   const birthWeightFemale = Math.max(12, Math.round(femaleMatureKg * 0.068));
@@ -204,7 +201,7 @@ export function generateGrowthCurve(
  */
 export function generateParityPerformance(
   avgYieldKg: number,
-  category: 'Cattle' | 'Buffalo'
+  category: BreedCategory
 ): ParityPoint[] {
   const parities = [
     { par: 'Lactation 1', age: 3.0, mult: 0.78 },

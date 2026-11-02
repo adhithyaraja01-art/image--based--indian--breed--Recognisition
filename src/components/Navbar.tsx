@@ -14,12 +14,28 @@ import {
   ShieldCheck,
   GraduationCap,
   Dna,
-  Settings
+  Settings,
+  MapPin,
+  FlaskConical,
+  Award,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { useAuth } from '../firebase/authContext';
 import { useSettings } from '../context/SettingsContext';
 
-export type ActiveTab = 'home' | 'classify' | 'breeds' | 'history' | 'about' | 'compare' | 'guide' | 'settings';
+export type ActiveTab =
+  | 'home'
+  | 'classify'
+  | 'breeds'
+  | 'map'
+  | 'genomics'
+  | 'guide'
+  | 'history'
+  | 'about'
+  | 'settings'
+  | 'profile'
+  | 'compare';
 
 interface NavbarProps {
   activeTab: ActiveTab;
@@ -37,7 +53,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenJournal
 }) => {
   const { currentUser, userProfile, loginWithGoogle, logout, loading } = useAuth();
-  const { t } = useSettings();
+  const { t, isDarkMode, toggleTheme } = useSettings();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -54,10 +70,10 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Close mobile menu on tab change or window resize
+  // Close mobile menu on resize
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768) {
+      if (window.innerWidth >= 1024) {
         setIsMobileMenuOpen(false);
       }
     };
@@ -68,6 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const handleTabClick = (tab: ActiveTab) => {
     setActiveTab(tab);
     setIsMobileMenuOpen(false);
+    setIsProfileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -76,6 +93,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       setIsLoggingIn(true);
       await loginWithGoogle();
       setIsMobileMenuOpen(false);
+      setIsProfileMenuOpen(false);
     } catch (error) {
       console.error('Login error:', error);
     } finally {
@@ -93,23 +111,27 @@ export const Navbar: React.FC<NavbarProps> = ({
     }
   };
 
-  const navItems = [
-    { id: 'home' as ActiveTab, label: t('nav.home'), icon: Home },
-    { id: 'classify' as ActiveTab, label: t('nav.classify'), icon: Sparkles },
-    { id: 'breeds' as ActiveTab, label: t('nav.breeds'), icon: Compass },
-    { id: 'guide' as ActiveTab, label: t('nav.bioscience'), icon: Dna },
-    { id: 'history' as ActiveTab, label: t('nav.history'), icon: History, badge: historyCount },
-    { id: 'about' as ActiveTab, label: t('nav.about'), icon: Info }
+  // The 10 primary navigation items specified in requirements:
+  // Home, Classify, Breeds, Habitat, Genomics, Bioscience, History, About, Settings, Profile
+  const primaryNavItems = [
+    { id: 'home' as ActiveTab, label: t('nav.home') || 'Home', icon: Home },
+    { id: 'classify' as ActiveTab, label: t('nav.classify') || 'Classify', icon: Sparkles },
+    { id: 'breeds' as ActiveTab, label: t('nav.breeds') || 'Breeds', icon: Compass },
+    { id: 'map' as ActiveTab, label: 'Habitat', icon: MapPin },
+    { id: 'genomics' as ActiveTab, label: 'Genomics', icon: Dna },
+    { id: 'guide' as ActiveTab, label: t('nav.bioscience') || 'Bioscience', icon: FlaskConical },
+    { id: 'history' as ActiveTab, label: t('nav.history') || 'History', icon: History, badge: historyCount },
+    { id: 'about' as ActiveTab, label: t('nav.about') || 'About', icon: Info },
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-stone-900/95 backdrop-blur-md border-b border-amber-900/30 text-white shadow-lg">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200/90 text-stone-900 shadow-xs transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-18">
+        <div className="flex items-center justify-between h-16 sm:h-18">
           
-          {/* Logo */}
+          {/* Logo & Branding */}
           <div
-            className="flex items-center space-x-3 cursor-pointer group select-none flex-shrink-0"
+            className="flex items-center space-x-3 cursor-pointer group select-none shrink-0"
             onClick={() => handleTabClick('home')}
             role="button"
             tabIndex={0}
@@ -120,40 +142,43 @@ export const Navbar: React.FC<NavbarProps> = ({
             }}
             aria-label="Indian Breed Classification Home"
           >
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-amber-500 via-orange-600 to-amber-700 flex items-center justify-center shadow-md shadow-amber-900/40 text-stone-950 font-bold text-xl ring-2 ring-amber-400/30 group-hover:scale-105 transition-transform flex-shrink-0">
-              <span className="text-xl sm:text-2xl" role="img" aria-label="Bovine">🐂</span>
+            <div className="w-10 h-10 rounded-xl bg-emerald-800 flex items-center justify-center text-white shadow-sm ring-1 ring-emerald-700/30 group-hover:bg-emerald-900 transition-colors shrink-0">
+              <span className="text-xl" role="img" aria-label="Bovine">🐂</span>
             </div>
             <div>
-              <h1 className="font-serif tracking-tight text-lg sm:text-xl font-bold bg-gradient-to-r from-amber-200 via-amber-400 to-orange-300 bg-clip-text text-transparent leading-tight">
-                Indian Breed Classification
+              <h1 className="font-serif tracking-tight text-base sm:text-lg font-bold text-emerald-950 group-hover:text-emerald-800 transition-colors leading-tight">
+                Indian Breed Classifier
               </h1>
+              <p className="text-[10px] text-emerald-700 font-semibold uppercase tracking-wider hidden sm:block">
+                Agricultural Bovine Intelligence
+              </p>
             </div>
           </div>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
-            {navItems.map((item) => {
+          <nav className="hidden xl:flex items-center space-x-1" aria-label="Main Navigation">
+            {primaryNavItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => handleTabClick(item.id)}
-                  className={`relative flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                  className={`relative flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer ${
                     isActive
-                      ? 'bg-amber-500 text-stone-950 shadow-md font-semibold'
-                      : 'text-stone-300 hover:text-white hover:bg-stone-800/80'
+                      ? 'bg-emerald-800 text-white font-semibold shadow-xs'
+                      : 'text-emerald-950 hover:text-emerald-900 hover:bg-emerald-50/70'
                   }`}
                   aria-current={isActive ? 'page' : undefined}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-stone-950' : 'text-amber-400/80'}`} />
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-emerald-700'}`} />
                   <span>{item.label}</span>
                   {typeof item.badge === 'number' && item.badge > 0 && (
                     <span
                       className={`ml-1 px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
                         isActive
-                          ? 'bg-stone-900 text-amber-400'
-                          : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                          ? 'bg-emerald-950 text-white'
+                          : 'bg-emerald-100 text-emerald-900'
                       }`}
                     >
                       {item.badge}
@@ -164,37 +189,69 @@ export const Navbar: React.FC<NavbarProps> = ({
             })}
           </nav>
 
-          {/* Right Side Utility Cluster: Settings & Profile (Desktop) */}
-          <div className="hidden md:flex items-center space-x-2">
-            <div className="h-5 w-px bg-stone-800 mx-1" aria-hidden="true" />
+          {/* Compact Desktop Navigation for Medium Screens (LG) */}
+          <nav className="hidden lg:flex xl:hidden items-center space-x-1" aria-label="Secondary Navigation">
+            {primaryNavItems.slice(0, 5).map((item) => {
+              const Icon = item.icon;
+              const isActive = activeTab === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => handleTabClick(item.id)}
+                  className={`relative flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                    isActive
+                      ? 'bg-emerald-800 text-white font-semibold shadow-xs'
+                      : 'text-emerald-950 hover:text-emerald-900 hover:bg-emerald-50/70'
+                  }`}
+                >
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-emerald-700'}`} />
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
+          </nav>
 
-            {/* 1. Settings Button */}
+          {/* Right Side Utility Cluster: Theme Toggle, Settings & Profile (Desktop) */}
+          <div className="hidden lg:flex items-center space-x-2">
+            {/* Quick Theme Toggle */}
             <button
-              onClick={() => handleTabClick('settings')}
-              className={`flex items-center gap-2 h-9 px-3 rounded-xl text-xs font-medium transition-all cursor-pointer border select-none ${
-                activeTab === 'settings'
-                  ? 'bg-amber-500/20 text-amber-300 border-amber-500/50 ring-1 ring-amber-500/30 font-semibold shadow-xs'
-                  : 'bg-stone-800/60 hover:bg-stone-800 text-stone-200 hover:text-white border-stone-700/60 hover:border-stone-600'
-              }`}
-              title={t('nav.settings')}
-              aria-label={t('nav.settings')}
-              aria-current={activeTab === 'settings' ? 'page' : undefined}
+              onClick={toggleTheme}
+              className="flex items-center justify-center w-9 h-9 rounded-xl border border-stone-200 bg-white hover:bg-emerald-50 text-stone-700 hover:text-emerald-950 transition-all cursor-pointer shadow-2xs"
+              title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              aria-label={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
             >
-              <Settings className={`w-3.5 h-3.5 ${activeTab === 'settings' ? 'text-amber-300' : 'text-amber-400'}`} />
-              <span>{t('nav.settings')}</span>
+              {isDarkMode ? <Sun className="w-4 h-4 text-amber-500" /> : <Moon className="w-4 h-4 text-emerald-800" />}
             </button>
 
-            {/* 2. Profile Button & Popover */}
+            <div className="h-5 w-px bg-stone-200 mx-1" aria-hidden="true" />
+
+            {/* Settings Button */}
+            <button
+              onClick={() => handleTabClick('settings')}
+              className={`flex items-center gap-1.5 h-9 px-3 rounded-xl text-xs font-medium transition-all cursor-pointer border select-none ${
+                activeTab === 'settings'
+                  ? 'bg-emerald-800 text-white border-emerald-800 font-semibold shadow-xs'
+                  : 'bg-white hover:bg-emerald-50 text-emerald-950 hover:text-emerald-900 border-stone-200'
+              }`}
+              title={t('nav.settings') || 'Settings'}
+              aria-label="Settings"
+              aria-current={activeTab === 'settings' ? 'page' : undefined}
+            >
+              <Settings className={`w-3.5 h-3.5 ${activeTab === 'settings' ? 'text-white' : 'text-emerald-700'}`} />
+              <span>Settings</span>
+            </button>
+
+            {/* Profile Button & Menu */}
             {loading ? (
-              <div className="w-8 h-8 rounded-full border-2 border-amber-500/40 border-t-amber-400 animate-spin" />
+              <div className="w-8 h-8 rounded-full border-2 border-emerald-600 border-t-emerald-800 animate-spin" />
             ) : currentUser ? (
               <div className="relative" ref={profileMenuRef}>
                 <button
                   onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
                   className={`flex items-center gap-2 h-9 px-3 rounded-xl text-xs font-medium transition-all cursor-pointer border select-none ${
-                    isProfileMenuOpen
-                      ? 'bg-amber-500/20 text-amber-300 border-amber-500/50 ring-1 ring-amber-500/30 font-semibold shadow-xs'
-                      : 'bg-stone-800/60 hover:bg-stone-800 text-stone-200 hover:text-white border-stone-700/60 hover:border-stone-600'
+                    isProfileMenuOpen || activeTab === 'profile'
+                      ? 'bg-emerald-800 text-white border-emerald-800 font-semibold shadow-xs'
+                      : 'bg-white hover:bg-emerald-50 text-emerald-950 hover:text-emerald-900 border-stone-200'
                   }`}
                   aria-label="User Profile"
                   aria-expanded={isProfileMenuOpen}
@@ -203,31 +260,31 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <img
                       src={currentUser.photoURL}
                       alt={currentUser.displayName || 'Profile'}
-                      className="w-5 h-5 rounded-full object-cover ring-1 ring-amber-400/50 shrink-0"
+                      className="w-5 h-5 rounded-full object-cover ring-1 ring-emerald-600 shrink-0"
                     />
                   ) : (
-                    <div className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold text-[10px] ring-1 ring-amber-400/40 shrink-0">
+                    <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-900 flex items-center justify-center font-bold text-[10px] shrink-0">
                       {currentUser.displayName ? currentUser.displayName.charAt(0).toUpperCase() : 'U'}
                     </div>
                   )}
-                  <span className="font-semibold text-stone-100 max-w-[100px] truncate text-xs">
+                  <span className="font-semibold max-w-[90px] truncate text-xs">
                     {currentUser.displayName?.split(' ')[0] || 'Profile'}
                   </span>
-                  <ChevronDown className={`w-3 h-3 text-stone-400 transition-transform ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-3 h-3 transition-transform ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
 
-                {/* Authenticated Profile Dropdown Menu */}
+                {/* Profile Dropdown Menu */}
                 {isProfileMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-64 bg-stone-900 border border-stone-800 rounded-2xl shadow-2xl py-2 z-50 text-xs animate-fadeIn">
-                    <div className="px-4 py-2.5 border-b border-stone-800">
-                      <p className="font-bold text-stone-100 truncate">{currentUser.displayName || 'Researcher'}</p>
-                      <p className="text-stone-400 text-[11px] truncate">{currentUser.email}</p>
+                  <div className="absolute right-0 mt-2 w-64 bg-white border border-stone-200 rounded-2xl shadow-xl py-2 z-50 text-xs animate-fadeIn">
+                    <div className="px-4 py-2.5 border-b border-stone-100">
+                      <p className="font-bold text-stone-900 truncate">{currentUser.displayName || 'Researcher'}</p>
+                      <p className="text-stone-500 text-[11px] truncate">{currentUser.email}</p>
                       <div className="mt-1 flex items-center gap-1.5 flex-wrap">
-                        <span className="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[9px] font-bold uppercase tracking-wider border border-amber-400/30">
-                          {userProfile?.role === 'researcher' ? 'Researcher' : 'Student'}
+                        <span className="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-mono text-[9px] font-bold uppercase tracking-wider">
+                          {userProfile?.role === 'researcher' ? 'Researcher' : 'Farm Specialist'}
                         </span>
                         {userProfile?.collegeName && (
-                          <span className="text-[10px] text-stone-400 truncate">
+                          <span className="text-[10px] text-stone-600 truncate">
                             🏛 {userProfile.collegeName}
                           </span>
                         )}
@@ -235,46 +292,48 @@ export const Navbar: React.FC<NavbarProps> = ({
                     </div>
 
                     <div className="py-1">
+                      <button
+                        onClick={() => handleTabClick('profile')}
+                        className="w-full text-left px-4 py-2 text-stone-700 hover:text-emerald-950 hover:bg-emerald-50 flex items-center gap-2 cursor-pointer transition-colors"
+                      >
+                        <UserIcon className="w-3.5 h-3.5 text-emerald-700" />
+                        <span>Profile &amp; Credentials</span>
+                      </button>
+
                       {onOpenJournal && (
                         <button
                           onClick={() => {
                             setIsProfileMenuOpen(false);
                             onOpenJournal();
                           }}
-                          className="w-full text-left px-4 py-2 text-stone-300 hover:text-white hover:bg-stone-800 flex items-center gap-2 cursor-pointer transition-colors"
+                          className="w-full text-left px-4 py-2 text-stone-700 hover:text-emerald-950 hover:bg-emerald-50 flex items-center gap-2 cursor-pointer transition-colors"
                         >
-                          <GraduationCap className="w-3.5 h-3.5 text-emerald-400" />
+                          <GraduationCap className="w-3.5 h-3.5 text-emerald-700" />
                           <span>Student Research Journal</span>
                         </button>
                       )}
 
                       <button
-                        onClick={() => {
-                          setIsProfileMenuOpen(false);
-                          handleTabClick('settings');
-                        }}
-                        className="w-full text-left px-4 py-2 text-stone-300 hover:text-white hover:bg-stone-800 flex items-center gap-2 cursor-pointer transition-colors"
+                        onClick={() => handleTabClick('history')}
+                        className="w-full text-left px-4 py-2 text-stone-700 hover:text-emerald-950 hover:bg-emerald-50 flex items-center gap-2 cursor-pointer transition-colors"
                       >
-                        <Settings className="w-3.5 h-3.5 text-amber-400" />
-                        <span>System Settings</span>
+                        <History className="w-3.5 h-3.5 text-emerald-700" />
+                        <span>Scan History ({historyCount})</span>
                       </button>
 
                       <button
-                        onClick={() => {
-                          setIsProfileMenuOpen(false);
-                          handleTabClick('history');
-                        }}
-                        className="w-full text-left px-4 py-2 text-stone-300 hover:text-white hover:bg-stone-800 flex items-center gap-2 cursor-pointer transition-colors"
+                        onClick={() => handleTabClick('settings')}
+                        className="w-full text-left px-4 py-2 text-stone-700 hover:text-emerald-950 hover:bg-emerald-50 flex items-center gap-2 cursor-pointer transition-colors"
                       >
-                        <History className="w-3.5 h-3.5 text-amber-400" />
-                        <span>Scan History ({historyCount})</span>
+                        <Settings className="w-3.5 h-3.5 text-emerald-700" />
+                        <span>System Settings</span>
                       </button>
                     </div>
 
-                    <div className="border-t border-stone-800 mt-1 pt-1">
+                    <div className="border-t border-stone-100 mt-1 pt-1">
                       <button
                         onClick={handleLogout}
-                        className="w-full text-left px-4 py-2 text-rose-400 hover:bg-rose-950/40 flex items-center gap-2 transition-colors font-medium cursor-pointer"
+                        className="w-full text-left px-4 py-2 text-rose-600 hover:bg-rose-50 flex items-center gap-2 transition-colors font-medium cursor-pointer"
                       >
                         <LogOut className="w-3.5 h-3.5" />
                         <span>Logout</span>
@@ -289,57 +348,61 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <button
                   onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
                   className={`flex items-center gap-2 h-9 px-3 rounded-xl text-xs font-medium transition-all cursor-pointer border select-none ${
-                    isProfileMenuOpen
-                      ? 'bg-amber-500/20 text-amber-300 border-amber-500/50 ring-1 ring-amber-500/30 font-semibold shadow-xs'
-                      : 'bg-stone-800/60 hover:bg-stone-800 text-stone-200 hover:text-white border-stone-700/60 hover:border-stone-600'
+                    isProfileMenuOpen || activeTab === 'profile'
+                      ? 'bg-emerald-800 text-white border-emerald-800 font-semibold shadow-xs'
+                      : 'bg-white hover:bg-emerald-50 text-emerald-950 hover:text-emerald-900 border-stone-200'
                   }`}
                   aria-label="Profile and Account"
                   aria-expanded={isProfileMenuOpen}
                 >
-                  <UserIcon className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <UserIcon className={`w-3.5 h-3.5 ${isProfileMenuOpen || activeTab === 'profile' ? 'text-white' : 'text-emerald-700'}`} />
                   <span>Profile</span>
-                  <ChevronDown className={`w-3 h-3 text-stone-400 transition-transform ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-3 h-3 transition-transform ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {/* Guest Profile Popover */}
                 {isProfileMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-72 bg-stone-900 border border-stone-800 rounded-2xl shadow-2xl p-4 z-50 text-xs animate-fadeIn">
-                    <div className="flex items-center gap-3 pb-3 border-b border-stone-800">
-                      <div className="w-9 h-9 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold text-sm ring-1 ring-amber-400/40">
-                        <UserIcon className="w-4 h-4 text-amber-400" />
+                  <div className="absolute right-0 mt-2 w-72 bg-white border border-stone-200 rounded-2xl shadow-xl p-4 z-50 text-xs animate-fadeIn">
+                    <div className="flex items-center gap-3 pb-3 border-b border-stone-100">
+                      <div className="w-9 h-9 rounded-full bg-emerald-100 text-emerald-900 flex items-center justify-center font-bold text-sm">
+                        <UserIcon className="w-4 h-4 text-emerald-800" />
                       </div>
                       <div>
-                        <p className="font-bold text-stone-100">Guest Researcher</p>
-                        <p className="text-[11px] text-stone-400">Offline Local Storage</p>
+                        <p className="font-bold text-stone-900">Guest Farmer / Scholar</p>
+                        <p className="text-[11px] text-stone-500">Offline Local Storage Active</p>
                       </div>
                     </div>
 
-                    <p className="text-stone-300 text-[11px] mt-3 leading-relaxed">
-                      Sign in with Google to sync scans and research notes with Cloud Firestore.
+                    <p className="text-stone-600 text-[11px] mt-3 leading-relaxed">
+                      Sign in with Google to synchronize field scans, notes, and livestock dossiers across devices.
                     </p>
 
                     <button
                       onClick={handleLogin}
                       disabled={isLoggingIn}
-                      className="w-full mt-3 flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-stone-950 font-bold hover:from-amber-400 hover:to-orange-400 shadow-md shadow-amber-900/30 transition-all cursor-pointer disabled:opacity-50"
+                      className="w-full mt-3 flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-emerald-800 text-white font-semibold hover:bg-emerald-900 shadow-xs transition-all cursor-pointer disabled:opacity-50"
                     >
                       {isLoggingIn ? (
-                        <div className="w-3.5 h-3.5 border-2 border-stone-950 border-t-transparent animate-spin rounded-full" />
+                        <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent animate-spin rounded-full" />
                       ) : (
                         <LogIn className="w-3.5 h-3.5" />
                       )}
                       <span>Sign in with Google</span>
                     </button>
 
-                    <div className="mt-3 pt-3 border-t border-stone-800 space-y-1">
+                    <div className="mt-3 pt-3 border-t border-stone-100 space-y-1">
                       <button
-                        onClick={() => {
-                          setIsProfileMenuOpen(false);
-                          handleTabClick('settings');
-                        }}
-                        className="w-full text-left py-1.5 px-2 text-stone-300 hover:text-white hover:bg-stone-800/80 rounded-lg flex items-center gap-2 transition-colors cursor-pointer"
+                        onClick={() => handleTabClick('profile')}
+                        className="w-full text-left py-1.5 px-2 text-stone-700 hover:text-emerald-950 hover:bg-emerald-50 rounded-lg flex items-center gap-2 transition-colors cursor-pointer"
                       >
-                        <Settings className="w-3.5 h-3.5 text-amber-400" />
+                        <UserIcon className="w-3.5 h-3.5 text-emerald-700" />
+                        <span>Profile Overview</span>
+                      </button>
+                      <button
+                        onClick={() => handleTabClick('settings')}
+                        className="w-full text-left py-1.5 px-2 text-stone-700 hover:text-emerald-950 hover:bg-emerald-50 rounded-lg flex items-center gap-2 transition-colors cursor-pointer"
+                      >
+                        <Settings className="w-3.5 h-3.5 text-emerald-700" />
                         <span>System Settings</span>
                       </button>
                     </div>
@@ -349,210 +412,259 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
           </div>
 
-          {/* Mobile Right Action Bar: Settings Icon + Profile Icon + Hamburger Menu */}
-          <div className="flex md:hidden items-center space-x-1.5">
+          {/* Mobile Right Action Bar */}
+          <div className="flex lg:hidden items-center space-x-1.5">
+            {/* Quick Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="h-9 w-9 flex items-center justify-center rounded-xl border border-stone-200 bg-white hover:bg-emerald-50 text-stone-700 hover:text-emerald-950 transition-all cursor-pointer"
+              title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              aria-label={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            >
+              {isDarkMode ? <Sun className="w-4 h-4 text-amber-500" /> : <Moon className="w-4 h-4 text-emerald-800" />}
+            </button>
+
             {/* Quick Settings Icon */}
             <button
               onClick={() => handleTabClick('settings')}
               className={`h-9 w-9 flex items-center justify-center rounded-xl border transition-all cursor-pointer ${
                 activeTab === 'settings'
-                  ? 'bg-amber-500/20 text-amber-300 border-amber-500/50 ring-1 ring-amber-500/30'
-                  : 'bg-stone-800/60 hover:bg-stone-800 text-stone-200 border-stone-700/60'
+                  ? 'bg-emerald-800 text-white border-emerald-800'
+                  : 'bg-white hover:bg-emerald-50 text-emerald-900 border-stone-200'
               }`}
               title="Settings"
               aria-label="Settings"
             >
-              <Settings className="w-4 h-4 text-amber-400" />
+              <Settings className="w-4 h-4" />
             </button>
 
-            {/* Quick Profile / Avatar Trigger */}
+            {/* Quick Profile Icon */}
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={() => handleTabClick('profile')}
               className={`h-9 w-9 flex items-center justify-center rounded-xl border transition-all cursor-pointer ${
-                isMobileMenuOpen
-                  ? 'bg-amber-500/20 text-amber-300 border-amber-500/50 ring-1 ring-amber-500/30'
-                  : 'bg-stone-800/60 hover:bg-stone-800 text-stone-200 border-stone-700/60'
+                activeTab === 'profile'
+                  ? 'bg-emerald-800 text-white border-emerald-800'
+                  : 'bg-white hover:bg-emerald-50 text-emerald-900 border-stone-200'
               }`}
-              aria-label="Profile and menu"
+              title="Profile"
+              aria-label="Profile"
             >
-              {currentUser ? (
-                <div className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold text-xs ring-1 ring-amber-400/40 overflow-hidden">
-                  {currentUser.photoURL ? (
-                    <img src={currentUser.photoURL} alt="Avatar" className="w-full h-full object-cover" />
-                  ) : (
-                    (currentUser.displayName || 'U').charAt(0).toUpperCase()
-                  )}
-                </div>
-              ) : (
-                <UserIcon className="w-4 h-4 text-amber-400" />
-              )}
+              <UserIcon className="w-4 h-4" />
             </button>
 
             {/* Hamburger Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`h-9 w-9 flex items-center justify-center rounded-xl border transition-all cursor-pointer ${
-                isMobileMenuOpen
-                  ? 'bg-amber-500/20 text-amber-300 border-amber-500/50 ring-1 ring-amber-500/30'
-                  : 'bg-stone-800/60 hover:bg-stone-800 text-stone-200 border-stone-700/60'
-              }`}
+              className="h-9 w-9 flex items-center justify-center rounded-xl border border-stone-200 bg-white text-emerald-950 hover:bg-emerald-50 transition-all cursor-pointer"
               aria-label={isMobileMenuOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
               aria-expanded={isMobileMenuOpen}
             >
-              {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              {isMobileMenuOpen ? <X className="w-4 h-4 text-emerald-950" /> : <Menu className="w-4 h-4 text-emerald-950" />}
             </button>
           </div>
 
         </div>
       </div>
 
-      {/* Mobile Collapsible Navigation Menu Drawer */}
+      {/* Mobile Navigation Drawer with ALL 10 Sections in Neat Order */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-stone-950/98 border-b border-amber-900/40 shadow-2xl px-4 pt-3 pb-6 animate-fadeIn">
-          {/* Mobile Primary Nav Links */}
-          <div className="space-y-1.5 mb-4">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = activeTab === item.id;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => handleTabClick(item.id)}
-                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer ${
-                    isActive
-                      ? 'bg-amber-500 text-stone-950 font-bold shadow-md'
-                      : 'text-stone-300 hover:text-white hover:bg-stone-900'
-                  }`}
-                  aria-current={isActive ? 'page' : undefined}
-                >
-                  <div className="flex items-center gap-3">
-                    <Icon className={`w-4 h-4 ${isActive ? 'text-stone-950' : 'text-amber-400'}`} />
-                    <span>{item.label}</span>
-                  </div>
-                  {typeof item.badge === 'number' && item.badge > 0 && (
-                    <span
-                      className={`px-2 py-0.5 rounded-full text-xs font-bold ${
-                        isActive
-                          ? 'bg-stone-950 text-amber-400'
-                          : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                      }`}
-                    >
-                      {item.badge}
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Preferences & Account Section (Neat Order: Settings + Profile) */}
-          <div className="pt-3 border-t border-stone-800 space-y-2.5">
-            <div className="text-[10px] font-mono uppercase tracking-wider text-stone-500 px-3.5">
-              Preferences &amp; Account
-            </div>
-
-            {/* Settings button in neat order */}
+        <div className="lg:hidden bg-white border-b border-stone-200 shadow-xl px-4 pt-3 pb-6 animate-fadeIn">
+          <div className="space-y-1 mb-4">
+            {/* 1. Home */}
             <button
-              onClick={() => handleTabClick('settings')}
-              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer border ${
-                activeTab === 'settings'
-                  ? 'bg-amber-500/20 text-amber-300 border-amber-500/50 font-semibold shadow-xs'
-                  : 'bg-stone-900/80 border-stone-800 text-stone-300 hover:text-white hover:bg-stone-800'
+              onClick={() => handleTabClick('home')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+                activeTab === 'home'
+                  ? 'bg-emerald-800 text-white font-semibold shadow-xs'
+                  : 'text-emerald-950 hover:bg-emerald-50'
               }`}
             >
               <div className="flex items-center gap-3">
-                <Settings className={`w-4 h-4 ${activeTab === 'settings' ? 'text-amber-300' : 'text-amber-400'}`} />
-                <span>{t('nav.settings')}</span>
+                <Home className={`w-4 h-4 ${activeTab === 'home' ? 'text-white' : 'text-emerald-700'}`} />
+                <span>Home</span>
               </div>
             </button>
 
-            {/* Profile Section in neat order */}
-            {loading ? (
-              <div className="flex items-center justify-center py-2 text-stone-400 text-xs">
-                <span>Loading profile...</span>
+            {/* 2. Classify */}
+            <button
+              onClick={() => handleTabClick('classify')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+                activeTab === 'classify'
+                  ? 'bg-emerald-800 text-white font-semibold shadow-xs'
+                  : 'text-emerald-950 hover:bg-emerald-50'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <Sparkles className={`w-4 h-4 ${activeTab === 'classify' ? 'text-white' : 'text-emerald-700'}`} />
+                <span>Classify</span>
               </div>
-            ) : currentUser ? (
-              <div className="space-y-3 pt-1">
-                {/* User Info Card */}
-                <div className="flex items-center space-x-3 p-3 bg-stone-900/90 rounded-xl border border-stone-800">
+            </button>
+
+            {/* 3. Breeds */}
+            <button
+              onClick={() => handleTabClick('breeds')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+                activeTab === 'breeds'
+                  ? 'bg-emerald-800 text-white font-semibold shadow-xs'
+                  : 'text-emerald-950 hover:bg-emerald-50'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <Compass className={`w-4 h-4 ${activeTab === 'breeds' ? 'text-white' : 'text-emerald-700'}`} />
+                <span>Breeds</span>
+              </div>
+            </button>
+
+            {/* 4. Habitat */}
+            <button
+              onClick={() => handleTabClick('map')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+                activeTab === 'map'
+                  ? 'bg-emerald-800 text-white font-semibold shadow-xs'
+                  : 'text-emerald-950 hover:bg-emerald-50'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <MapPin className={`w-4 h-4 ${activeTab === 'map' ? 'text-white' : 'text-emerald-700'}`} />
+                <span>Habitat</span>
+              </div>
+            </button>
+
+            {/* 5. Genomics */}
+            <button
+              onClick={() => handleTabClick('genomics')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+                activeTab === 'genomics'
+                  ? 'bg-emerald-800 text-white font-semibold shadow-xs'
+                  : 'text-emerald-950 hover:bg-emerald-50'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <Dna className={`w-4 h-4 ${activeTab === 'genomics' ? 'text-white' : 'text-emerald-700'}`} />
+                <span>Genomics</span>
+              </div>
+            </button>
+
+            {/* 6. Bioscience */}
+            <button
+              onClick={() => handleTabClick('guide')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+                activeTab === 'guide'
+                  ? 'bg-emerald-800 text-white font-semibold shadow-xs'
+                  : 'text-emerald-950 hover:bg-emerald-50'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <FlaskConical className={`w-4 h-4 ${activeTab === 'guide' ? 'text-white' : 'text-emerald-700'}`} />
+                <span>Bioscience</span>
+              </div>
+            </button>
+
+            {/* 7. History */}
+            <button
+              onClick={() => handleTabClick('history')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+                activeTab === 'history'
+                  ? 'bg-emerald-800 text-white font-semibold shadow-xs'
+                  : 'text-emerald-950 hover:bg-emerald-50'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <History className={`w-4 h-4 ${activeTab === 'history' ? 'text-white' : 'text-emerald-700'}`} />
+                <span>History</span>
+              </div>
+              {historyCount > 0 && (
+                <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900">
+                  {historyCount}
+                </span>
+              )}
+            </button>
+
+            {/* 8. About */}
+            <button
+              onClick={() => handleTabClick('about')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+                activeTab === 'about'
+                  ? 'bg-emerald-800 text-white font-semibold shadow-xs'
+                  : 'text-emerald-950 hover:bg-emerald-50'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <Info className={`w-4 h-4 ${activeTab === 'about' ? 'text-white' : 'text-emerald-700'}`} />
+                <span>About</span>
+              </div>
+            </button>
+
+            {/* 9. Settings */}
+            <button
+              onClick={() => handleTabClick('settings')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+                activeTab === 'settings'
+                  ? 'bg-emerald-800 text-white font-semibold shadow-xs'
+                  : 'text-emerald-950 hover:bg-emerald-50'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <Settings className={`w-4 h-4 ${activeTab === 'settings' ? 'text-white' : 'text-emerald-700'}`} />
+                <span>Settings</span>
+              </div>
+            </button>
+
+            {/* 10. Profile */}
+            <button
+              onClick={() => handleTabClick('profile')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+                activeTab === 'profile'
+                  ? 'bg-emerald-800 text-white font-semibold shadow-xs'
+                  : 'text-emerald-950 hover:bg-emerald-50'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <UserIcon className={`w-4 h-4 ${activeTab === 'profile' ? 'text-white' : 'text-emerald-700'}`} />
+                <span>Profile</span>
+              </div>
+              {currentUser && (
+                <span className="text-[11px] text-emerald-700 font-medium truncate max-w-[120px]">
+                  {currentUser.displayName || 'Signed In'}
+                </span>
+              )}
+            </button>
+          </div>
+
+          {/* Quick Sign-in / Profile Card in Mobile Drawer */}
+          <div className="pt-3 border-t border-stone-200">
+            {currentUser ? (
+              <div className="p-3 bg-emerald-50/70 border border-emerald-200/80 rounded-xl space-y-2">
+                <div className="flex items-center gap-3">
                   {currentUser.photoURL ? (
-                    <img
-                      src={currentUser.photoURL}
-                      alt={currentUser.displayName || 'Profile'}
-                      className="w-10 h-10 rounded-full object-cover ring-2 ring-amber-400/40"
-                    />
+                    <img src={currentUser.photoURL} alt="Avatar" className="w-8 h-8 rounded-full object-cover" />
                   ) : (
-                    <div className="w-10 h-10 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold text-base ring-2 ring-amber-400/40">
+                    <div className="w-8 h-8 rounded-full bg-emerald-800 text-white flex items-center justify-center font-bold text-xs">
                       {(currentUser.displayName || 'U').charAt(0).toUpperCase()}
                     </div>
                   )}
                   <div className="min-w-0 flex-1">
-                    <p className="font-bold text-stone-100 text-sm truncate">
-                      {currentUser.displayName || 'Authenticated User'}
-                    </p>
-                    <p className="text-stone-400 text-xs truncate">{currentUser.email}</p>
-                    <div className="mt-1 flex items-center gap-1.5 flex-wrap">
-                      <span className="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[9px] font-bold uppercase tracking-wider border border-amber-400/30">
-                        {userProfile?.role === 'researcher' ? 'Researcher' : 'Student'}
-                      </span>
-                      {userProfile?.collegeName && (
-                        <span className="text-[10px] text-amber-400/80 truncate">
-                          🏛 {userProfile.collegeName}
-                        </span>
-                      )}
-                    </div>
+                    <p className="font-bold text-xs text-stone-900 truncate">{currentUser.displayName || 'Farmer / Researcher'}</p>
+                    <p className="text-[11px] text-stone-500 truncate">{currentUser.email}</p>
                   </div>
                 </div>
-
-                {onOpenJournal && (
-                  <button
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      onOpenJournal();
-                    }}
-                    className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-xs font-semibold cursor-pointer"
-                  >
-                    <GraduationCap className="w-3.5 h-3.5" />
-                    <span>Open Research Journal</span>
-                  </button>
-                )}
-
-                {/* Mobile Logout Button */}
                 <button
                   onClick={handleLogout}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-semibold bg-rose-950/80 hover:bg-rose-900 border border-rose-500/40 text-rose-200 transition-all cursor-pointer"
-                  aria-label="Logout"
+                  className="w-full flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-xs font-semibold text-rose-600 bg-white border border-rose-200 hover:bg-rose-50 cursor-pointer"
                 >
-                  <LogOut className="w-4 h-4" />
+                  <LogOut className="w-3.5 h-3.5" />
                   <span>Logout</span>
                 </button>
               </div>
             ) : (
-              /* Mobile Guest Profile & Login */
-              <div className="space-y-2 pt-1">
-                <div className="p-3 bg-stone-900/60 rounded-xl border border-stone-800 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold text-xs ring-1 ring-amber-400/40">
-                    <UserIcon className="w-4 h-4 text-amber-400" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-stone-200 text-xs">Guest Researcher</p>
-                    <p className="text-[10px] text-stone-400">Sign in to sync field records</p>
-                  </div>
-                </div>
-                <button
-                  onClick={handleLogin}
-                  disabled={isLoggingIn}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-semibold bg-gradient-to-r from-amber-500 to-orange-500 text-stone-950 shadow-md shadow-amber-900/40 transition-all cursor-pointer disabled:opacity-50"
-                  aria-label="Login or View Profile"
-                >
-                  {isLoggingIn ? (
-                    <div className="w-4 h-4 border-2 border-stone-950 border-t-transparent animate-spin rounded-full" />
-                  ) : (
-                    <LogIn className="w-4 h-4" />
-                  )}
-                  <span>Sign in with Google</span>
-                </button>
-              </div>
+              <button
+                onClick={handleLogin}
+                disabled={isLoggingIn}
+                className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-emerald-800 text-white font-semibold hover:bg-emerald-900 text-xs shadow-xs cursor-pointer"
+              >
+                <LogIn className="w-3.5 h-3.5" />
+                <span>Sign in with Google</span>
+              </button>
             )}
           </div>
         </div>

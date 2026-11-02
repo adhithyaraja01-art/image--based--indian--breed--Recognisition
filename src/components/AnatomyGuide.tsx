@@ -5,16 +5,16 @@ export const AnatomyGuide: React.FC = () => {
   return (
     <div className="space-y-8 max-w-5xl mx-auto">
       {/* Header */}
-      <div className="bg-white rounded-3xl border border-stone-200 p-6 sm:p-8 shadow-sm">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-semibold uppercase tracking-wider mb-3">
-          <BookOpen className="w-3.5 h-3.5 text-amber-600" />
-          Academic Zoological & Biotechnology Key
+      <div className="bg-white rounded-3xl border border-stone-200/90 p-6 sm:p-8 shadow-sm">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-semibold uppercase tracking-wider mb-3 border border-emerald-200">
+          <BookOpen className="w-3.5 h-3.5 text-emerald-600" />
+          Academic Zoological &amp; Biotechnology Key
         </div>
         <h2 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
-          Indian Bovine & Bubaline Morphological Key
+          Indian Livestock &amp; Canine Bioscience Diagnostic Key
         </h2>
         <p className="text-stone-600 text-sm sm:text-base mt-2 leading-relaxed">
-          Diagnostic anatomical criteria, horn morphometry, and genomic differentiation for registered Indian Zebu Cattle (<em>Bos indicus</em>) and Indian River Buffalo (<em>Bubalus bubalis</em>) for college laboratory and field evaluation.
+          Diagnostic anatomical criteria, cranial &amp; horn morphometry, and cytogenetic differentiation for registered Indian Zebu Cattle (<em>Bos indicus</em>), River Buffalo (<em>Bubalus bubalis</em>), Indigenous Goats (<em>Capra hircus</em>), and Native Indian Canines (<em>Canis lupus familiaris</em>) for college laboratory and field evaluation.
         </p>
       </div>
 
@@ -96,16 +96,16 @@ export const AnatomyGuide: React.FC = () => {
         </div>
       </div>
 
-      {/* SECTION 2: Cytogenetics & Karyotype Comparison */}
+      {/* SECTION 2: Cytogenetics & Karyotype Comparison Across 4 Categories */}
       <div className="bg-white rounded-3xl border border-stone-200 overflow-hidden shadow-sm">
         <div className="p-6 bg-emerald-900 text-white flex items-center justify-between">
           <div>
             <h3 className="font-serif font-bold text-xl text-emerald-100 flex items-center gap-2">
               <Dna className="w-5 h-5 text-emerald-400" />
-              2. Cytogenetic & Karyotypic Classification
+              2. Cytogenetic &amp; Karyotypic Classification Across 4 Species
             </h3>
             <p className="text-xs text-emerald-200 mt-0.5">
-              Chromosomal architecture distinguishing Cattle (<em>Bos indicus</em>) from River Buffalo (<em>Bubalus bubalis</em>)
+              Comparative chromosomal architecture distinguishing Cattle, River Buffalo, Indigenous Goat, and Native Canine
             </p>
           </div>
           <span className="px-3 py-1 rounded-full bg-emerald-800 text-emerald-200 text-xs font-mono font-bold">
@@ -115,43 +115,59 @@ export const AnatomyGuide: React.FC = () => {
 
         <div className="p-6 sm:p-8">
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-xs sm:text-sm">
+            <table className="w-full text-left border-collapse text-xs sm:text-sm min-w-[700px]">
               <thead>
                 <tr className="bg-stone-100 text-stone-800">
-                  <th className="p-3.5 font-bold uppercase tracking-wider text-[11px] w-1/3">Cytogenetic Feature</th>
-                  <th className="p-3.5 font-bold text-amber-900 border-l border-stone-200 bg-amber-50/40">
-                    Indian Zebu Cattle (<em>Bos indicus</em>)
+                  <th className="p-3.5 font-bold uppercase tracking-wider text-[11px] w-1/5">Cytogenetic Feature</th>
+                  <th className="p-3.5 font-bold text-amber-900 border-l border-stone-200 bg-amber-50/50">
+                    🐂 Zebu Cattle (<em>Bos indicus</em>)
                   </th>
-                  <th className="p-3.5 font-bold text-emerald-900 border-l border-stone-200 bg-emerald-50/40">
-                    Indian River Buffalo (<em>Bubalus bubalis</em>)
+                  <th className="p-3.5 font-bold text-emerald-900 border-l border-stone-200 bg-emerald-50/50">
+                    🐃 River Buffalo (<em>Bubalus bubalis</em>)
+                  </th>
+                  <th className="p-3.5 font-bold text-teal-900 border-l border-stone-200 bg-teal-50/50">
+                    🐐 Native Goat (<em>Capra hircus</em>)
+                  </th>
+                  <th className="p-3.5 font-bold text-indigo-900 border-l border-stone-200 bg-indigo-50/50">
+                    🐕 Indian Dog (<em>Canis lupus familiaris</em>)
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-200 text-stone-800">
                 <tr>
-                  <td className="p-3.5 font-semibold text-stone-600">Diploid Chromosome Number (2n)</td>
+                  <td className="p-3.5 font-semibold text-stone-600">Diploid Chromosomes (2n)</td>
                   <td className="p-3.5 border-l border-stone-200 font-mono font-bold text-amber-900">2n = 60</td>
-                  <td className="p-3.5 border-l border-stone-200 font-mono font-bold text-emerald-900">2n = 50 (Riverine type)</td>
+                  <td className="p-3.5 border-l border-stone-200 font-mono font-bold text-emerald-900">2n = 50 (Riverine)</td>
+                  <td className="p-3.5 border-l border-stone-200 font-mono font-bold text-teal-900">2n = 60</td>
+                  <td className="p-3.5 border-l border-stone-200 font-mono font-bold text-indigo-900">2n = 78</td>
                 </tr>
                 <tr className="bg-stone-50/50">
                   <td className="p-3.5 font-semibold text-stone-600">Autosomal Morphology</td>
                   <td className="p-3.5 border-l border-stone-200">58 Acrocentric autosomes</td>
-                  <td className="p-3.5 border-l border-stone-200">5 pairs Submetacentric (1-5) + 19 pairs Acrocentric (6-24)</td>
+                  <td className="p-3.5 border-l border-stone-200">5 pairs Submetacentric (1-5) + 19 pairs Acrocentric</td>
+                  <td className="p-3.5 border-l border-stone-200">58 strictly Acrocentric / Telocentric autosomes</td>
+                  <td className="p-3.5 border-l border-stone-200">76 Acrocentric / Telocentric autosomes (homogeneously graded size)</td>
                 </tr>
                 <tr>
                   <td className="p-3.5 font-semibold text-stone-600">Sex Chromosomes (X / Y)</td>
-                  <td className="p-3.5 border-l border-stone-200">X: Large submetacentric; Y: Small acrocentric (diagnostic for Zebu vs metacentric in Taurine)</td>
+                  <td className="p-3.5 border-l border-stone-200">X: Submetacentric; Y: Small acrocentric</td>
                   <td className="p-3.5 border-l border-stone-200">X: Largest acrocentric; Y: Small acrocentric</td>
+                  <td className="p-3.5 border-l border-stone-200">X: Large acrocentric; Y: Minute metacentric / dot</td>
+                  <td className="p-3.5 border-l border-stone-200">X: Large submetacentric; Y: Small metacentric</td>
                 </tr>
                 <tr className="bg-stone-50/50">
                   <td className="p-3.5 font-semibold text-stone-600">Fundamental Number (NF)</td>
-                  <td className="p-3.5 border-l border-stone-200 font-mono">NF = 60 (excluding sex chromosomes)</td>
-                  <td className="p-3.5 border-l border-stone-200 font-mono">NF = 60 (Robertsonian centric fusion of 5 ancestral pairs)</td>
+                  <td className="p-3.5 border-l border-stone-200 font-mono">NF = 60</td>
+                  <td className="p-3.5 border-l border-stone-200 font-mono">NF = 60 (Centric fusion of 5 ancestral pairs)</td>
+                  <td className="p-3.5 border-l border-stone-200 font-mono">NF = 60</td>
+                  <td className="p-3.5 border-l border-stone-200 font-mono">NF = 80 (76 acrocentric + 4 sex arms)</td>
                 </tr>
                 <tr>
-                  <td className="p-3.5 font-semibold text-stone-600">Wallowing vs Sweating Physiology</td>
-                  <td className="p-3.5 border-l border-stone-200">Abundant cutaneous sweat glands; does not wallow</td>
-                  <td className="p-3.5 border-l border-stone-200">Sparse sweat glands; mandatory water or mud wallowing for heat dissipation</td>
+                  <td className="p-3.5 font-semibold text-stone-600">Thermoregulatory Mode</td>
+                  <td className="p-3.5 border-l border-stone-200">High cutaneous sweat gland density</td>
+                  <td className="p-3.5 border-l border-stone-200">Mandatory water / mud wallowing; low sweat pores</td>
+                  <td className="p-3.5 border-l border-stone-200">High cutaneous evaporation; arid scrub adaptation</td>
+                  <td className="p-3.5 border-l border-stone-200">Lingual &amp; panting evaporative cooling; paw pads</td>
                 </tr>
               </tbody>
             </table>
@@ -220,7 +236,7 @@ export const AnatomyGuide: React.FC = () => {
               <span className="px-2 py-0.5 rounded text-[10px] bg-amber-100 text-amber-900 font-bold">Uttar Pradesh</span>
             </div>
             <p className="text-stone-600 leading-relaxed text-xs">
-              <strong>Copper Coat & Chevron:</strong> Distinctive copper/light brown hair coat, flat backward-directed horns, and two white chevron bands under the neck.
+              <strong>Copper Coat &amp; Chevron:</strong> Distinctive copper/light brown hair coat, flat backward-directed horns, and two white chevron bands under the neck.
             </p>
           </div>
 
@@ -243,7 +259,7 @@ export const AnatomyGuide: React.FC = () => {
             🐂 Zebu Cranial Morphology
           </div>
           <h3 className="text-xl sm:text-2xl font-serif font-bold text-stone-900">
-            4. Indian Cattle Cranial & Horn Morphometry
+            4. Indian Cattle Cranial &amp; Horn Morphometry
           </h3>
           <p className="text-stone-600 text-xs sm:text-sm mt-1">
             Distinctive forehead convexity, pendulous ear foldings, and horn orientations in Indian indigenous cattle.
@@ -252,28 +268,28 @@ export const AnatomyGuide: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
           <div className="bg-amber-50/50 p-4 rounded-2xl border border-amber-200 space-y-2">
-            <h4 className="font-bold text-amber-950 text-base">Gir Cattle: Domed Convex Shield & Leaf Ears</h4>
+            <h4 className="font-bold text-amber-950 text-base">Gir Cattle: Domed Convex Shield &amp; Leaf Ears</h4>
             <p className="text-stone-700 leading-relaxed text-xs">
               Gir cattle possess an extraordinarily prominent domed forehead (convex bony shield) that acts as an optical shade in high solar environments. Their ears are pendulous, elongated (25–30 cm), folded lengthwise like a curled banyan leaf with a characteristic notch near the tip. Horns sweep backward, downward, and then curve gently upward in a half-moon crescent.
             </p>
           </div>
 
           <div className="bg-amber-50/50 p-4 rounded-2xl border border-amber-200 space-y-2">
-            <h4 className="font-bold text-amber-950 text-base">Kankrej Cattle: Lyre Horns & Sawai Gait</h4>
+            <h4 className="font-bold text-amber-950 text-base">Kankrej Cattle: Lyre Horns &amp; Sawai Gait</h4>
             <p className="text-stone-700 leading-relaxed text-xs">
-              Possesses the heaviest and most magnificent horns of any Indian breed: thick, strong, curving outwards, upwards, and then slightly inward at the tips forming a lyrical lyre shape. Renowned for their majestic 1¼ cadence ("Sawai Chal" rhythm), pendulous ears, and charcoal shading on shoulders in mature bulls.
+              Possesses the heaviest and most magnificent horns of any Indian breed: thick, strong, curving outwards, upwards, and then slightly inward at the tips forming a lyrical lyre shape. Renowned for their majestic 1¼ cadence (&ldquo;Sawai Chal&rdquo; rhythm), pendulous ears, and charcoal shading on shoulders in mature bulls.
             </p>
           </div>
 
           <div className="bg-amber-50/50 p-4 rounded-2xl border border-amber-200 space-y-2">
-            <h4 className="font-bold text-amber-950 text-base">Kangayam & Mysore Group: Upward Daggers</h4>
+            <h4 className="font-bold text-amber-950 text-base">Kangayam &amp; Mysore Group: Upward Daggers</h4>
             <p className="text-stone-700 leading-relaxed text-xs">
               Representatives of the South Indian draught type (Kangayam, Hallikar, Amrit Mahal) feature long, pointed horns curving outwards and sharply backwards in a dagger orientation. They possess compact muscular forequarters, tight skin, and exceptional endurance for agricultural traction and bullock carts.
             </p>
           </div>
 
           <div className="bg-amber-50/50 p-4 rounded-2xl border border-amber-200 space-y-2">
-            <h4 className="font-bold text-amber-950 text-base">Vechur: Dwarf Extreme & Small Slender Horns</h4>
+            <h4 className="font-bold text-amber-950 text-base">Vechur: Dwarf Extreme &amp; Small Slender Horns</h4>
             <p className="text-stone-700 leading-relaxed text-xs">
               Guinness World Record smallest cattle breed (withers height ~80–90 cm). Tiny body weight (130–150 kg), small thin horns curving outward and forward, and low metabolic maintenance requirements, producing milk with ultra-small fat globules (easily digestible).
             </p>
@@ -308,6 +324,120 @@ export const AnatomyGuide: React.FC = () => {
             <p className="text-xs font-mono text-red-200">Codon 67: CAT &rarr; Histidine</p>
             <p className="text-xs text-stone-300">
               Point mutation substitute allows human gastrointestinal proteases to enzymatically cleave the 59-66 chain, releasing the opioid heptapeptide BCM-7 associated with digestive distress and inflammation.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* SECTION 6: Indigenous Goat (Capra hircus) Morphometrics */}
+      <div className="bg-white rounded-3xl border border-stone-200 p-6 sm:p-8 space-y-6 shadow-sm">
+        <div className="border-b pb-4">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-100 text-teal-900 text-xs font-semibold uppercase tracking-wider mb-2">
+            🐐 Caprine Morphometrics
+          </div>
+          <h3 className="text-xl sm:text-2xl font-serif font-bold text-stone-900">
+            6. Indigenous Indian Goat (<em>Capra hircus</em>) Morphological Keys
+          </h3>
+          <p className="text-stone-600 text-xs sm:text-sm mt-1">
+            Key cranial, ear, and coat adaptations across India&apos;s 14 registered native caprine breeds for dairy, prolific meat, and high-altitude cashmere fiber.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs sm:text-sm">
+          <div className="bg-teal-50/50 p-4 rounded-2xl border border-teal-200 space-y-2">
+            <div className="flex items-center justify-between">
+              <h4 className="font-bold text-teal-950 text-sm">Jamunapari (Dairy)</h4>
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-teal-200 text-teal-900 font-mono">Uttar Pradesh</span>
+            </div>
+            <p className="text-stone-700 leading-relaxed text-xs">
+              <strong>Prominent Roman Convex Nose:</strong> Highly convex cranial bridge with long pendulous, ribbon-like folded ears (up to 30 cm) and long silky feathering hair on thighs (&ldquo;thick breeches&rdquo;).
+            </p>
+          </div>
+
+          <div className="bg-teal-50/50 p-4 rounded-2xl border border-teal-200 space-y-2">
+            <div className="flex items-center justify-between">
+              <h4 className="font-bold text-teal-950 text-sm">Barbari (Urban Dairy)</h4>
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-teal-200 text-teal-900 font-mono">UP / Delhi</span>
+            </div>
+            <p className="text-stone-700 leading-relaxed text-xs">
+              <strong>Erect Tubular Ears:</strong> Small, compact, alert gazelle-like conformation with short, upright tubular ears pointing outward, short erect horns, and white coat with reddish-brown spotted markings.
+            </p>
+          </div>
+
+          <div className="bg-teal-50/50 p-4 rounded-2xl border border-teal-200 space-y-2">
+            <div className="flex items-center justify-between">
+              <h4 className="font-bold text-teal-950 text-sm">Black Bengal (Meat/Fecundity)</h4>
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-teal-200 text-teal-900 font-mono">West Bengal</span>
+            </div>
+            <p className="text-stone-700 leading-relaxed text-xs">
+              <strong>Dwarf Prolificacy &amp; BMP15:</strong> Compact muscular dwarf stature (15–20 kg), short legs, tight black glossy coat, and highest twinning/triplet fecundity (&gt;80%) driven by <em>BMP15</em> ovulation rate polymorphisms.
+            </p>
+          </div>
+
+          <div className="bg-teal-50/50 p-4 rounded-2xl border border-teal-200 space-y-2">
+            <div className="flex items-center justify-between">
+              <h4 className="font-bold text-teal-950 text-sm">Changthangi (Pashmina)</h4>
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-teal-200 text-teal-900 font-mono">Ladakh (4,000m+)</span>
+            </div>
+            <p className="text-stone-700 leading-relaxed text-xs">
+              <strong>Double Coat &amp; FGF5 Downhair:</strong> Dense coarse outer guard hair shielding an undercoat of ultra-fine Pashmina cashmere fibers (12–15 &mu;m diameter), providing extreme sub-zero thermal insulation.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* SECTION 7: Indigenous Indian Dog (Canis lupus familiaris) Functional Anatomy */}
+      <div className="bg-white rounded-3xl border border-stone-200 p-6 sm:p-8 space-y-6 shadow-sm">
+        <div className="border-b pb-4">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-100 text-indigo-900 text-xs font-semibold uppercase tracking-wider mb-2">
+            🐕 Canine Biomechanics &amp; Anatomy
+          </div>
+          <h3 className="text-xl sm:text-2xl font-serif font-bold text-stone-900">
+            7. Indigenous Indian Dog (<em>Canis lupus familiaris</em>) Functional Anatomy
+          </h3>
+          <p className="text-stone-600 text-xs sm:text-sm mt-1">
+            Diagnostic morphological and biomechanical keys distinguishing ancient Indian sighthounds, pastoral livestock guardians, and scent hounds.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs sm:text-sm">
+          <div className="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-200 space-y-2">
+            <div className="flex items-center justify-between">
+              <h4 className="font-bold text-indigo-950 text-sm">Mudhol Hound (Caravan Hound)</h4>
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-200 text-indigo-900 font-mono">Karnataka / MH</span>
+            </div>
+            <p className="text-stone-700 leading-relaxed text-xs">
+              <strong>Dolichocephalic Sighthound Skull:</strong> Long, slender narrow muzzle providing 270&deg; panoramic vision, deep brisket housing enlarged heart and lungs, tucked-up abdomen, and double-suspension galloping spine reaching 50+ km/h.
+            </p>
+          </div>
+
+          <div className="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-200 space-y-2">
+            <div className="flex items-center justify-between">
+              <h4 className="font-bold text-indigo-950 text-sm">Rajapalayam (Royal Hound)</h4>
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-200 text-indigo-900 font-mono">Tamil Nadu</span>
+            </div>
+            <p className="text-stone-700 leading-relaxed text-xs">
+              <strong>Pristine Milk-White &amp; Pink Nose:</strong> Heavy, robust bone structure with milky white coat, pink skin around eyes and nostrils, golden eyes, and arched spine used historically in Carnatic and Polygar battles.
+            </p>
+          </div>
+
+          <div className="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-200 space-y-2">
+            <div className="flex items-center justify-between">
+              <h4 className="font-bold text-indigo-950 text-sm">Kombai (Boar Hound)</h4>
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-200 text-indigo-900 font-mono">Tamil Nadu</span>
+            </div>
+            <p className="text-stone-700 leading-relaxed text-xs">
+              <strong>Black Muzzle &amp; Ridgeback:</strong> Red-brown or tan coat with distinctive jet-black mask/muzzle, powerful jaws with scissor bite, and a muscular ridge of hair along the spine indicating primitive hunting stock.
+            </p>
+          </div>
+
+          <div className="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-200 space-y-2">
+            <div className="flex items-center justify-between">
+              <h4 className="font-bold text-indigo-950 text-sm">Gaddi Kutta (Himalayan Mastiff)</h4>
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-200 text-indigo-900 font-mono">Himachal Pradesh</span>
+            </div>
+            <p className="text-stone-700 leading-relaxed text-xs">
+              <strong>High-Altitude Pastoral Guardian:</strong> Massive bone structure, thick double woolly coat, curled bushy tail carried over the back, and genetic adaptations (<em>EPAS1</em>) protecting nomadic sheep/goat flocks against snow leopards.
             </p>
           </div>
         </div>

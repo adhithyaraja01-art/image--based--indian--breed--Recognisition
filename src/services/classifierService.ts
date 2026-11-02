@@ -1,10 +1,11 @@
-import { ClassificationResult } from '../types/breed';
+import { ClassificationResult, BreedCategory } from '../types/breed';
 import { classifyWithPretrainedModel } from './pretrainedVisionModel';
 
 export interface ClassifyImageOptions {
   imageBase64: string;
   mimeType?: string;
   hint?: string;
+  category?: BreedCategory | 'All';
   engine?: 'mobilenet' | 'cloud' | 'auto';
 }
 
@@ -49,11 +50,11 @@ let cloudUnavailableNotice = '';
  * Never replaces AI predictions with fake, mocked, or random results.
  */
 export async function classifyBreedImage(options: ClassifyImageOptions): Promise<ClassificationResult> {
-  const { imageBase64, mimeType = 'image/jpeg', hint, engine = 'auto' } = options;
+  const { imageBase64, mimeType = 'image/jpeg', hint, category = 'All', engine = 'auto' } = options;
 
   // 1. If user explicitly requested mobilenet on-device pre-trained model:
   if (engine === 'mobilenet') {
-    return await classifyWithPretrainedModel(imageBase64, hint);
+    return await classifyWithPretrainedModel(imageBase64, hint, category);
   }
 
   // 2. Prepare base64 payload for Cloud Vision API
@@ -69,7 +70,8 @@ export async function classifyBreedImage(options: ClassifyImageOptions): Promise
       body: JSON.stringify({
         imageBase64: preparedImage,
         mimeType,
-        hint
+        hint,
+        category
       })
     });
 
@@ -79,20 +81,17 @@ export async function classifyBreedImage(options: ClassifyImageOptions): Promise
       return data.result as ClassificationResult;
     }
 
-    const errorDetails = data?.details || data?.error || `Server status ${res.status}`;
-    if (String(errorDetails).includes('403') || String(errorDetails).includes('billing')) {
-      isCloudBillingRequired = true;
-      cloudUnavailableNotice = 'Gemini API billing required for project';
-    }
-    throw new Error(
-      `Gemini Cloud Vision API requires billing account: ${errorDetails}. Switch to on-device Edge MobileNet v2 in Settings or the upload panel.`
-    );
+    const mobilenetResult = await classifyWithPretrainedModel(imageBase64, hint, category);
+    return {
+      ...mobilenetResult,
+      distinguishingNotice: `Identified using on-device Google MobileNet v2 CNN.`
+    };
   }
 
   // 4. Auto Hybrid Engine:
   // If we already detected that Cloud Gemini requires a paid tier for this session, directly run on-device MobileNet v2!
   if (isCloudBillingRequired) {
-    const mobilenetResult = await classifyWithPretrainedModel(imageBase64, hint);
+    const mobilenetResult = await classifyWithPretrainedModel(imageBase64, hint, category);
     return {
       ...mobilenetResult,
       distinguishingNotice: `Inference executed using on-device Google MobileNet v2 CNN (Cloud API requires billing upgrade).`
@@ -108,7 +107,8 @@ export async function classifyBreedImage(options: ClassifyImageOptions): Promise
       body: JSON.stringify({
         imageBase64: preparedImage,
         mimeType,
-        hint
+        hint,
+        category
       })
     });
 
@@ -124,14 +124,14 @@ export async function classifyBreedImage(options: ClassifyImageOptions): Promise
       cloudUnavailableNotice = failReason;
     }
 
-    const mobilenetResult = await classifyWithPretrainedModel(imageBase64, hint);
+    const mobilenetResult = await classifyWithPretrainedModel(imageBase64, hint, category);
     return {
       ...mobilenetResult,
       distinguishingNotice: `Inference executed using on-device Google MobileNet v2 CNN (Cloud Gemini requires billing tier).`
     };
   } catch (err: any) {
     isCloudBillingRequired = true;
-    const mobilenetResult = await classifyWithPretrainedModel(imageBase64, hint);
+    const mobilenetResult = await classifyWithPretrainedModel(imageBase64, hint, category);
     return {
       ...mobilenetResult,
       distinguishingNotice: `Inference executed using on-device Google MobileNet v2 CNN (${err?.message || 'Network offline'}).`

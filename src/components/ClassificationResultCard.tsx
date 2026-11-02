@@ -4,6 +4,7 @@ import { useAuth } from '../firebase/authContext';
 import { useSettings } from '../context/SettingsContext';
 import { saveScanToFirestore } from '../firebase/firestoreService';
 import { BreedProductionGraph } from './BreedProductionGraph';
+import { DetailedBreedReportSection } from './DetailedBreedReportSection';
 import {
   Award,
   MapPin,
@@ -26,7 +27,8 @@ import {
   ExternalLink,
   Gauge,
   TrendingUp,
-  Milk
+  Milk,
+  FileText
 } from 'lucide-react';
 
 interface ReliabilityMetrics {
@@ -89,8 +91,8 @@ function getReliabilityMetrics(confidence: number): ReliabilityMetrics {
     circleStrokeClass: 'stroke-rose-400',
     textClass: 'text-rose-400',
     activeMilestone: 0,
-    description: 'Atypical morphology or potential crossbred / non-bovine specimen detected.',
-    guidance: 'Low certainty. Verify that the specimen is an indigenous Indian cattle or river buffalo.'
+    description: 'Atypical morphology or potential crossbred / unrecognized specimen detected.',
+    guidance: 'Low certainty. Verify that the specimen belongs to one of India’s registered Cattle, Buffalo, Goat, or Dog breeds.'
   };
 }
 
@@ -113,23 +115,43 @@ export const ClassificationResultCard: React.FC<ClassificationResultCardProps> =
 }) => {
   const { currentUser, loginWithGoogle } = useAuth();
   const { settings } = useSettings();
-  const [activeTab, setActiveTab] = useState<'genomics' | 'traits' | 'yield' | 'growth-graphs' | 'heritage' | 'care' | 'candidates'>('genomics');
+  const [activeTab, setActiveTab] = useState<'dossier' | 'genomics' | 'traits' | 'yield' | 'growth-graphs' | 'heritage' | 'care' | 'candidates'>('dossier');
   const [copiedNotification, setCopiedNotification] = useState<boolean>(false);
   const [isSavingToCloud, setIsSavingToCloud] = useState<boolean>(false);
   const [cloudSavedSuccess, setCloudSavedSuccess] = useState<boolean>(false);
+
+  const getCategoryLabel = (category: string) => {
+    switch (category) {
+      case 'Cattle': return 'Indian Cattle (Bos indicus)';
+      case 'Buffalo': return 'Indian River Buffalo (Bubalus bubalis)';
+      case 'Goat': return 'Indigenous Goat (Capra hircus)';
+      case 'Dog': return 'Indigenous Indian Dog (Canis lupus familiaris)';
+      default: return category;
+    }
+  };
+
+  const getTaxonomyLabel = (category: string, scientificName: string) => {
+    switch (category) {
+      case 'Cattle': return `${scientificName} • Bovidae / Bovinae`;
+      case 'Buffalo': return `${scientificName} • Bovidae / Bovinae`;
+      case 'Goat': return `${scientificName} • Bovidae / Caprinae`;
+      case 'Dog': return `${scientificName} • Canidae / Caninae`;
+      default: return scientificName;
+    }
+  };
 
   const handleShare = () => {
     if (navigator.share) {
       navigator
         .share({
-          title: `Indian Bovine Classification: ${result.predictedBreed}`,
+          title: `Indian Breed Classification: ${result.predictedBreed}`,
           text: `Classified ${result.predictedBreed} (${result.category} • ${result.scientificName}) with ${result.confidence}% confidence. Origin: ${result.stateOfOrigin}, NBAGR Code: ${result.nbagrCode}.`,
           url: window.location.href
         })
         .catch(() => {});
     } else {
       navigator.clipboard.writeText(
-        `Indian Bovine Classification: ${result.predictedBreed} (${result.vernacularName}) - ${result.category} (${result.scientificName}), Origin: ${result.stateOfOrigin}. NBAGR Code: ${result.nbagrCode}. Confidence: ${result.confidence}%.`
+        `Indian Breed Classification: ${result.predictedBreed} (${result.vernacularName}) - ${result.category} (${result.scientificName}), Origin: ${result.stateOfOrigin}. NBAGR Code: ${result.nbagrCode}. Confidence: ${result.confidence}%.`
       );
       setCopiedNotification(true);
       setTimeout(() => setCopiedNotification(false), 2500);
@@ -192,7 +214,7 @@ export const ClassificationResultCard: React.FC<ClassificationResultCardProps> =
             <div>
               <div className="flex flex-wrap items-center gap-2 mb-2 text-xs text-stone-300">
                 <span className="text-amber-400 font-semibold">
-                  {result.category === 'Cattle' ? 'Indian Cattle (Bos indicus)' : 'Indian River Buffalo (Bubalus bubalis)'}
+                  {getCategoryLabel(result.category)}
                 </span>
                 <span aria-hidden="true" className="text-stone-600">·</span>
                 <span className="font-mono text-stone-300">{result.nbagrCode}</span>
@@ -228,7 +250,7 @@ export const ClassificationResultCard: React.FC<ClassificationResultCardProps> =
               </div>
 
               <p className="text-xs sm:text-sm text-stone-400 font-mono mt-1">
-                Taxonomy: <span className="italic text-stone-200">{result.scientificName}</span> • Bovidae / Bovinae
+                Taxonomy: <span className="italic text-stone-200">{getTaxonomyLabel(result.category, result.scientificName)}</span>
               </p>
             </div>
           </div>
@@ -481,8 +503,20 @@ export const ClassificationResultCard: React.FC<ClassificationResultCardProps> =
       <div className="border-b border-stone-200 bg-stone-50 px-6 sm:px-8">
         <div className="flex items-center space-x-2 sm:space-x-4 overflow-x-auto py-2 no-scrollbar">
           <button
+            onClick={() => setActiveTab('dossier')}
+            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer ${
+              activeTab === 'dossier'
+                ? 'bg-emerald-800 text-white shadow-sm ring-1 ring-emerald-700/50'
+                : 'text-stone-700 hover:text-emerald-950 hover:bg-emerald-50/70'
+            }`}
+          >
+            <FileText className="w-4 h-4 text-emerald-300" />
+            <span>Detailed Breed Dossier (11 Tables)</span>
+          </button>
+
+          <button
             onClick={() => setActiveTab('genomics')}
-            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${
+            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'genomics'
                 ? 'bg-amber-600 text-white shadow-sm'
                 : 'text-stone-600 hover:text-stone-900 hover:bg-stone-200/60'
@@ -568,7 +602,19 @@ export const ClassificationResultCard: React.FC<ClassificationResultCardProps> =
 
       {/* Tab Panels */}
       <div className="p-6 sm:p-8">
-        {/* TAB 0: Bioscience & Genomics */}
+        {/* TAB 0: 11-Table Detailed Breed Dossier */}
+        {activeTab === 'dossier' && (
+          <DetailedBreedReportSection
+            breedName={result.predictedBreed}
+            confidence={result.confidence}
+            imagePreviewUrl={imagePreviewUrl}
+            onCompareWith={onCompareWith}
+            onExploreBreed={onExploreBreed}
+            showPrintButton={true}
+          />
+        )}
+
+        {/* TAB 1: Bioscience & Genomics */}
         {activeTab === 'genomics' && (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

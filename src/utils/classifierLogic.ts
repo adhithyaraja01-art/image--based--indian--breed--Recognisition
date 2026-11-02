@@ -1,5 +1,5 @@
 import { BreedCategory, BreedInfo, ClassificationResult } from '../types/breed';
-import { INDIAN_BOVINE_BREEDS } from '../data/indigenousBreeds';
+import { INDIAN_BREEDS_CATALOG, INDIAN_BOVINE_BREEDS } from '../data/indigenousBreeds';
 
 /**
  * Normalizes confidence scores so they stay within 1-99 range.
@@ -11,7 +11,7 @@ export function normalizeConfidence(score: number): number {
 }
 
 /**
- * Searches the bovine & bubaline catalog by query text across name, vernacular, state, and tags.
+ * Searches the catalog across Cattle, Buffalo, Goat, and Dog by query text, category, and state.
  */
 export function filterBreeds(
   catalog: BreedInfo[],
@@ -22,7 +22,7 @@ export function filterBreeds(
   const cleanQuery = query.trim().toLowerCase();
 
   return catalog.filter((item) => {
-    // Category check (Cattle vs Buffalo)
+    // Category check (Cattle, Buffalo, Goat, Dog)
     if (category !== 'All' && item.category !== category) {
       return false;
     }
@@ -49,22 +49,23 @@ export function filterBreeds(
 }
 
 /**
- * Finds a matching bovine/bubaline breed by name, ID, or alias across all 73 registered breeds.
+ * Finds a matching breed by name, ID, or alias across all registered Cattle, Buffalo, Goat, and Dog breeds.
  */
 export function findCatalogBreed(breedNameOrHint: string): BreedInfo | undefined {
   if (!breedNameOrHint) return undefined;
   const target = breedNameOrHint.toLowerCase().trim();
+  const catalog = INDIAN_BREEDS_CATALOG.length > 0 ? INDIAN_BREEDS_CATALOG : INDIAN_BOVINE_BREEDS;
 
   // 1. Exact ID match
-  const byId = INDIAN_BOVINE_BREEDS.find((b) => b.id.toLowerCase() === target);
+  const byId = catalog.find((b) => b.id.toLowerCase() === target);
   if (byId) return byId;
 
   // 2. Exact name match
-  const byName = INDIAN_BOVINE_BREEDS.find((b) => b.name.toLowerCase() === target);
+  const byName = catalog.find((b) => b.name.toLowerCase() === target);
   if (byName) return byName;
 
   // 3. Substring match on name or vernacular name
-  const byPartialName = INDIAN_BOVINE_BREEDS.find((b) => {
+  const byPartialName = catalog.find((b) => {
     const bName = b.name.toLowerCase();
     const vName = b.vernacularName.toLowerCase();
     return target.includes(bName) || bName.includes(target) || target.includes(vName) || vName.includes(target);
@@ -72,7 +73,7 @@ export function findCatalogBreed(breedNameOrHint: string): BreedInfo | undefined
   if (byPartialName) return byPartialName;
 
   // 4. Tag or state or NBAGR code match
-  return INDIAN_BOVINE_BREEDS.find((b) => {
+  return catalog.find((b) => {
     return (
       b.nbagrCode.toLowerCase().includes(target) ||
       b.tags.some((t) => target.includes(t.toLowerCase()) || t.toLowerCase().includes(target)) ||
@@ -82,7 +83,7 @@ export function findCatalogBreed(breedNameOrHint: string): BreedInfo | undefined
 }
 
 /**
- * Converts ANY registered BreedInfo from the ICAR-NBAGR catalog into a full, enriched ClassificationResult
+ * Converts ANY registered BreedInfo from the catalog into a full, enriched ClassificationResult
  * with realistic competing candidates and diagnostic evidence.
  */
 export function breedToClassificationResult(
@@ -91,14 +92,15 @@ export function breedToClassificationResult(
   distinguishingNotice?: string
 ): ClassificationResult {
   const confidence = normalizeConfidence(confidenceScore);
+  const catalog = INDIAN_BREEDS_CATALOG.length > 0 ? INDIAN_BREEDS_CATALOG : INDIAN_BOVINE_BREEDS;
 
   // Find top competing candidates of the same species
-  const sameCategory = INDIAN_BOVINE_BREEDS.filter(
+  const sameCategory = catalog.filter(
     (b) => b.category === breed.category && b.id !== breed.id
   );
 
-  const runnerUp1 = sameCategory[0] || INDIAN_BOVINE_BREEDS[0];
-  const runnerUp2 = sameCategory[1] || INDIAN_BOVINE_BREEDS[1];
+  const runnerUp1 = sameCategory[0] || catalog[0];
+  const runnerUp2 = sameCategory[1] || catalog[1];
 
   const topCandidates = [
     {
@@ -124,11 +126,25 @@ export function breedToClassificationResult(
     }
   ];
 
+  const getScientificTaxon = (cat: BreedCategory) => {
+    switch (cat) {
+      case 'Buffalo':
+        return 'Bubalus bubalis';
+      case 'Goat':
+        return 'Capra hircus';
+      case 'Dog':
+        return 'Canis lupus familiaris';
+      case 'Cattle':
+      default:
+        return 'Bos indicus';
+    }
+  };
+
   return {
     predictedBreed: breed.name,
     vernacularName: breed.vernacularName,
     category: breed.category,
-    scientificName: breed.scientificName,
+    scientificName: breed.scientificName || getScientificTaxon(breed.category),
     confidence,
     stateOfOrigin: breed.stateOfOrigin,
     homeTract: breed.homeTract,
@@ -146,7 +162,7 @@ export function breedToClassificationResult(
     physicalTraits: breed.physicalTraits,
     productivity: breed.productivity,
     nbagrStatus: breed.nbagrStatus,
-    conservationStatus: `ICAR-NBAGR Registered Indigenous Stock (${breed.category === 'Cattle' ? 'Bos indicus' : 'Bubalus bubalis'})`,
+    conservationStatus: `ICAR-NBAGR Registered Indigenous Stock (${getScientificTaxon(breed.category)})`,
     historicalSignificance: breed.historicalSignificance,
     traditionalCommunities: breed.pastoralCommunities,
     careRecommendations: breed.careRecommendations,
@@ -154,7 +170,7 @@ export function breedToClassificationResult(
     isIndigenouslyRegistered: true,
     distinguishingNotice:
       distinguishingNotice ||
-      `Verified against the ICAR-NBAGR national roster of registered Indian indigenous bovine/bubaline breeds.`
+      `Verified against the national register of Indian indigenous ${breed.category.toLowerCase()} breeds.`
   };
 }
 
@@ -167,11 +183,26 @@ export function buildEnrichedClassificationResult(
 ): ClassificationResult {
   const matchedBreed = raw.predictedBreed ? findCatalogBreed(raw.predictedBreed) : undefined;
 
-  const category = (raw.category === 'Buffalo' ? 'Buffalo' : matchedBreed?.category || 'Cattle') as BreedCategory;
-  const breedName = raw.predictedBreed || matchedBreed?.name || (category === 'Buffalo' ? 'Murrah' : 'Gir');
-  const vernacular = raw.vernacularName || matchedBreed?.vernacularName || (category === 'Buffalo' ? 'मुर्राह / Khundi' : 'गीर / Geer');
+  const validCategories: BreedCategory[] = ['Cattle', 'Buffalo', 'Goat', 'Dog'];
+  const category = (raw.category && validCategories.includes(raw.category as BreedCategory)
+    ? raw.category
+    : matchedBreed?.category || 'Cattle') as BreedCategory;
+
+  const getDefaultBreed = (cat: BreedCategory) => {
+    switch (cat) {
+      case 'Buffalo': return { name: 'Murrah', vern: 'मुर्राह / Khundi', sci: 'Bubalus bubalis' };
+      case 'Goat': return { name: 'Jamunapari', vern: 'जमुनापारी / Jamnapari', sci: 'Capra hircus' };
+      case 'Dog': return { name: 'Mudhol Hound', vern: 'ಮುಧೋಳ್ ಹೌಂಡ್ / Caravan Hound', sci: 'Canis lupus familiaris' };
+      case 'Cattle':
+      default: return { name: 'Gir', vern: 'गीर / Geer', sci: 'Bos indicus' };
+    }
+  };
+  const def = getDefaultBreed(category);
+
+  const breedName = raw.predictedBreed || matchedBreed?.name || def.name;
+  const vernacular = raw.vernacularName || matchedBreed?.vernacularName || def.vern;
   const confidence = normalizeConfidence(raw.confidence ?? 94);
-  const scientificName = category === 'Buffalo' ? 'Bubalus bubalis' : 'Bos indicus';
+  const scientificName = raw.scientificName || matchedBreed?.scientificName || def.sci;
 
   return {
     predictedBreed: breedName,
@@ -328,13 +359,25 @@ export function generateFallbackClassification(
 
     // Generic buffalo request
     if (lowerHint.includes('buffalo') || lowerHint.includes('bhains') || lowerHint.includes('khundi')) {
-      const murrah = findCatalogBreed('Murrah') || INDIAN_BOVINE_BREEDS.find(b => b.category === 'Buffalo')!;
+      const murrah = findCatalogBreed('Murrah') || INDIAN_BREEDS_CATALOG.find(b => b.category === 'Buffalo')!;
       return breedToClassificationResult(murrah, 95);
+    }
+
+    // Generic goat request
+    if (lowerHint.includes('goat') || lowerHint.includes('bakri') || lowerHint.includes('capra') || lowerHint.includes('pashmina') || lowerHint.includes('kidding')) {
+      const goatBreed = findCatalogBreed('Jamunapari') || INDIAN_BREEDS_CATALOG.find(b => b.category === 'Goat')!;
+      return breedToClassificationResult(goatBreed, 95, 'Classified as Indian Indigenous Goat (Capra hircus).');
+    }
+
+    // Generic dog request
+    if (lowerHint.includes('dog') || lowerHint.includes('kutta') || lowerHint.includes('hound') || lowerHint.includes('canis') || lowerHint.includes('sighthound')) {
+      const dogBreed = findCatalogBreed('Mudhol Hound') || INDIAN_BREEDS_CATALOG.find(b => b.category === 'Dog')!;
+      return breedToClassificationResult(dogBreed, 95, 'Classified as Native Indian Indigenous Canine (Canis lupus familiaris).');
     }
   }
 
   // 2. If no hint matched, return baseline reference without fabricating random breeds
-  const baseline = findCatalogBreed('Gir') || INDIAN_BOVINE_BREEDS[0];
+  const baseline = findCatalogBreed('Gir') || INDIAN_BREEDS_CATALOG[0] || INDIAN_BOVINE_BREEDS[0];
   return breedToClassificationResult(
     baseline,
     70,

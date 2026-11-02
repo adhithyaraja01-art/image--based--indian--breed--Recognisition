@@ -1,13 +1,20 @@
 import React, { useRef, useState } from 'react';
 import { Upload, Camera, Sparkles, Image as ImageIcon, X, HelpCircle, CheckCircle2, ChevronDown, Award, Cpu, Zap, Cloud } from 'lucide-react';
+import { BreedCategory } from '../types/breed';
 import { SAMPLE_BREED_IMAGES, SampleImageItem } from '../data/sampleImages';
-import { INDIAN_BOVINE_BREEDS } from '../data/indigenousBreeds';
+import { INDIAN_BREEDS_CATALOG } from '../data/indigenousBreeds';
 import { CameraModal } from './CameraModal';
 
 import { useSettings } from '../context/SettingsContext';
 
 interface ImageUploadZoneProps {
-  onImageSelected: (base64Image: string, hint?: string, sample?: SampleImageItem, engine?: 'mobilenet' | 'cloud' | 'auto') => void;
+  onImageSelected: (
+    base64Image: string,
+    hint?: string,
+    sample?: SampleImageItem,
+    engine?: 'mobilenet' | 'cloud' | 'auto',
+    category?: BreedCategory
+  ) => void;
   isLoading: boolean;
 }
 
@@ -18,7 +25,8 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({ onImageSelecte
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
   const [isCameraOpen, setIsCameraOpen] = useState<boolean>(false);
   const [activeSample, setActiveSample] = useState<SampleImageItem | null>(null);
-  const [sampleCategoryFilter, setSampleCategoryFilter] = useState<'All' | 'Cattle' | 'Buffalo'>('All');
+  const [selectedCategory, setSelectedCategory] = useState<BreedCategory | 'All'>('All');
+  const [sampleCategoryFilter, setSampleCategoryFilter] = useState<BreedCategory | 'All'>('All');
   const [aiEngine, setAiEngine] = useState<'mobilenet' | 'cloud' | 'auto'>(settings.defaultAiEngine || 'auto');
   const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -92,10 +100,11 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({ onImageSelecte
 
   const handleBreedPickerSelect = (breedId: string) => {
     if (!breedId) return;
-    const found = INDIAN_BOVINE_BREEDS.find((b) => b.id === breedId);
+    const found = INDIAN_BREEDS_CATALOG.find((b) => b.id === breedId);
     if (!found) return;
 
     setUserHint(`${found.name} (${found.category} - ${found.stateOfOrigin})`);
+    setSelectedCategory(found.category);
     if (!selectedImage) {
       setSelectedImage(found.imageUrl);
       const sampleMatch = SAMPLE_BREED_IMAGES.find((s) => s.title.toLowerCase().includes(found.name.toLowerCase()));
@@ -116,7 +125,13 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({ onImageSelecte
 
   const handleSubmit = () => {
     if (!selectedImage) return;
-    onImageSelected(selectedImage, userHint, undefined, aiEngine);
+    onImageSelected(
+      selectedImage,
+      userHint,
+      undefined,
+      aiEngine,
+      selectedCategory !== 'All' ? selectedCategory : undefined
+    );
   };
 
   const filteredSamples = SAMPLE_BREED_IMAGES.filter((s) => {
@@ -125,24 +140,58 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({ onImageSelecte
   });
 
   return (
-    <div className="w-full bg-white rounded-3xl border border-stone-200 shadow-xl overflow-hidden">
+    <div className="w-full bg-white rounded-3xl border border-stone-200/90 shadow-sm overflow-hidden">
       {/* Top Banner / Heading */}
-      <div className="bg-gradient-to-r from-amber-800 via-amber-900 to-stone-900 p-6 sm:p-8 text-white relative">
+      <div className="bg-gradient-to-r from-emerald-900 via-emerald-850 to-stone-900 p-6 sm:p-8 text-white relative">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 text-amber-200 text-xs font-semibold uppercase tracking-wider mb-3 border border-amber-300/30">
-            <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-            Complete ICAR-NBAGR National Roster: 53 Cattle &amp; 20 Buffalo Breeds
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-200 text-xs font-semibold uppercase tracking-wider mb-3 border border-emerald-400/30">
+            <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
+            Complete ICAR-NBAGR &amp; Canine Registry: 99 Certified Indigenous Breeds
           </div>
-          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-amber-50">
-            Classify Every Indian Cattle &amp; Buffalo Breed
+          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white">
+            Classify Indian Cattle, Buffalo, Goat &amp; Dog Breeds
           </h2>
-          <p className="mt-2 text-stone-300 text-sm sm:text-base leading-relaxed">
-            Upload or photograph any officially registered indigenous Indian Zebu cattle (<em>Bos indicus</em>, 53 breeds) or Indian river buffalo (<em>Bubalus bubalis</em>, 20 breeds). Evaluates horn curvature, cranial dome, dewlap, coat phenotype, and links official ICAR-NBAGR accession codes and <em>CSN2</em> A2 beta-casein genomics.
+          <p className="mt-2 text-stone-200 text-sm sm:text-base leading-relaxed">
+            Upload or photograph any officially registered indigenous Indian livestock or working canine breed (53 Cattle, 20 Buffalo, 14 Goat, and 12 Dog breeds). The dual-engine AI inspects species morphology, cranial conformation, ear carriage, horn curvature, and links certified ICAR accessions.
           </p>
         </div>
       </div>
 
       <div className="p-6 sm:p-8 space-y-6">
+        {/* Animal Category Selection Bar */}
+        <div className="bg-emerald-50/70 border border-emerald-200/90 rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-2xs">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse" />
+              <span className="text-xs font-bold text-emerald-950 uppercase tracking-wide">
+                Target Animal Category
+              </span>
+            </div>
+            <p className="text-[11px] text-emerald-800 mt-0.5">
+              Select a specific animal species to guide neural inference, or choose Auto-Detect.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-1.5 flex-wrap">
+            {(['All', 'Cattle', 'Buffalo', 'Goat', 'Dog'] as const).map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => {
+                  setSelectedCategory(cat);
+                  setSampleCategoryFilter(cat);
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  selectedCategory === cat
+                    ? 'bg-emerald-800 text-white shadow-xs'
+                    : 'bg-white text-stone-700 hover:bg-emerald-100/70 border border-emerald-200/70'
+                }`}
+              >
+                <span>{cat === 'All' ? '⚡ Auto-Detect' : cat === 'Cattle' ? '🐂 Cattle (53)' : cat === 'Buffalo' ? '🐃 Buffalo (20)' : cat === 'Goat' ? '🐐 Goat (14)' : '🐕 Dog (12)'}</span>
+              </button>
+            ))}
+          </div>
+        </div>
         {/* Pre-Trained AI Model Recognition Engine Selector Bar */}
         <div className="bg-stone-50 border border-stone-200/90 rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-2xs">
           <div className="flex items-center gap-2.5">
@@ -352,19 +401,33 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({ onImageSelecte
                 <div className="relative">
                   <select
                     onChange={(e) => handleBreedPickerSelect(e.target.value)}
-                    className="w-full appearance-none bg-white border border-stone-300 rounded-lg px-3 py-2 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500 pr-8"
+                    className="w-full appearance-none bg-white border border-stone-300 rounded-lg px-3 py-2 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 pr-8"
                     defaultValue=""
                   >
-                    <option value="" disabled>-- Or pick from all 73 NBAGR registered breeds --</option>
-                    <optgroup label="Cattle (Bos indicus - 53 Registered Breeds)">
-                      {INDIAN_BOVINE_BREEDS.filter(b => b.category === 'Cattle').map((b) => (
+                    <option value="" disabled>-- Or pick from all 99 registered indigenous breeds --</option>
+                    <optgroup label="🐂 Cattle (Bos indicus - 53 Registered Breeds)">
+                      {INDIAN_BREEDS_CATALOG.filter(b => b.category === 'Cattle').map((b) => (
                         <option key={b.id} value={b.id}>
                           {b.name} ({b.stateOfOrigin} - {b.productivity.primaryUtility})
                         </option>
                       ))}
                     </optgroup>
-                    <optgroup label="Buffalo (Bubalus bubalis - 20 Registered Breeds)">
-                      {INDIAN_BOVINE_BREEDS.filter(b => b.category === 'Buffalo').map((b) => (
+                    <optgroup label="🐃 Buffalo (Bubalus bubalis - 20 Registered Breeds)">
+                      {INDIAN_BREEDS_CATALOG.filter(b => b.category === 'Buffalo').map((b) => (
+                        <option key={b.id} value={b.id}>
+                          {b.name} ({b.stateOfOrigin} - {b.productivity.primaryUtility})
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="🐐 Goat (Capra hircus - 14 Registered Breeds)">
+                      {INDIAN_BREEDS_CATALOG.filter(b => b.category === 'Goat').map((b) => (
+                        <option key={b.id} value={b.id}>
+                          {b.name} ({b.stateOfOrigin} - {b.productivity.primaryUtility})
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="🐕 Dog (Canis lupus familiaris - 12 Registered Breeds)">
+                      {INDIAN_BREEDS_CATALOG.filter(b => b.category === 'Dog').map((b) => (
                         <option key={b.id} value={b.id}>
                           {b.name} ({b.stateOfOrigin} - {b.productivity.primaryUtility})
                         </option>
@@ -473,48 +536,50 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({ onImageSelecte
             </div>
 
             {/* Category Filter Pills */}
-            <div className="flex items-center gap-1.5 self-start sm:self-auto">
-              {(['All', 'Cattle', 'Buffalo'] as const).map((cat) => (
+            <div className="flex items-center gap-1.5 self-start sm:self-auto flex-wrap">
+              {(['All', 'Cattle', 'Buffalo', 'Goat', 'Dog'] as const).map((cat) => (
                 <button
                   key={cat}
                   type="button"
                   onClick={() => setSampleCategoryFilter(cat)}
-                  className={`px-2.5 py-1 text-xs font-medium rounded-lg transition-colors ${
+                  className={`px-2.5 py-1 text-xs font-medium rounded-lg transition-colors cursor-pointer ${
                     sampleCategoryFilter === cat
-                      ? 'bg-amber-600 text-white shadow-sm'
+                      ? 'bg-emerald-800 text-white shadow-xs font-semibold'
                       : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
                   }`}
                 >
-                  {cat === 'All' ? 'All (14)' : cat === 'Cattle' ? 'Cattle (8)' : 'Buffalo (6)'}
+                  {cat === 'All' ? 'All Curated Specimens' : cat === 'Cattle' ? '🐂 Cattle' : cat === 'Buffalo' ? '🐃 Buffalo' : cat === 'Goat' ? '🐐 Goat' : '🐕 Dog'}
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5">
             {filteredSamples.map((sample) => {
               const isSelected = activeSample?.id === sample.id;
+              const emoji = sample.category === 'Cattle' ? '🐂' : sample.category === 'Buffalo' ? '🐃' : sample.category === 'Goat' ? '🐐' : '🐕';
+              const badgeClass =
+                sample.category === 'Cattle' ? 'bg-emerald-800 text-emerald-100' :
+                sample.category === 'Buffalo' ? 'bg-sky-900 text-sky-100' :
+                sample.category === 'Goat' ? 'bg-amber-800 text-amber-100' :
+                'bg-indigo-900 text-indigo-100';
+
               return (
                 <button
                   key={sample.id}
                   type="button"
                   onClick={() => handleSelectSample(sample)}
-                  className={`group text-left rounded-xl overflow-hidden border p-2 transition-all relative flex flex-col ${
+                  className={`group text-left rounded-xl overflow-hidden border p-2.5 transition-all relative flex flex-col cursor-pointer ${
                     isSelected
-                      ? 'border-amber-600 bg-amber-50 ring-2 ring-amber-500/40 shadow-md'
-                      : 'border-stone-200 bg-stone-50 hover:border-amber-400 hover:bg-white'
+                      ? 'border-emerald-600 bg-emerald-50 ring-2 ring-emerald-500/40 shadow-md'
+                      : 'border-stone-200 bg-stone-50 hover:border-emerald-400 hover:bg-white'
                   }`}
                 >
-                  <div className="aspect-[4/3] rounded-lg overflow-hidden bg-stone-200 mb-1.5 relative">
-                    <img
-                      src={sample.imageUrl}
-                      alt={sample.title}
-                      referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <span className={`absolute bottom-1 right-1 px-1.5 py-0.5 rounded text-[9px] font-bold backdrop-blur-xs ${
-                      sample.category === 'Cattle' ? 'bg-amber-900/80 text-amber-200' : 'bg-slate-900/80 text-blue-200'
-                    }`}>
+                  <div className="h-10 rounded-lg bg-stone-200/80 group-hover:bg-emerald-100 mb-2 flex items-center justify-between px-2.5 transition-colors">
+                    <span className="text-xl" role="img" aria-label={sample.category}>
+                      {emoji}
+                    </span>
+                    <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${badgeClass}`}>
                       {sample.category}
                     </span>
                   </div>

@@ -124,6 +124,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     // Navigation
     'nav.home': 'Home',
     'nav.classify': 'Classify',
+    'nav.map': 'Breed Map',
     'nav.breeds': 'Breeds',
     'nav.bioscience': 'Bioscience',
     'nav.history': 'History',

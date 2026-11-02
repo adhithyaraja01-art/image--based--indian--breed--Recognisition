@@ -2,12 +2,13 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { AppSettings, DEFAULT_SETTINGS, ThemeMode, LanguageCode } from '../types/settings';
 import { TRANSLATIONS } from '../i18n/translations';
 
-const SETTINGS_STORAGE_KEY = 'indian_bovine_app_settings_v1';
+const SETTINGS_STORAGE_KEY = 'indian_bovine_app_settings_v2';
 
 interface SettingsContextType {
   settings: AppSettings;
   updateSettings: (partial: Partial<AppSettings>) => void;
   resetSettings: () => void;
+  toggleTheme: () => void;
   t: (key: string, params?: Record<string, string | number>) => string;
   isDarkMode: boolean;
 }
@@ -20,7 +21,9 @@ export const SettingsProvider: React.FC<{ children: ReactNode }> = ({ children }
       const stored = localStorage.getItem(SETTINGS_STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        return { ...DEFAULT_SETTINGS, ...parsed };
+        // Default strictly to 'light' to prevent OS auto-activating full dark background
+        const theme: ThemeMode = parsed.theme === 'dark' ? 'dark' : 'light';
+        return { ...DEFAULT_SETTINGS, ...parsed, theme };
       }
     } catch (e) {
       console.warn('Could not load settings from localStorage', e);
@@ -44,14 +47,8 @@ export const SettingsProvider: React.FC<{ children: ReactNode }> = ({ children }
     const root = document.documentElement;
 
     const applyTheme = () => {
-      let shouldBeDark = false;
-      if (settings.theme === 'dark') {
-        shouldBeDark = true;
-      } else if (settings.theme === 'light') {
-        shouldBeDark = false;
-      } else if (settings.theme === 'system') {
-        shouldBeDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      }
+      // Only activate dark mode if explicitly chosen by user
+      const shouldBeDark = settings.theme === 'dark';
 
       setIsDarkMode(shouldBeDark);
 
@@ -65,14 +62,6 @@ export const SettingsProvider: React.FC<{ children: ReactNode }> = ({ children }
     };
 
     applyTheme();
-
-    // Listen to OS theme changes if system theme is chosen
-    if (settings.theme === 'system') {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      const handler = () => applyTheme();
-      mediaQuery.addEventListener('change', handler);
-      return () => mediaQuery.removeEventListener('change', handler);
-    }
   }, [settings.theme]);
 
   // Sync document language and text direction (for Urdu & Kashmiri RTL)
@@ -90,21 +79,28 @@ export const SettingsProvider: React.FC<{ children: ReactNode }> = ({ children }
     setSettings((prev) => ({ ...prev, ...partial }));
   };
 
+  const toggleTheme = () => {
+    setSettings((prev) => ({
+      ...prev,
+      theme: prev.theme === 'dark' ? 'light' : 'dark'
+    }));
+  };
+
   const resetSettings = () => {
     setSettings(DEFAULT_SETTINGS);
     try {
-      localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(DEFAULT_SETTINGS));
+      localStorage.removeItem(SETTINGS_STORAGE_KEY);
     } catch {}
   };
 
+  // Translation helper function
   const t = (key: string, params?: Record<string, string | number>): string => {
-    const lang = settings.language || 'en';
-    const dict = TRANSLATIONS[lang] || TRANSLATIONS.en;
-    let text = dict[key as keyof typeof dict] || TRANSLATIONS.en[key as keyof typeof TRANSLATIONS.en] || key;
+    const langDict = TRANSLATIONS[settings.language] || TRANSLATIONS['en'];
+    let text = langDict[key] || TRANSLATIONS['en'][key] || key;
 
     if (params) {
-      Object.entries(params).forEach(([pKey, pVal]) => {
-        text = text.replace(new RegExp(`\\{${pKey}\\}`, 'g'), String(pVal));
+      Object.entries(params).forEach(([paramKey, val]) => {
+        text = text.replace(new RegExp(`{{${paramKey}}}`, 'g'), String(val));
       });
     }
 
@@ -117,6 +113,7 @@ export const SettingsProvider: React.FC<{ children: ReactNode }> = ({ children }
         settings,
         updateSettings,
         resetSettings,
+        toggleTheme,
         t,
         isDarkMode
       }}
@@ -126,10 +123,10 @@ export const SettingsProvider: React.FC<{ children: ReactNode }> = ({ children }
   );
 };
 
-export function useSettings(): SettingsContextType {
+export const useSettings = (): SettingsContextType => {
   const context = useContext(SettingsContext);
   if (!context) {
     throw new Error('useSettings must be used within a SettingsProvider');
   }
   return context;
-}
+};

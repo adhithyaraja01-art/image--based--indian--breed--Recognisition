@@ -41,11 +41,23 @@ service cloud.firestore {
       return data.id is string && data.id.size() <= 128
         && data.userId is string && data.userId == request.auth.uid
         && data.breedName is string && data.breedName.size() <= 128
-        && data.category is string && (data.category == 'Cattle' || data.category == 'Buffalo')
+        && data.category is string && (data.category == 'Cattle' || data.category == 'Buffalo' || data.category == 'Goat' || data.category == 'Dog')
         && data.confidence is number && data.confidence >= 0 && data.confidence <= 100
         && data.timestamp is number
         && data.keys().hasAll(['id', 'userId', 'breedName', 'category', 'confidence', 'timestamp'])
         && data.keys().hasOnly(['id', 'userId', 'userEmail', 'breedName', 'vernacularName', 'category', 'scientificName', 'confidence', 'stateOfOrigin', 'homeTract', 'utility', 'nbagrCode', 'notes', 'timestamp']);
+    }
+
+    // Favorite Breed Validation
+    function isValidFavoriteBreed(data, userId) {
+      return data.id is string && data.id.size() <= 128
+        && data.userId is string && data.userId == userId && data.userId == request.auth.uid
+        && data.breedId is string && data.breedId.size() <= 128
+        && data.breedName is string && data.breedName.size() <= 128
+        && data.category is string && (data.category == 'Cattle' || data.category == 'Buffalo' || data.category == 'Goat' || data.category == 'Dog')
+        && data.timestamp is number
+        && data.keys().hasAll(['id', 'userId', 'breedId', 'breedName', 'category', 'timestamp'])
+        && data.keys().hasOnly(['id', 'userId', 'breedId', 'breedName', 'category', 'stateOfOrigin', 'timestamp']);
     }
 
     // Project Observation Validation
@@ -67,6 +79,13 @@ service cloud.firestore {
       allow update: if isOwner(userId) && isValidUserProfile(incoming())
         && incoming().uid == existing().uid;
       allow delete: if false;
+
+      // Subcollection: /users/{userId}/favorites/{breedId}
+      match /favorites/{breedId} {
+        allow get, list: if isOwner(userId);
+        allow create, update: if isOwner(userId) && isValidId(breedId) && isValidFavoriteBreed(incoming(), userId);
+        allow delete: if isOwner(userId);
+      }
     }
 
     // Collection: /scans/{scanId}

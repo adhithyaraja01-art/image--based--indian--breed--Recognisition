@@ -1,7 +1,7 @@
 import * as tf from '@tensorflow/tfjs';
 import * as mobilenet from '@tensorflow-models/mobilenet';
 import { ClassificationResult, BreedCategory } from '../types/breed';
-import { INDIAN_BOVINE_BREEDS } from '../data/indigenousBreeds';
+import { INDIAN_BREEDS_CATALOG, INDIAN_BOVINE_BREEDS } from '../data/indigenousBreeds';
 import { breedToClassificationResult, findCatalogBreed } from '../utils/classifierLogic';
 
 let cachedModel: mobilenet.MobileNet | null = null;
@@ -191,7 +191,8 @@ export function analyzeImagePhenotype(img: HTMLImageElement): MeasuredVisualPhen
  */
 export async function classifyWithPretrainedModel(
   imageSource: string | HTMLImageElement,
-  optionalHint?: string
+  optionalHint?: string,
+  selectedCategory?: BreedCategory | 'All'
 ): Promise<ClassificationResult> {
   const startTime = performance.now();
 
@@ -225,53 +226,63 @@ export async function classifyWithPretrainedModel(
 
   const inferenceDuration = Math.round(performance.now() - startTime);
 
-  // 3. Inspect MobileNet ImageNet classes
+  // 3. Inspect MobileNet ImageNet classes for all 4 categories
   const buffaloClassKeywords = ['water buffalo', 'bubalus bubalis', 'water ox', 'bison'];
   const cattleClassKeywords = ['ox', 'cow', 'dairy cow', 'bull', 'cattle', 'zebu'];
-  const nonBovineNegativeKeywords = [
-    'dog', 'cat', 'horse', 'bird', 'car', 'vehicle', 'pizza', 'sandwich',
-    'laptop', 'computer', 'chair', 'person', 'cellular telephone'
-  ];
+  const goatClassKeywords = ['goat', 'capra', 'ibex', 'ram', 'bighorn', 'mountain goat'];
+  const dogClassKeywords = ['dog', 'hound', 'sighthound', 'whippet', 'greyhound', 'dingo', 'terrier', 'saluki', 'shepherd', 'mastiff', 'retriever', 'collie', 'spitz', 'pinscher', 'pug', 'canine'];
 
   let buffaloProbSum = 0;
   let cattleProbSum = 0;
-  let nonBovineTopProb = 0;
-  let nonBovineTopName = '';
+  let goatProbSum = 0;
+  let dogProbSum = 0;
 
   for (const pred of rawPredictions) {
     const lower = pred.className.toLowerCase();
     for (const kw of buffaloClassKeywords) {
-      if (lower.includes(kw)) {
-        buffaloProbSum += pred.probability;
-      }
+      if (lower.includes(kw)) buffaloProbSum += pred.probability;
     }
     for (const kw of cattleClassKeywords) {
-      if (lower.includes(kw)) {
-        cattleProbSum += pred.probability;
-      }
+      if (lower.includes(kw)) cattleProbSum += pred.probability;
     }
-    for (const kw of nonBovineNegativeKeywords) {
-      if (lower.includes(kw) && pred.probability > nonBovineTopProb) {
-        nonBovineTopProb = pred.probability;
-        nonBovineTopName = pred.className;
-      }
+    for (const kw of goatClassKeywords) {
+      if (lower.includes(kw)) goatProbSum += pred.probability;
+    }
+    for (const kw of dogClassKeywords) {
+      if (lower.includes(kw)) dogProbSum += pred.probability;
     }
   }
 
-  // Check if specimen is non-bovine with strong confidence
-  const isNonBovine = nonBovineTopProb > 0.45 && buffaloProbSum + cattleProbSum < 0.20;
+  const totalTargetProb = buffaloProbSum + cattleProbSum + goatProbSum + dogProbSum;
+  const topRawPrediction = rawPredictions[0];
+  const isNonTarget = totalTargetProb < 0.12 && topRawPrediction && topRawPrediction.probability > 0.35;
+  const nonTargetName = topRawPrediction ? topRawPrediction.className : '';
+  const nonTargetProb = topRawPrediction ? topRawPrediction.probability : 0;
 
-  // Determine species likelihood from real neural logits and pigmentation
-  const speciesLeansBuffalo =
-    buffaloProbSum > cattleProbSum ||
-    (phenotype.blacknessRatio > 0.42 && buffaloProbSum > 0.05);
-
-  const detectedCategory: BreedCategory = speciesLeansBuffalo ? 'Buffalo' : 'Cattle';
-
-  // 4. Score all 73 ICAR-NBAGR registered breeds against measured traits
   const lowerHint = (optionalHint || '').toLowerCase().trim();
 
-  const scoredBreeds = INDIAN_BOVINE_BREEDS.map((breed) => {
+  // Determine detected category
+  let detectedCategory: BreedCategory;
+  if (selectedCategory && selectedCategory !== 'All') {
+    detectedCategory = selectedCategory;
+  } else if (lowerHint.includes('dog') || lowerHint.includes('hound') || lowerHint.includes('kutta')) {
+    detectedCategory = 'Dog';
+  } else if (lowerHint.includes('goat') || lowerHint.includes('bakri') || lowerHint.includes('pashmina')) {
+    detectedCategory = 'Goat';
+  } else if (dogProbSum > 0.25 && dogProbSum > buffaloProbSum && dogProbSum > cattleProbSum) {
+    detectedCategory = 'Dog';
+  } else if (goatProbSum > 0.20 && goatProbSum > buffaloProbSum && goatProbSum > cattleProbSum) {
+    detectedCategory = 'Goat';
+  } else if (buffaloProbSum > cattleProbSum || (phenotype.blacknessRatio > 0.42 && buffaloProbSum > 0.05)) {
+    detectedCategory = 'Buffalo';
+  } else {
+    detectedCategory = 'Cattle';
+  }
+
+  // 4. Score registered breeds against measured traits
+  const catalog = INDIAN_BREEDS_CATALOG.length > 0 ? INDIAN_BREEDS_CATALOG : INDIAN_BOVINE_BREEDS;
+
+  const scoredBreeds = catalog.map((breed) => {
     let score = 50;
 
     // Species alignment
@@ -381,8 +392,8 @@ export async function classifyWithPretrainedModel(
     }
   ];
 
-  if (isNonBovine) {
-    baseResult.nonBovineWarning = `MobileNet v2 neural classification detected: ${nonBovineTopName} (${(nonBovineTopProb * 100).toFixed(1)}%). This image does not show a registered Indian bovine or riverine buffalo.`;
+  if (isNonTarget) {
+    baseResult.nonBovineWarning = `MobileNet v2 neural classification detected: ${nonTargetName} (${(nonTargetProb * 100).toFixed(1)}%). This image does not show a registered Indian cattle, buffalo, goat, or dog breed.`;
   }
 
   baseResult.aiModelInfo = {
