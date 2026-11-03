@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BreedInfo } from '../types/breed';
 import { X, MapPin, ShieldCheck, HeartHandshake, Activity, Layers, ArrowLeftRight, Dna, ExternalLink, Star, FileText } from 'lucide-react';
 import { generateBreedSvgDataUri } from '../utils/breedSvgBadge';
+import { BreedSpecimenImage } from './BreedSpecimenImage';
 import { useAuth } from '../firebase/authContext';
 import { toggleFavoriteBreedInFirestore, fetchUserFavorites } from '../firebase/firestoreService';
 import { DetailedBreedReportSection } from './DetailedBreedReportSection';
@@ -146,16 +147,12 @@ export const BreedModal: React.FC<BreedModalProps> = ({ breed, onClose, onCompar
             </div>
 
             <div className="md:col-span-4">
-              <div className="relative rounded-2xl overflow-hidden border border-white/20 aspect-[4/3] bg-stone-800 shadow-md">
-                <img
-                  src={breed.imageUrl.replace('/src/assets/images/', '/assets/images/')}
-                  alt={`${breed.name} ${breed.category}`}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.src = generateBreedSvgDataUri(breed.name, breed.category, breed.nbagrCode, 'light');
-                  }}
-                />
-              </div>
+              <BreedSpecimenImage
+                breed={breed}
+                aspectRatioClass="aspect-[4/3]"
+                className="rounded-2xl border border-white/20 shadow-md"
+                showBadges={false}
+              />
             </div>
           </div>
         </div>

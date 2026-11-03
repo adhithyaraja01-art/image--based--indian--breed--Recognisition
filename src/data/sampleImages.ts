@@ -1,5 +1,5 @@
 import { ClassificationResult, BreedCategory } from '../types/breed';
-import { breedToClassificationResult, findCatalogBreed } from '../utils/classifierLogic';
+import { breedToClassificationResult, findCatalogBreed, createForeignBreedClassificationResult } from '../utils/classifierLogic';
 import { INDIAN_BREEDS_CATALOG } from './indigenousBreeds';
 import { generateBreedSvgDataUri } from '../utils/breedSvgBadge';
 
@@ -11,6 +11,25 @@ export interface SampleImageItem {
   state: string;
   imageUrl: string;
   precomputedResult: ClassificationResult;
+}
+
+function getForeignResultFor(breedKey: string, fallbackConfidence = 96): ClassificationResult {
+  const res = createForeignBreedClassificationResult(breedKey, fallbackConfidence);
+  return {
+    ...res,
+    aiModelInfo: {
+      modelName: 'Google MobileNet v2 (Pre-Trained ImageNet CNN)',
+      modelType: 'On-Device MobileNet v2',
+      inferenceTimeMs: 38,
+      topRawPredictions: [
+        {
+          className: res.predictedBreed,
+          probability: parseFloat((fallbackConfidence / 100).toFixed(4))
+        }
+      ],
+      tensorResolution: '224 x 224 x 3 (RGB Float32)'
+    }
+  };
 }
 
 function getResultFor(breedName: string, fallbackConfidence = 96): ClassificationResult {
@@ -213,5 +232,50 @@ export const SAMPLE_BREED_IMAGES: SampleImageItem[] = [
     state: 'Maharashtra',
     imageUrl: generateBreedSvgDataUri('Pandharpuri', 'Buffalo', 'INDIA_BUFFALO_1100_PANDHARPURI_01005'),
     precomputedResult: getResultFor('Pandharpuri', 96)
+  },
+  {
+    id: 'sample-foreign-holstein',
+    title: 'Holstein Friesian (Foreign Breed)',
+    subtitle: 'Exotic Bos taurus dairy cow with piebald black-and-white coat (No hump)',
+    category: 'Cattle',
+    state: 'Netherlands / Germany (Exotic)',
+    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    precomputedResult: getForeignResultFor('holstein', 98)
+  },
+  {
+    id: 'sample-foreign-german-shepherd',
+    title: 'German Shepherd (Foreign Breed)',
+    subtitle: 'Exotic working dog breed of European origin with erect ears & saddle coat',
+    category: 'Dog',
+    state: 'Germany (Exotic)',
+    imageUrl: 'https://images.unsplash.com/photo-1589941013453-ec89f33b5455?auto=format&fit=crop&w=800&q=80',
+    precomputedResult: getForeignResultFor('german shepherd', 97)
+  },
+  {
+    id: 'sample-foreign-boer',
+    title: 'Boer Goat (Foreign Breed)',
+    subtitle: 'Exotic heavy meat goat with white body and reddish-brown head',
+    category: 'Goat',
+    state: 'South Africa (Exotic)',
+    imageUrl: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=800&q=80',
+    precomputedResult: getForeignResultFor('boer', 96)
+  },
+  {
+    id: 'sample-foreign-rottweiler',
+    title: 'Rottweiler (Foreign Breed)',
+    subtitle: 'Exotic German molosser guard dog with black and rust-tan markings',
+    category: 'Dog',
+    state: 'Germany (Exotic)',
+    imageUrl: 'https://images.unsplash.com/photo-1567752881298-894bb81f9379?auto=format&fit=crop&w=800&q=80',
+    precomputedResult: getForeignResultFor('rottweiler', 97)
+  },
+  {
+    id: 'sample-foreign-jersey',
+    title: 'Jersey Cattle (Foreign Breed)',
+    subtitle: 'Exotic British Bos taurus dairy cow with fawn coat and dark points',
+    category: 'Cattle',
+    state: 'United Kingdom (Exotic)',
+    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    precomputedResult: getForeignResultFor('jersey', 96)
   }
 ];

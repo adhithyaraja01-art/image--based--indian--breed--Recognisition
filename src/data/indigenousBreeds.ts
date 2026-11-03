@@ -319,7 +319,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Balanced green sorghum and wheat straw feeding',
       'Dry shed bedding during monsoon months'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=800&q=80',
     tags: ['Dual-Purpose', 'Haryana', 'North India', 'A2 Milk', 'ICAR-NBAGR 03011']
   },
   {
@@ -364,7 +364,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'High-dry fodder supplemented with oil cakes',
       'Tick dip management in semi-arid grazing tracts'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=800&q=80',
     tags: ['Dual-Purpose', 'Maharashtra', 'Karnataka', 'Spotted Coat', 'ICAR-NBAGR 03007']
   },
   {
@@ -409,7 +409,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Feeds well on desert shrubs like Khejri leaves and Sewan grass',
       'Water provision during peak scorching afternoon hours'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=800&q=80',
     tags: ['Milch', 'Rajasthan', 'Thar Desert', 'A2 Milk', 'ICAR-NBAGR 03024']
   },
   {
@@ -454,7 +454,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Maintain strong hoof hygiene in black cotton mud',
       'Concentrate feed supplementation during heavy plowing seasons'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1596733430284-f7437764b14d?auto=format&fit=crop&w=800&q=80',
     tags: ['Heavy Draught', 'Karnataka', 'Maharashtra', 'Krishna River', 'ICAR-NBAGR 03018']
   },
   {
@@ -589,7 +589,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Extensive rangeland grazing (Kaval lands)',
       'Requires gentle handling to manage high-spirited temperament'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1560493676-04071c5f467b?auto=format&fit=crop&w=800&q=80',
     tags: ['Military Draught', 'Tipu Sultan', 'Karnataka', 'Mysore', 'ICAR-NBAGR 03001']
   },
   {
@@ -634,7 +634,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'High-protein oil cakes for working draft bullocks',
       'Routine hoof trimming for hard road trotting'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1541625602330-2277a4c46182?auto=format&fit=crop&w=800&q=80',
     tags: ['Fast Trotter', 'Draught', 'Maharashtra', 'Karnataka', 'ICAR-NBAGR 03017']
   },
   {
@@ -679,7 +679,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Maintain forest grazing access in Bargur hill ranges',
       'Protection from wild predators (leopards) via community enclosures'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1547407139-3c921a66005c?auto=format&fit=crop&w=800&q=80',
     tags: ['Hill Draught', 'Bargur Hills', 'Tamil Nadu', 'Western Ghats', 'ICAR-NBAGR 03004']
   },
   {
@@ -724,7 +724,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Paddy straw feeding enriched with urea-molasses blocks',
       'Hoof care after prolonged waterlogged plowing'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1579613832125-5d34a13ffe0a?auto=format&fit=crop&w=800&q=80',
     tags: ['Cauvery Delta', 'Paddy Puddling', 'Tamil Nadu', 'Draught', 'ICAR-NBAGR 03029']
   },
   {
@@ -769,7 +769,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Migratory penning on harvested fields for organic soil manuring',
       'Daily walking exercise across arid thorn scrub'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=80',
     tags: ['Jallikattu', 'Tamil Nadu', 'Agile Draught', 'Migratory Herds', 'ICAR-NBAGR 03035']
   },
   {
@@ -814,7 +814,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Forest fringe grazing with supplementary coarse grass',
       'Hoof maintenance on rocky terrain'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1584447141399-be2c62da6a14?auto=format&fit=crop&w=800&q=80',
     tags: ['Hill Draught', 'Dharmapuri', 'Tamil Nadu', 'ICAR-NBAGR 03002']
   },
   {
@@ -859,7 +859,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Nutritious sorghum straw and gram crop residue',
       'Provide spacious shaded stalls'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1533738363-b7f9aef128ce?auto=format&fit=crop&w=800&q=80',
     tags: ['Malwa Plateau', 'Heavy Draught', 'Madhya Pradesh', 'ICAR-NBAGR 03019']
   },
   {
@@ -904,7 +904,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Balanced green fodder with pulse husks',
       'Regular vaccination against seasonal epidemics'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1545468800-85cc9bc6ecf7?auto=format&fit=crop&w=800&q=80',
     tags: ['Nimar', 'Narmada Valley', 'Madhya Pradesh', 'Draught', 'ICAR-NBAGR 03020']
   },
   {
@@ -949,7 +949,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Maintain adequate dry bedding during heavy monsoon months',
       'Provide coarse mountain grass supplemented with oilseed cakes'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&w=800&q=80',
     tags: ['Rain Resistant', 'Western Ghats', 'Maharashtra', 'Draught', 'ICAR-NBAGR 03006']
   },
   {
@@ -994,7 +994,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Balanced green fodder with cotton seed cakes',
       'Clean housing with proper airflow'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=800&q=80',
     tags: ['Vidarbha', 'Dual Purpose', 'Roman Nose', 'Maharashtra', 'ICAR-NBAGR 03008']
   },
   {
@@ -1039,7 +1039,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'High-energy coarse grain supplementation for working trotters',
       'Adequate water provision in hot arid seasons'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=800&q=80',
     tags: ['Fast Trotter', 'Nagaur', 'Rajasthan', 'Draught', 'ICAR-NBAGR 03021']
   },
   {
@@ -1084,7 +1084,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Legume fodder and wheat straw mix',
       'Clean dry shed conditions'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1612837017391-4b6b7b0d0be0?auto=format&fit=crop&w=800&q=80',
     tags: ['Mewat', 'Dual Purpose', 'Haryana', 'Rajasthan', 'ICAR-NBAGR 03020']
   },
   {
@@ -1129,7 +1129,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Pasture grazing on natural Terai grasslands',
       'Timely vaccination against seasonal vector diseases'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=800&q=80',
     tags: ['Terai Region', 'Uttar Pradesh', 'Draught', 'Marsh Resilient', 'ICAR-NBAGR 03016']
   },
   {
@@ -1174,7 +1174,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Mineral licks during severe summer drought',
       'Shelter from intense dry hot winds (Loo)'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1618042164219-62c820f10723?auto=format&fit=crop&w=800&q=80',
     tags: ['Bundelkhand', 'Ken River', 'Drought Resilient', 'Draught', 'ICAR-NBAGR 03015']
   },
   {
@@ -1219,7 +1219,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Maintain forest grazing access',
       'Seasonal parasite control'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?auto=format&fit=crop&w=800&q=80',
     tags: ['Pilibhit', 'Uttar Pradesh', 'Foothills', 'Draught', 'ICAR-NBAGR 03023']
   },
   {
@@ -1264,7 +1264,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'High mountain grazing supplemented with maize flour mash',
       'Protection from severe winter snowstorms'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80',
     tags: ['Himalayan Zebu', 'Sikkim', 'Darjeeling', 'Cold Adapted', 'ICAR-NBAGR 03027']
   },
   {
@@ -1354,7 +1354,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Economical upkeep; requires small quantities of green fodder and dry grass',
       'Conserved at dedicated state breeding farms in Andhra Pradesh'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=800&q=80',
     tags: ['Miniature Cow', 'Rayalaseema', 'Andhra Pradesh', 'High Butterfat', 'ICAR-NBAGR 03031']
   },
   {
@@ -1399,7 +1399,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Natural orchard grazing and kitchen residue browsing',
       'Provides superior organic bio-manure (Jeevamrutha)'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=800&q=80',
     tags: ['Dwarf Cow', 'Kerala', 'Natural Farming', 'Kasargod', 'ICAR-NBAGR 03032']
   },
   {
@@ -1444,7 +1444,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Free forest grazing on wild herbs and bamboo leaves',
       'Provides prized manure for arecanut and cardamom cultivation'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1605007493699-ce65834703a3?auto=format&fit=crop&w=800&q=80',
     tags: ['Malnad', 'Western Ghats', 'Dwarf Cow', 'Karnataka', 'ICAR-NBAGR 03037']
   },
   {
@@ -1489,7 +1489,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Seasonal grazing supplemented with mustard cake',
       'Regular foot health monitoring during migration'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80',
     tags: ['Shivalik Hills', 'Gujjar Pastoral', 'Haryana', 'Dual-Purpose', 'ICAR-NBAGR 03038']
   },
   {
@@ -1534,7 +1534,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'River bank grazing on natural Dub and Kans grasses',
       'Dry stall flooring during monsoon river flooding'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=800&q=80',
     tags: ['Ganga River', 'Varanasi', 'Uttar Pradesh', 'Bihar', 'Dual-Purpose', 'ICAR-NBAGR 03039']
   },
   {
@@ -1579,7 +1579,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Open hill grazing on Oak (Banj), Rhododendron, and alpine herbal pastures',
       'Provide warm stone cowsheds (Goth) during freezing winter snows'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1541599540903-216a46ca1dc0?auto=format&fit=crop&w=800&q=80',
     tags: ['Uttarakhand', 'Himalayan Cow', 'Medicinal Milk', 'Badri', 'ICAR-NBAGR 03040']
   },
   {
@@ -1624,7 +1624,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Grazing on riparian floodplains (Chaporis)',
       'Flood season elevated shelter and stored rice straw feeding'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?auto=format&fit=crop&w=800&q=80',
     tags: ['Assam', 'Brahmaputra', 'Wetland Cattle', 'Lakhimi', 'ICAR-NBAGR 03041']
   },
   {
@@ -1669,7 +1669,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Alfalfa (Ole) and barley straw winter feeding',
       'Warm traditional earth-insulated shelters during frozen Himalayan winter'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1558788353-f76d92427f16?auto=format&fit=crop&w=800&q=80',
     tags: ['Ladakh', 'Cold Arid Desert', 'High Altitude', 'Hypoxia Adapted', 'ICAR-NBAGR 03042']
   },
   {
@@ -1714,7 +1714,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Pasture grazing on coastal plateaus and cashew/coconut orchards',
       'Dry shed flooring during heavy southwest monsoon'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1561037404-61cd46aa615b?auto=format&fit=crop&w=800&q=80',
     tags: ['Konkan', 'Goa', 'Coastal Zebu', 'Dual Purpose', 'ICAR-NBAGR 03043']
   },
   {
@@ -1759,7 +1759,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Orchard grazing in spice and coconut plantations',
       'Balanced mineral supplements'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=800&q=80',
     tags: ['Goa', 'Pure White', 'Sacred Cow', 'Milch', 'ICAR-NBAGR 03044']
   },
   {
@@ -1804,7 +1804,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Silvopastoral thorn scrub grazing',
       'Adequate water provision in hot arid seasons'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1574158622682-e40e69881006?auto=format&fit=crop&w=800&q=80',
     tags: ['Aravalli Hills', 'Rajasthan', 'Gujarat', 'Rebari', 'ICAR-NBAGR 03045']
   },
   {
@@ -1849,7 +1849,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Forest fringe browsing and crop residue feeding',
       'Protection against common seasonal livestock diseases'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&w=800&q=80',
     tags: ['Gujarat Tribal', 'Dahod', 'Draught', 'Dagri', 'ICAR-NBAGR 03046']
   },
   {
@@ -1894,7 +1894,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Forest grazing in designated community forest pastures',
       'Salt licks provided at community gathering enclosures'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=800&q=80',
     tags: ['Nagaland', 'Hill Cattle', 'Naga Heritage', 'Thutho', 'ICAR-NBAGR 03047']
   },
   {
@@ -1939,7 +1939,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Forest browsing on oak leaves and alpine meadow grasses',
       'Warm winter shed protection during snowfall'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1583511655826-05700d52f4d9?auto=format&fit=crop&w=800&q=80',
     tags: ['Himachal Pradesh', 'Western Himalayas', 'Pahari Cow', 'ICAR-NBAGR 03048']
   },
   {
@@ -1984,7 +1984,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Supplement coarse grasses with pulse husks',
       'Vaccination against Haemorrhagic Septicaemia (HS) during monsoons'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?auto=format&fit=crop&w=800&q=80',
     tags: ['Bihar', 'Kosi Floodplains', 'Dual Purpose', 'Purnea', 'ICAR-NBAGR 03049']
   },
   {
@@ -2029,7 +2029,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Forest pasture grazing supplemented with rice bran',
       'Routine vaccination against endemic hemorrhagic septicemia'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1583512603806-077998240c7a?auto=format&fit=crop&w=800&q=80',
     tags: ['Gadchiroli', 'Vidarbha', 'Gond Heritage', 'Draught', 'ICAR-NBAGR 03050']
   },
   {
@@ -2074,7 +2074,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'High-fibre dry fodder with pearl millet (Bajra) stover',
       'Ample water during summer heat spikes'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1586671267731-dae08276a899?auto=format&fit=crop&w=800&q=80',
     tags: ['Sanchore', 'Rajasthan', 'Thar Border', 'Dual Purpose', 'ICAR-NBAGR 03051']
   },
   {
@@ -2119,7 +2119,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Hill grazing supplemented with rice beer mash residues',
       'Protection from prolonged damp monsoon bedding'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1598133894008-61f7fdb8cc3a?auto=format&fit=crop&w=800&q=80',
     tags: ['Meghalaya', 'Khasi Hills', 'Cloud Forest', 'Masilum', 'ICAR-NBAGR 03052']
   },
   {
@@ -2164,7 +2164,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Rice straw and mustard cake concentrate',
       'Provide clean shaded sheds'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1508873696983-2df5293cb325?auto=format&fit=crop&w=800&q=80',
     tags: ['Mithila', 'Bihar', 'Draught', 'Bachaur', 'ICAR-NBAGR 03003']
   },
   {
@@ -2209,7 +2209,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Paddy straw supplemented with green fodder',
       'Monsoon flood disease preventive vaccinations'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=800&q=80',
     tags: ['Odisha', 'Coastal Delta', 'Dual Purpose', 'Binjharpuri', 'ICAR-NBAGR 03033']
   },
   {
@@ -2254,7 +2254,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Forest fringe grazing and crop residue feeding',
       'Hoof hygiene during monsoon field work'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=800&q=80',
     tags: ['Ganjam', 'Eastern Ghats', 'Odisha', 'Draught', 'ICAR-NBAGR 03034']
   },
   {
@@ -2299,7 +2299,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Forest grazing on wild grasses and fallen forest pods',
       'Provide salt licks during dry summer months'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?auto=format&fit=crop&w=800&q=80',
     tags: ['Dandakaranya', 'Odisha', 'Tribal Draught', 'Motu', 'ICAR-NBAGR 03036']
   },
   {
@@ -2344,7 +2344,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'High-protein sorghum stover and groundnut cake supplementation',
       'Clean dry flooring to protect hooves in black cotton mud'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80',
     tags: ['Marathwada', 'Deep Red', 'Draught', 'Maharashtra', 'ICAR-NBAGR 03025']
   },
   {
@@ -2389,7 +2389,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Substantial green fodder and dry roughage feeding',
       'Spacious open paddocks for heavy working bulls'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1568640347023-a616a30bc3bd?auto=format&fit=crop&w=800&q=80',
     tags: ['Heavy Dual-Purpose', 'Hisar', 'Haryana', 'Draught', 'ICAR-NBAGR 03012']
   },
 
@@ -2485,7 +2485,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'River or pond wallowing for optimal thermal balance',
       'High-protein green berseem and silage feeding'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1527153857715-3908f2ae5e81?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1527661591475-527312dd65f5?auto=format&fit=crop&w=800&q=80',
     tags: ['Panch Kalyani', 'Wall Eyes', 'Punjab', 'Sutlej-Ravi', 'Milch', 'ICAR-NBAGR 04009']
   },
   {
@@ -2665,7 +2665,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Balanced green fodder (lucerne/sorghum) and cottonseed cake',
       'Regular wallowing or water spraying in summer'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1527153857715-3908f2ae5e81?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&w=800&q=80',
     tags: ['Mehsana', 'Dudhsagar', 'High Persistency', 'Milch', 'ICAR-NBAGR 04006']
   },
   {
@@ -2710,7 +2710,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Economical keeper; thrives on coarse sorghum stover and cotton seed',
       'Can work effectively even in hot dry afternoons'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1527153857715-3908f2ae5e81?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1534361960057-19889db9621e?auto=format&fit=crop&w=800&q=80',
     tags: ['Sword Horns', 'Vidarbha', 'Maharashtra', 'Dual Purpose', 'ICAR-NBAGR 04007']
   },
   {
@@ -2800,7 +2800,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Substantial crop residues (sorghum and cotton stalks)',
       'Water provision during hot dry afternoons'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1527153857715-3908f2ae5e81?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1583511655826-05700d52f4d9?auto=format&fit=crop&w=800&q=80&buffalo=marathwadi',
     tags: ['Marathwada', 'Drought Resilient', 'Maharashtra', 'Dual Purpose', 'ICAR-NBAGR 04005']
   },
   {
@@ -2890,7 +2890,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Access to natural Banni halophytic grasses (Dhaman, Khaval)',
       'Fresh drinking water ponds (Viradas) maintained by pastoralists'
     ],
-    imageUrl: '/src/assets/images/specimen_banni_buffalo_1792850501777.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80&buffalo=banni',
     tags: ['Night Grazer', 'Banni Grasslands', 'Kutch', 'Gujarat', 'ICAR-NBAGR 04012']
   },
   {
@@ -2935,7 +2935,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Preserve access to Chilika lagoon grazing paths',
       'Minimal stall feeding required due to abundant aquatic macrophytes'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1527153857715-3908f2ae5e81?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1561037404-61cd46aa615b?auto=format&fit=crop&w=800&q=80&buffalo=chilika',
     tags: ['Chilika Lake', 'Brackish Water', 'Odisha', 'Chilika Curd', 'ICAR-NBAGR 04014']
   },
   {
@@ -2980,7 +2980,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Forest grazing on native grasses and bamboo leaves',
       'Dry stall conditions'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1527153857715-3908f2ae5e81?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=800&q=80&buffalo=kalahandi',
     tags: ['Kalahandi', 'Odisha', 'Dual Purpose', 'ICAR-NBAGR 04015']
   },
   {
@@ -3025,7 +3025,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'River wallowing in Mahanadi river channels',
       'Paddy straw and green fodder supplementation'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1527153857715-3908f2ae5e81?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?auto=format&fit=crop&w=800&q=80&buffalo=sambalpuri',
     tags: ['Sambalpur', 'Mahanadi Basin', 'Odisha', 'Dual Purpose', 'ICAR-NBAGR 04016']
   },
   {
@@ -3070,7 +3070,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Forest grazing on bamboo leaves and hill grasses',
       'Predator protection in community enclosures'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1527153857715-3908f2ae5e81?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1583512603806-077998240c7a?auto=format&fit=crop&w=800&q=80&buffalo=bargur',
     tags: ['Bargur Hills', 'Tamil Nadu', 'Western Ghats', 'Hill Buffalo', 'ICAR-NBAGR 04017']
   },
   {
@@ -3115,7 +3115,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Paddy straw and pond wallowing',
       'Timely vaccination against hemorrhagic septicemia'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1527153857715-3908f2ae5e81?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1586671267731-dae08276a899?auto=format&fit=crop&w=800&q=80&buffalo=chhattisgarhi',
     tags: ['Chhattisgarh', 'Rice Bowl', 'Dual Purpose', 'ICAR-NBAGR 04018']
   },
   {
@@ -3160,7 +3160,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Seasonal pasture grazing along Shivalik riverbeds',
       'Foot health maintenance during long trekking seasons'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1527153857715-3908f2ae5e81?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1588943211346-0908a1fb0b01?auto=format&fit=crop&w=800&q=80&buffalo=gojri',
     tags: ['Gujjar Pastoral', 'Shivalik Hills', 'Punjab', 'Himachal', 'Milch', 'ICAR-NBAGR 04019']
   },
   {
@@ -3205,7 +3205,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Jowar stover and green maize fodder',
       'Daily water bathing or wallowing'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1527153857715-3908f2ae5e81?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1598133894008-61f7fdb8cc3a?auto=format&fit=crop&w=800&q=80&buffalo=dharwadi',
     tags: ['Dharwad Peda', 'Karnataka', 'High Solids', 'Milch', 'ICAR-NBAGR 04020']
   },
   {
@@ -3250,7 +3250,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Hill pasture grazing and crop residue feeding',
       'Shelter during heavy torrential monsoon'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1527153857715-3908f2ae5e81?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=800&q=80&buffalo=manda',
     tags: ['Koraput', 'Eastern Ghats', 'Odisha', 'Andhra Pradesh', 'Dual Purpose', 'ICAR-NBAGR 04021']
   },
   {
@@ -3295,7 +3295,7 @@ export const INDIAN_BOVINE_BREEDS: BreedInfo[] = [
       'Purna river or village pond wallowing',
       'Cotton seed cake and sorghum straw feeding'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1527153857715-3908f2ae5e81?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=800&q=80&buffalo=purnathadi',
     tags: ['Purna River', 'Vidarbha', 'Maharashtra', 'Dual Purpose', 'ICAR-NBAGR 04022']
   }
 ];
@@ -3481,7 +3481,7 @@ export const INDIAN_GOAT_BREEDS: BreedInfo[] = [
       'Open backyard free-range foraging with kitchen waste and green grass',
       'Provide dry warm shelter during heavy monsoon downpours'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=800&q=80',
     tags: ['Meat', 'Leather', 'Prolific', 'West Bengal', 'Sundarbans', 'ICAR-NBAGR 06004']
   },
   {
@@ -3524,7 +3524,7 @@ export const INDIAN_GOAT_BREEDS: BreedInfo[] = [
       'Thrives on thorny scrub and tree foliage (Khejri, Ber, Kikar)',
       'Periodic mineral supplementation in summer'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1560807707-8cc77767d783?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1533450718592-29d45635f0a9?auto=format&fit=crop&w=800&q=80',
     tags: ['Rajasthan', 'Aravalli', 'Dual Purpose', 'Rebari', 'ICAR-NBAGR 06005']
   },
   {
@@ -3567,7 +3567,7 @@ export const INDIAN_GOAT_BREEDS: BreedInfo[] = [
       'Rotational grazing on scrub grasslands and pigeonpea stalks',
       'Deworming before and after monsoon'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1535083783855-76ae62b2914e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?auto=format&fit=crop&w=800&q=80&goat=osmanabadi',
     tags: ['Maharashtra', 'Marathwada', 'Meat Goat', 'Black Coat', 'ICAR-NBAGR 06006']
   },
   {
@@ -3611,7 +3611,7 @@ export const INDIAN_GOAT_BREEDS: BreedInfo[] = [
       'Combing (not shearing) in spring to harvest fine undercoat',
       'Protected winter corrals against snowstorms and Himalayan wolves'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=800&q=80&goat=changthangi',
     tags: ['Pashmina', 'Ladakh', 'Changthang', 'Cashmere', 'ICAR-NBAGR 06010']
   },
   {
@@ -3654,7 +3654,7 @@ export const INDIAN_GOAT_BREEDS: BreedInfo[] = [
       'Jackfruit leaves, hybrid Napier grass, and coconut oil cake feeding',
       'Elevated wooden slatted goat sheds for humid hygiene'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1560807707-8cc77767d783?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80&goat=malabari',
     tags: ['Kerala', 'Malabar', 'Tellicherry', 'Dual Purpose', 'ICAR-NBAGR 06008']
   },
   {
@@ -3694,7 +3694,7 @@ export const INDIAN_GOAT_BREEDS: BreedInfo[] = [
     historicalSignificance: 'Bred in the historic Mewat tract. Named after its home village Jakhrana.',
     pastoralCommunities: ['Alwar smallholders', 'Meo farmers'],
     careRecommendations: ['Extensive browse grazing on Khejri loppings', 'Mineral lick blocks in stalls'],
-    imageUrl: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1508873696983-2df5293cb325?auto=format&fit=crop&w=800&q=80&goat=jakhrana',
     tags: ['Rajasthan', 'Alwar', 'Dairy Goat', 'Jakhrana', 'ICAR-NBAGR 06007']
   },
   {
@@ -3734,7 +3734,7 @@ export const INDIAN_GOAT_BREEDS: BreedInfo[] = [
     historicalSignificance: 'Spiti and Kinnaur high-altitude pastoralism pillar.',
     pastoralCommunities: ['Kinnaura and Spiti shepherds'],
     careRecommendations: ['Alpine pasture grazing and protected dry winter corrals'],
-    imageUrl: 'https://images.unsplash.com/photo-1535083783855-76ae62b2914e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?auto=format&fit=crop&w=800&q=80',
     tags: ['Himachal', 'Spiti', 'Cashmere', 'Alpine', 'ICAR-NBAGR 06009']
   },
   {
@@ -3774,7 +3774,7 @@ export const INDIAN_GOAT_BREEDS: BreedInfo[] = [
     historicalSignificance: 'Traditional household dairy goat of coastal Gujarat.',
     pastoralCommunities: ['Gujarati urban smallholders'],
     careRecommendations: ['Stall-fed green fodder and pulses chuni'],
-    imageUrl: 'https://images.unsplash.com/photo-1560807707-8cc77767d783?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?auto=format&fit=crop&w=800&q=80',
     tags: ['Gujarat', 'Surat', 'White Goat', 'Milch', 'ICAR-NBAGR 06011']
   },
   {
@@ -3814,7 +3814,7 @@ export const INDIAN_GOAT_BREEDS: BreedInfo[] = [
     historicalSignificance: 'Bred in the Pravara river basin of Maharashtra.',
     pastoralCommunities: ['Sangamner pastoralists'],
     careRecommendations: ['Rotational grazing and legume crop residue'],
-    imageUrl: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=800&q=80',
     tags: ['Maharashtra', 'Sangamner', 'Dual Purpose', 'ICAR-NBAGR 06012']
   },
   {
@@ -3854,7 +3854,7 @@ export const INDIAN_GOAT_BREEDS: BreedInfo[] = [
     historicalSignificance: 'Bred by traditional Golla herdsmen of southern Odisha.',
     pastoralCommunities: ['Golla pastoralists'],
     careRecommendations: ['Extensive forest fringe pasture grazing'],
-    imageUrl: 'https://images.unsplash.com/photo-1535083783855-76ae62b2914e?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1550989460-0adf9ea622e2?auto=format&fit=crop&w=800&q=80',
     tags: ['Odisha', 'Ganjam', 'Eastern Ghats', 'Meat Goat', 'ICAR-NBAGR 06013']
   },
   {
@@ -3894,9 +3894,1010 @@ export const INDIAN_GOAT_BREEDS: BreedInfo[] = [
     historicalSignificance: 'Conserved by indigenous tribes of the Nilgiri hills for centuries.',
     pastoralCommunities: ['Irula, Muduga & Kurumba tribes'],
     careRecommendations: ['Hill pasture browse and sheltered rain stalls'],
-    imageUrl: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1563281577-a7be47e20db9?auto=format&fit=crop&w=800&q=80',
     tags: ['Kerala', 'Attappady', 'Nilgiris', 'Tribal Breed', 'ICAR-NBAGR 06014']
+  },
+  {
+    id: 'marwari-goat',
+    name: 'Marwari',
+    vernacularName: 'मारवाड़ी / Marwari Bakra',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Rajasthan',
+    homeTract: 'Barmer, Jaisalmer, Bikaner, Jodhpur, and Nagaur arid desert tracts',
+    nbagrCode: 'INDIA_GOAT_1700_MARWARI_06015',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Sturdy desert goat of western Rajasthan famous for lustrous jet-black hair fleece, medium flat drooping ears, and exceptional drought hardiness in the Thar Desert.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'High water retention and arid fat metabolism',
+      thermalGene: 'Arid desert thermal resilience and low water turnover'
+    },
+    physicalTraits: {
+      horns: 'Short to medium, pointed backwards and upwards with slight spiral twist',
+      ears: 'Flat, drooping, medium length (15-18 cm) with white speckles',
+      coatColor: 'Jet black with long coarse hair shorn for coarse carpet rugs',
+      humpAndDewlap: 'None (slender arid caprine build)',
+      sizeAndBuild: 'Medium to large, hardy legs adapted to long desert migrations',
+      faceProfile: 'Slightly roman or straight facial bridge'
+    },
+    productivity: {
+      primaryUtility: 'Dual-Purpose (Meat & Milk)',
+      averageYield: '0.8 - 1.5 kg/day (120 - 180 kg per lactation)',
+      fatPercentage: '4.2% - 4.6%',
+      weightMaleKg: '42 - 50 kg',
+      weightFemaleKg: '30 - 38 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Survives severe 48°C Thar desert summer droughts'
+    },
+    historicalSignificance: 'Heritage transhumant breed reared by Raika and Rebari pastoral communities of the Thar Desert.',
+    pastoralCommunities: ['Raika', 'Rebari', 'Marwari nomadic herders'],
+    careRecommendations: ['Extensive desert browse, mineral lick blocks, and clean drinking water points'],
+    imageUrl: 'https://images.unsplash.com/photo-1516726817505-f5ed825624d8?auto=format&fit=crop&w=800&q=80',
+    tags: ['Rajasthan', 'Marwari', 'Thar Desert', 'Dual-Purpose', 'ICAR-NBAGR 06015']
+  },
+  {
+    id: 'zalawadi-goat',
+    name: 'Zalawadi',
+    vernacularName: 'ઝાલાવાડી / Tara Bakri',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Gujarat',
+    homeTract: 'Surendranagar, Rajkot, and Ahmedabad semi-arid districts of Saurashtra',
+    nbagrCode: 'INDIA_GOAT_0400_ZALAWADI_06016',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Tall dual-purpose Saurashtra goat known as Tara Bakri, featuring long corkscrew spiraled horns, long drooping leaf-like ears, and high twinning percentage.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'High lipid synthesis in milk',
+      thermalGene: 'Adapted to semi-arid saline flatlands'
+    },
+    physicalTraits: {
+      horns: 'Long corkscrew twisted horns directed backwards and outwards',
+      ears: 'Long, drooping, pendulous leaf-like ears (20-25 cm)',
+      coatColor: 'Jet black with glossy coat; occasionally white patches on muzzle',
+      humpAndDewlap: 'None (tall dairy conformation)',
+      sizeAndBuild: 'Tall, long-legged, well-proportioned body',
+      faceProfile: 'Slightly convex profile'
+    },
+    productivity: {
+      primaryUtility: 'Milch (Dairy) & Meat',
+      averageYield: '1.5 - 2.5 kg/day',
+      fatPercentage: '4.5%',
+      weightMaleKg: '45 - 55 kg',
+      weightFemaleKg: '35 - 45 kg',
+      hardiness: 'High',
+      heatTolerance: 'Excellent tolerance to saline soil and high summer heat'
+    },
+    historicalSignificance: 'Originated in the historical Zalawad principality of Saurashtra, Gujarat.',
+    pastoralCommunities: ['Bharwad and Rabari pastoralists'],
+    careRecommendations: ['Acacia tree loppings, cotton seed cake, and regular deworming'],
+    imageUrl: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=800&q=80',
+    tags: ['Gujarat', 'Zalawadi', 'Saurashtra', 'Dairy Goat', 'ICAR-NBAGR 06016']
+  },
+  {
+    id: 'gohilwadi-goat',
+    name: 'Gohilwadi',
+    vernacularName: 'ગોહિલવાડી / Gohilwadi Bakri',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Gujarat',
+    homeTract: 'Bhavnagar, Amreli, and Junagadh coastal and hilly tracts of Saurashtra',
+    nbagrCode: 'INDIA_GOAT_0400_GOHILWADI_06017',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Black dual-purpose goat native to the historical Gohilwad kingdom, possessing long pendulous ears and excellent lactation persistence on coastal scrubland.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'High fatty acid mobilization',
+      thermalGene: 'High humidity and maritime heat tolerance'
+    },
+    physicalTraits: {
+      horns: 'Slightly twisted, directed backwards and upwards',
+      ears: 'Drooping, pendulous, slightly curled at tips',
+      coatColor: 'Uniformly black with coarse hair',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Medium to heavy build, deep chest',
+      faceProfile: 'Slightly roman with wide forehead'
+    },
+    productivity: {
+      primaryUtility: 'Dual-Purpose (Meat & Milk)',
+      averageYield: '1.2 - 2.0 kg/day',
+      fatPercentage: '4.4%',
+      weightMaleKg: '45 - 52 kg',
+      weightFemaleKg: '34 - 42 kg',
+      hardiness: 'High',
+      heatTolerance: 'Tolerant to humid Saurashtra coastal monsoons'
+    },
+    historicalSignificance: 'Bred in the Gohilwad region of Bhavnagar state by pastoralists.',
+    pastoralCommunities: ['Bharwads and Kolis of southern Saurashtra'],
+    careRecommendations: ['Dry fodder supplementation, coastal shelter, and vaccination for PPR'],
+    imageUrl: 'https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=800&q=80',
+    tags: ['Gujarat', 'Bhavnagar', 'Gohilwadi', 'Coastal', 'ICAR-NBAGR 06017']
+  },
+  {
+    id: 'mehsana-goat',
+    name: 'Mehsana Goat',
+    vernacularName: 'મહેસાણા બકરી / Mehsani Bakri',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Gujarat',
+    homeTract: 'Mehsana, Patan, Banaskantha, and Gandhinagar fertile agro-ecological tracts',
+    nbagrCode: 'INDIA_GOAT_0400_MEHSANA_06018',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Premier dairy and meat goat of north Gujarat, known for high milk yield, docile temperament, and characteristic white speckles on black ears and muzzle.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'High lactation efficiency',
+      thermalGene: 'Semi-arid agricultural zone thermal adaptation'
+    },
+    physicalTraits: {
+      horns: 'Twisted upwards and backwards',
+      ears: 'Drooping with distinctive white specks or marbling',
+      coatColor: 'Black with white speckling on ear margins and face',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Large, long body with developed udder',
+      faceProfile: 'Straight to slightly convex'
+    },
+    productivity: {
+      primaryUtility: 'Milch (Dairy) & Meat',
+      averageYield: '1.4 - 2.2 kg/day',
+      fatPercentage: '4.3%',
+      weightMaleKg: '48 - 56 kg',
+      weightFemaleKg: '36 - 44 kg',
+      hardiness: 'High',
+      heatTolerance: 'Very resilient to dry north Gujarat heat'
+    },
+    historicalSignificance: 'Traditional dairy goat of north Gujarat milk cooperative villages.',
+    pastoralCommunities: ['Rabari and Patel smallholders'],
+    careRecommendations: ['Balanced concentrate feed, green sorghum fodder, clean housing'],
+    imageUrl: 'https://images.unsplash.com/photo-1543852786-1cf6624b9987?auto=format&fit=crop&w=800&q=80',
+    tags: ['Gujarat', 'Mehsana', 'Dairy Goat', 'High Yield', 'ICAR-NBAGR 06018']
+  },
+  {
+    id: 'berari-goat',
+    name: 'Berari',
+    vernacularName: 'बेरारी / Gaorani Bakri',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Maharashtra',
+    homeTract: 'Vidarbha region comprising Nagpur, Wardha, Amravati, and Akola districts',
+    nbagrCode: 'INDIA_GOAT_1100_BERARI_06019',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Dual-purpose goat of Vidarbha featuring a dark tan or black coat with lighter underline, known for high heat tolerance in the Vidarbha black cotton belt.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'FecB prolifacy-linked markers',
+      thermalGene: 'Vidarbha extreme 47°C summer heat resilience'
+    },
+    physicalTraits: {
+      horns: 'Flat, directed backwards and outwards',
+      ears: 'Flat, drooping, leaf-shaped',
+      coatColor: 'Dark tan or bronze-brown to black with lighter underside',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Medium, compact, active and alert',
+      faceProfile: 'Straight face with prominent eyes'
+    },
+    productivity: {
+      primaryUtility: 'Meat & Milk',
+      averageYield: '0.8 - 1.2 kg/day',
+      fatPercentage: '4.5%',
+      weightMaleKg: '38 - 46 kg',
+      weightFemaleKg: '28 - 36 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Supreme adaptation to severe Vidarbha heatwaves'
+    },
+    historicalSignificance: 'Bred in the historical Berar province across black cotton agro-climatic zones.',
+    pastoralCommunities: ['Dhangar and Gowari communities of Vidarbha'],
+    careRecommendations: ['Extensive grazing on cotton stalks and scrub trees, rain protection'],
+    imageUrl: 'https://images.unsplash.com/photo-1533743983669-94fa5c4338ec?auto=format&fit=crop&w=800&q=80',
+    tags: ['Maharashtra', 'Vidarbha', 'Berari', 'Heat Tolerant', 'ICAR-NBAGR 06019']
+  },
+  {
+    id: 'gaddi-goat',
+    name: 'Gaddi',
+    vernacularName: 'गद्दी / Himalayan Pashmina Mountain Goat',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Himachal Pradesh & Uttarakhand',
+    homeTract: 'Chamba, Kangra, Kullu, Kinnaur, and Garhwal Himalayan alpine ranges',
+    nbagrCode: 'INDIA_GOAT_0600_GADDI_06020',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Hardy transhumant Himalayan mountain goat bred by the Gaddi nomads for fine lustrous underhair, meat, and pack transport across high alpine passes.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'Keratin fiber gene family',
+      thermalGene: 'High-altitude hypoxia and sub-zero frost endurance'
+    },
+    physicalTraits: {
+      horns: 'Heavy, long, pointed backwards and upwards with spiral curve',
+      ears: 'Long, drooping (18-22 cm)',
+      coatColor: 'Predominantly white with lustrous hair; occasionally black or fawn patches',
+      humpAndDewlap: 'None (heavy fleece covering entire body)',
+      sizeAndBuild: 'Stout, strong muscular legs, sure-footed hooves',
+      faceProfile: 'Convex nose bridge'
+    },
+    productivity: {
+      primaryUtility: 'Meat & Fiber',
+      averageYield: '0.5 - 1.5 kg coarse wool/hair per year',
+      fatPercentage: '4.8%',
+      weightMaleKg: '45 - 55 kg',
+      weightFemaleKg: '32 - 40 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Supreme cold resistance; transhumant downward migration in winter'
+    },
+    historicalSignificance: 'Indispensable companion of the transhumant Gaddi shepherds across the Dhauladhar range.',
+    pastoralCommunities: ['Gaddi and Gujjar nomadic pastoralists'],
+    careRecommendations: ['Regular fleece shearing, protection from foot rot, high-energy mountain feed'],
+    imageUrl: 'https://images.unsplash.com/photo-1574063413132-355dbfd83e25?auto=format&fit=crop&w=800&q=80',
+    tags: ['Himachal Pradesh', 'Gaddi', 'Himalayas', 'Mountain Goat', 'ICAR-NBAGR 06020']
+  },
+  {
+    id: 'kannaiadu-goat',
+    name: 'Kannaiadu',
+    vernacularName: 'கன்னியாடு / Kanni Adu',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Tamil Nadu',
+    homeTract: 'Ramanathapuram, Thoothukudi, Virudhunagar, and Sivagangai dry districts',
+    nbagrCode: 'INDIA_GOAT_1800_KANNAIADU_06021',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Distinctive Tamil Nadu meat goat featuring black coat with two white or fawn stripes on the face and white underline, known for rapid kidding and high meat yield.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'Myostatin and rapid muscle accretion markers',
+      thermalGene: 'Semi-arid dry zone heat resilience'
+    },
+    physicalTraits: {
+      horns: 'Short, flat, curved backwards',
+      ears: 'Medium, semi-pendulous',
+      coatColor: 'Black body with characteristic two white lines running from eyes to muzzle',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Medium, athletic, lean meat conformation',
+      faceProfile: 'Straight'
+    },
+    productivity: {
+      primaryUtility: 'Meat',
+      averageYield: 'High dressing percentage (50-52%)',
+      fatPercentage: 'Lean carcass quality',
+      weightMaleKg: '36 - 44 kg',
+      weightFemaleKg: '26 - 32 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Adapted to arid thorn scrub and high coastal humidity'
+    },
+    historicalSignificance: 'Traditional indigenous meat goat conserved by rural agrarian communities of southern Tamil Nadu.',
+    pastoralCommunities: ['Kallar and Naicker farming communities'],
+    careRecommendations: ['Prosopis and acacia grazing, clean water, timely vaccination'],
+    imageUrl: 'https://images.unsplash.com/photo-1577023311546-cdc07a8454d9?auto=format&fit=crop&w=800&q=80',
+    tags: ['Tamil Nadu', 'Kanni Adu', 'Meat Goat', 'Drought Resilient', 'ICAR-NBAGR 06021']
+  },
+  {
+    id: 'kodi-adu-goat',
+    name: 'Kodi Adu',
+    vernacularName: 'கொடி ஆடு / Kodi Adu',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Tamil Nadu',
+    homeTract: 'Thoothukudi, Tirunelveli, and Tenkasi rain-shadow arid belts',
+    nbagrCode: 'INDIA_GOAT_1800_KODIADU_06022',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Tall, long-legged meat goat with striking splashes of black, white, and brown markings, capable of browsing high tree tops on rear legs in arid scrublands.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'High browse assimilation and rumen efficiency',
+      thermalGene: 'High temperature tolerance in rain-shadow scrublands'
+    },
+    physicalTraits: {
+      horns: 'Curved backwards and outwards',
+      ears: 'Medium drooping ears',
+      coatColor: 'White splashed with black or reddish-brown patches (Kodi pattern)',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Tall, long-legged, agile tree browser',
+      faceProfile: 'Roman nose in males'
+    },
+    productivity: {
+      primaryUtility: 'Meat',
+      averageYield: 'Tender carcass with 48% meat yield',
+      fatPercentage: 'Lean chevon',
+      weightMaleKg: '40 - 48 kg',
+      weightFemaleKg: '28 - 35 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Extreme heat resistance in southern Tamil Nadu'
+    },
+    historicalSignificance: 'Reared along coastal and inland thorn forests for chevon production.',
+    pastoralCommunities: ['Thevar and Konar livestock keepers'],
+    careRecommendations: ['Extensive pasture browsing, dry fodder supplementation in summer'],
+    imageUrl: 'https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=800&q=80',
+    tags: ['Tamil Nadu', 'Kodi Adu', 'Chevon', 'Tall Goat', 'ICAR-NBAGR 06022']
+  },
+  {
+    id: 'salem-black-goat',
+    name: 'Salem Black',
+    vernacularName: 'சேலம் கருப்பு / Salem Black Adu',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Tamil Nadu',
+    homeTract: 'Salem, Dharmapuri, Krishnagiri, and Namakkal northwest agro-climatic zone',
+    nbagrCode: 'INDIA_GOAT_1800_SALEMBLACK_06023',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Uniformly glossy jet-black meat goat renowned for premium chevon taste, high prolificacy, and outstanding disease resilience in Deccan scrub terrain.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'MC1R melanic locus regulation',
+      thermalGene: 'Heat dissipative dark skin melanin protection'
+    },
+    physicalTraits: {
+      horns: 'Medium, curved backwards and outwards',
+      ears: 'Medium, semi-pendulous',
+      coatColor: 'Completely jet black without any white hair',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Medium to tall, athletic and well-muscled',
+      faceProfile: 'Straight to slightly roman'
+    },
+    productivity: {
+      primaryUtility: 'Meat',
+      averageYield: 'Premium tender chevon',
+      fatPercentage: 'Lean carcass quality',
+      weightMaleKg: '40 - 48 kg',
+      weightFemaleKg: '28 - 36 kg',
+      hardiness: 'High',
+      heatTolerance: 'Resistant to drought and internal parasites'
+    },
+    historicalSignificance: 'Highly prized across Tamil Nadu for ceremonial feasts and premium livestock markets.',
+    pastoralCommunities: ['Vanniyar and Gounder agriculturalists'],
+    careRecommendations: ['Tree loppings, clean sheds with elevated wooden slats'],
+    imageUrl: 'https://images.unsplash.com/photo-1561948955-570b270e7c36?auto=format&fit=crop&w=800&q=80',
+    tags: ['Tamil Nadu', 'Salem Black', 'Premium Chevon', 'Jet Black', 'ICAR-NBAGR 06023']
+  },
+  {
+    id: 'katchaikatti-black-goat',
+    name: 'Katchaikatti Black',
+    vernacularName: 'கச்சைக்கட்டி கருப்பு / Katchaikatti Adu',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Tamil Nadu',
+    homeTract: 'Katchaikatti village and Vadipatti taluk of Madurai district',
+    nbagrCode: 'INDIA_GOAT_1800_KATCHAIKATTI_06024',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Compact, hardy black goat breed native to Madurai foothills, renowned for high twinning rates, low disease incidence, and tender meat.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'High feed conversion ratio',
+      thermalGene: 'Adapted to Sirumalai foothills semi-arid climate'
+    },
+    physicalTraits: {
+      horns: 'Pointed backwards and slightly outwards',
+      ears: 'Medium drooping ears',
+      coatColor: 'Solid black',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Compact, sturdy bone structure',
+      faceProfile: 'Straight'
+    },
+    productivity: {
+      primaryUtility: 'Meat',
+      averageYield: 'Excellent meat-to-bone ratio',
+      fatPercentage: 'Lean chevon',
+      weightMaleKg: '34 - 40 kg',
+      weightFemaleKg: '24 - 30 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'High resilience to harsh arid conditions'
+    },
+    historicalSignificance: 'Bred specifically in Katchaikatti village near Vadipatti in Madurai.',
+    pastoralCommunities: ['Vadipatti farming families'],
+    careRecommendations: ['Extensive browsing on Sirumalai hill slopes, mineral supplementation'],
+    imageUrl: 'https://images.unsplash.com/photo-1571566882372-1598d88abd90?auto=format&fit=crop&w=800&q=80',
+    tags: ['Tamil Nadu', 'Madurai', 'Katchaikatti', 'Indigenous Meat', 'ICAR-NBAGR 06024']
+  },
+  {
+    id: 'konkan-kanyal-goat',
+    name: 'Konkan Kanyal',
+    vernacularName: 'कोंकण कन्याळ / Konkan Kanyal Bakri',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Maharashtra',
+    homeTract: 'Sindhudurg, Ratnagiri, and coastal hilly valleys of South Konkan',
+    nbagrCode: 'INDIA_GOAT_1100_KONKANKANYAL_06025',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Heavy rainfall and high humidity adapted meat goat of Konkan coast, possessing a black coat with white collar around the neck and white legs.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'High disease resistance markers',
+      thermalGene: 'High rainfall and maritime humidity adaptation'
+    },
+    physicalTraits: {
+      horns: 'Short to medium, directed backwards',
+      ears: 'Flat, drooping',
+      coatColor: 'Black body with distinct white ring/collar around neck and white lower legs',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Medium, agile, strong hoof structure',
+      faceProfile: 'Straight with bright white facial markings'
+    },
+    productivity: {
+      primaryUtility: 'Meat',
+      averageYield: 'Rapid kid growth rate (60 g/day)',
+      fatPercentage: 'Lean carcass quality',
+      weightMaleKg: '36 - 44 kg',
+      weightFemaleKg: '26 - 34 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Completely immune to heavy 3,500 mm Konkan coastal monsoon rot'
+    },
+    historicalSignificance: 'Developed and maintained by Konkani farmers in the Western Ghats foothill pockets.',
+    pastoralCommunities: ['Konkani horticultural and livestock farmers'],
+    careRecommendations: ['Elevated slatted floor housing to avoid foot moisture in heavy monsoon'],
+    imageUrl: 'https://images.unsplash.com/photo-1590417805178-5e43a6d96e54?auto=format&fit=crop&w=800&q=80',
+    tags: ['Maharashtra', 'Konkan', 'High Rain Tolerant', 'Meat Goat', 'ICAR-NBAGR 06025']
+  },
+  {
+    id: 'pantja-goat',
+    name: 'Pantja',
+    vernacularName: 'पंतजा / Tarai Goat',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Uttarakhand',
+    homeTract: 'Udham Singh Nagar and Nainital Tarai humid agricultural plains',
+    nbagrCode: 'INDIA_GOAT_2400_PANTJA_06026',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Prolific dual-purpose goat of the Tarai region, sporting a light brown coat with dark dorsal striping and high twinning rates under stall-fed conditions.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'High prolificacy FecB-allied markers',
+      thermalGene: 'Humid sub-tropical Tarai climate resilience'
+    },
+    physicalTraits: {
+      horns: 'Twisted backwards and outwards',
+      ears: 'Medium, pendulous',
+      coatColor: 'Light to dark brown with dark dorsal line running down spine',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Medium, compact, cylindrical torso',
+      faceProfile: 'Straight profile'
+    },
+    productivity: {
+      primaryUtility: 'Meat & Milk',
+      averageYield: '1.0 - 1.5 kg/day',
+      fatPercentage: '4.2%',
+      weightMaleKg: '38 - 45 kg',
+      weightFemaleKg: '26 - 34 kg',
+      hardiness: 'High',
+      heatTolerance: 'Adapted to humid Tarai summer heat and mild winters'
+    },
+    historicalSignificance: 'Conserved by GB Pant University of Agriculture & Technology in the Tarai belt.',
+    pastoralCommunities: ['Tarai marginal farmers and Tharu tribals'],
+    careRecommendations: ['Stall-feeding with green fodder and wheat bran, regular vaccination'],
+    imageUrl: 'https://images.unsplash.com/photo-1598449356475-b9f71db7d847?auto=format&fit=crop&w=800&q=80',
+    tags: ['Uttarakhand', 'Tarai', 'Pantja', 'Prolific', 'ICAR-NBAGR 06026']
+  },
+  {
+    id: 'teressa-goat',
+    name: 'Teressa',
+    vernacularName: 'टेरेसा / Nicobari Island Goat',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Andaman & Nicobar Islands',
+    homeTract: 'Teressa and Bompoka remote coral islands of Nicobar archipelago',
+    nbagrCode: 'INDIA_GOAT_2600_TERESSA_06027',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Unique island goat isolated for centuries on Teressa island, displaying dark brown coat with white neck bands, heavy body size, and exceptional maritime hardiness.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'Unique isolated island caprine alleles',
+      thermalGene: 'Extreme tropical island maritime humidity and saline tolerance'
+    },
+    physicalTraits: {
+      horns: 'Flat, curved backwards',
+      ears: 'Medium, horizontal to semi-drooping',
+      coatColor: 'Dark brown to black with distinctive white patches on neck and face',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Large, deep barrel, heavy boned for island caprine',
+      faceProfile: 'Slightly roman profile'
+    },
+    productivity: {
+      primaryUtility: 'Meat',
+      averageYield: 'Rapid growth on wild island vegetation',
+      fatPercentage: 'Lean carcass quality',
+      weightMaleKg: '45 - 55 kg',
+      weightFemaleKg: '35 - 45 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Survives tropical maritime typhoons and salt spray'
+    },
+    historicalSignificance: 'Reared by the indigenous Nicobarese tribal community of Teressa Island.',
+    pastoralCommunities: ['Nicobarese indigenous island tribes'],
+    careRecommendations: ['Grazing on wild coconut groves, fresh water access, shelter from monsoon storms'],
+    imageUrl: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?auto=format&fit=crop&w=800&q=80',
+    tags: ['Andaman & Nicobar', 'Teressa', 'Island Breed', 'Rare Breed', 'ICAR-NBAGR 06027']
+  },
+  {
+    id: 'kahmi-goat',
+    name: 'Kahmi',
+    vernacularName: 'કાહમી / Kahmi Bakri',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Gujarat',
+    homeTract: 'Saurashtra region covering Jamnagar, Junagadh, and Rajkot districts',
+    nbagrCode: 'INDIA_GOAT_0400_KAHMI_06028',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Distinctive dual-toned Saurashtra goat with brown or copper forequarters and jet-black hindquarters, bred by pastoralists for high milk and meat productivity.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'Two-tone pigmentation regulation and high milk fat',
+      thermalGene: 'Semi-arid Saurashtra heat resilience'
+    },
+    physicalTraits: {
+      horns: 'Slightly twisted, directed backwards',
+      ears: 'Long, pendulous, folded (22-26 cm)',
+      coatColor: 'Unique bi-color: reddish-brown neck and shoulders, black hindquarters',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Large, tall dairy frame',
+      faceProfile: 'Convex with broad muzzle'
+    },
+    productivity: {
+      primaryUtility: 'Dual-Purpose (Meat & Milk)',
+      averageYield: '1.5 - 2.5 kg/day',
+      fatPercentage: '4.6%',
+      weightMaleKg: '50 - 60 kg',
+      weightFemaleKg: '38 - 48 kg',
+      hardiness: 'High',
+      heatTolerance: 'Exceptional resistance to dry heat and long migratory walks'
+    },
+    historicalSignificance: 'Selected by Maldhari nomadic pastoralists for striking coat color and heavy milk yield.',
+    pastoralCommunities: ['Maldharis and Rabaris of Saurashtra'],
+    careRecommendations: ['Legume fodder supplementation, regular hoof trimming on rocky soils'],
+    imageUrl: 'https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=800&q=80',
+    tags: ['Gujarat', 'Saurashtra', 'Kahmi', 'Bi-Color Goat', 'ICAR-NBAGR 06028']
+  },
+  {
+    id: 'rohilkhandi-goat',
+    name: 'Rohilkhandi',
+    vernacularName: 'रोहिलखंडी / Rohilkhandi Bakri',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Uttar Pradesh',
+    homeTract: 'Bareilly, Shahjahanpur, Pilibhit, and Badaun Rohilkhand plains',
+    nbagrCode: 'INDIA_GOAT_2000_ROHILKHANDI_06029',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Black dual-purpose goat of upper Gangetic plains characterized by a white tuft of hair on the forehead, long pendulous ears, and high kidding percentage.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'High lactation persistence',
+      thermalGene: 'Gangetic alluvial climate adaptability'
+    },
+    physicalTraits: {
+      horns: 'Straight to slightly curved, pointing backwards',
+      ears: 'Long, drooping',
+      coatColor: 'Black with small white star or tuft on forehead',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Medium to large, long legs',
+      faceProfile: 'Straight'
+    },
+    productivity: {
+      primaryUtility: 'Meat & Milk',
+      averageYield: '1.2 - 1.8 kg/day',
+      fatPercentage: '4.3%',
+      weightMaleKg: '42 - 50 kg',
+      weightFemaleKg: '32 - 40 kg',
+      hardiness: 'High',
+      heatTolerance: 'High resistance to humid monsoons and summer heat'
+    },
+    historicalSignificance: 'Bred in the historical Rohilkhand region of north India.',
+    pastoralCommunities: ['Rohilla and local farming communities of western UP'],
+    careRecommendations: ['Grazing on river banks and mustard fallows, regular deworming'],
+    imageUrl: 'https://images.unsplash.com/photo-1591769225440-811ad7d6eab2?auto=format&fit=crop&w=800&q=80&goat=rohilkhandi',
+    tags: ['Uttar Pradesh', 'Rohilkhandi', 'Dual-Purpose', 'Gangetic Plains', 'ICAR-NBAGR 06029']
+  },
+  {
+    id: 'bhakarwali-goat',
+    name: 'Bhakarwali',
+    vernacularName: 'बाकरवाली / Pir Panjal Transhumant Goat',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Jammu & Kashmir',
+    homeTract: 'Poonch, Rajouri, Udhampur, and high alpine pastures of Pir Panjal',
+    nbagrCode: 'INDIA_GOAT_0700_BHAKARWALI_06030',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Heavy Himalayan transhumant mountain goat bred by the Bakharwal nomadic tribe for long coarse hair fleece, chevon, and milk on seasonal alpine migrations.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'High endurance energy metabolism',
+      thermalGene: 'Extreme high-altitude cold and snow adaptation'
+    },
+    physicalTraits: {
+      horns: 'Broad, flat, curved backwards and twisted outwards',
+      ears: 'Long, flat, pendulous (20-25 cm)',
+      coatColor: 'White, black, brown, or variegated with dense long fleece',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Large, heavy bone, broad muscular chest',
+      faceProfile: 'Slightly convex with drooping ears'
+    },
+    productivity: {
+      primaryUtility: 'Meat & Fiber',
+      averageYield: '1.0 - 2.0 kg coarse hair per year',
+      fatPercentage: '4.7%',
+      weightMaleKg: '48 - 60 kg',
+      weightFemaleKg: '36 - 46 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Supreme alpine cold tolerance; migrates to plains in winter'
+    },
+    historicalSignificance: 'Indispensable livelihood asset of the nomadic Bakharwals across Kashmir mountains.',
+    pastoralCommunities: ['Bakharwal and Gujjar nomadic pastoralists'],
+    careRecommendations: ['Foot-bath against foot rot on rocky passes, high protein diet'],
+    imageUrl: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=800&q=80&goat=bhakarwali',
+    tags: ['Jammu & Kashmir', 'Bakharwali', 'Pir Panjal', 'Nomadic Pastoral', 'ICAR-NBAGR 06030']
+  },
+  {
+    id: 'gujari-goat',
+    name: 'Gujari',
+    vernacularName: 'गूजरी / Gujari Bakri',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Rajasthan',
+    homeTract: 'Jaipur, Ajmer, Tonk, Nagaur, and Sikar semi-arid central districts',
+    nbagrCode: 'INDIA_GOAT_1700_GUJARI_06031',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Large, tall dairy goat of eastern Rajasthan bred by Gujjar pastoralists, possessing white and brown mottled coat, long drooping ears, and high milk yield.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'High dairy yield potential',
+      thermalGene: 'Semi-arid eastern Rajasthan heat tolerance'
+    },
+    physicalTraits: {
+      horns: 'Short to medium, pointing backwards and upwards',
+      ears: 'Very long, flat, pendulous with brown speckles',
+      coatColor: 'White with brown, black, or tan patches and mottling',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Large, long-legged dairy conformation',
+      faceProfile: 'Convex with broad forehead'
+    },
+    productivity: {
+      primaryUtility: 'Milch (Dairy) & Meat',
+      averageYield: '1.5 - 2.5 kg/day',
+      fatPercentage: '4.3%',
+      weightMaleKg: '50 - 62 kg',
+      weightFemaleKg: '38 - 48 kg',
+      hardiness: 'High',
+      heatTolerance: 'Excellent resilience to semi-arid summer spikes'
+    },
+    historicalSignificance: 'Reared by the Gujjar pastoral community of Rajasthan for domestic milk and livestock commerce.',
+    pastoralCommunities: ['Gujjar pastoralists of central Rajasthan'],
+    careRecommendations: ['Tree lopping with khejri leaves, grain supplement, clean shed'],
+    imageUrl: 'https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?auto=format&fit=crop&w=800&q=80&goat=gujari',
+    tags: ['Rajasthan', 'Gujari', 'Dairy Goat', 'High Milk', 'ICAR-NBAGR 06031']
+  },
+  {
+    id: 'sojat-goat',
+    name: 'Sojat',
+    vernacularName: 'सोजत / White Sojat Goat',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Rajasthan',
+    homeTract: 'Pali, Jodhpur, Nagaur, and Jalore districts of western Rajasthan',
+    nbagrCode: 'INDIA_GOAT_1700_SOJAT_06032',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Magnificent, heavily-built pure white meat goat renowned for long flat pendulous ears, gentle roman nose, high dressing percentage, and Eid festival preference.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'High muscle mass accretion and lean carcass ratio',
+      thermalGene: 'Arid desert thermal resilience'
+    },
+    physicalTraits: {
+      horns: 'Mostly polled (hornless) or small flat horns',
+      ears: 'Long, flat, pendulous, like a fallen leaf (22-28 cm)',
+      coatColor: 'Pristine pure white; occasionally pink skin with faint spots',
+      humpAndDewlap: 'None (heavy meat conformation)',
+      sizeAndBuild: 'Large, heavy, long cylindrical body with thick legs',
+      faceProfile: 'Distinctive roman nose with broad forehead'
+    },
+    productivity: {
+      primaryUtility: 'Meat',
+      averageYield: 'Premium tender chevon with 52-54% dressing percentage',
+      fatPercentage: 'Lean carcass quality',
+      weightMaleKg: '55 - 75 kg',
+      weightFemaleKg: '40 - 52 kg',
+      hardiness: 'High',
+      heatTolerance: 'Adapted to arid western Rajasthan scrub'
+    },
+    historicalSignificance: 'Selected in Sojat city of Pali district for pristine white color and colossal carcass weight.',
+    pastoralCommunities: ['Rajasthani farming and goat trading families'],
+    careRecommendations: ['High-energy stall feed, crushed gram, mineral mixture, clean shaded stalls'],
+    imageUrl: 'https://images.unsplash.com/photo-1618042164219-62c820f10723?auto=format&fit=crop&w=800&q=80&goat=sojat',
+    tags: ['Rajasthan', 'Sojat', 'White Goat', 'Premium Chevon', 'ICAR-NBAGR 06032']
+  },
+  {
+    id: 'bidri-goat',
+    name: 'Bidri',
+    vernacularName: 'ಬಿದ್ರಿ / Bidri Bakri',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Karnataka',
+    homeTract: 'Bidar and surrounding northern Deccan lateritic plateau',
+    nbagrCode: 'INDIA_GOAT_0900_BIDRI_06033',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Hardy black meat goat of Bidar plateau featuring a straight profile, medium pendulous ears, and high adaptability to semi-arid Deccan plateau scrub.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'Deccan caprine meat efficiency',
+      thermalGene: 'Arid red laterite soil heat tolerance'
+    },
+    physicalTraits: {
+      horns: 'Straight, directed backwards',
+      ears: 'Medium, semi-pendulous',
+      coatColor: 'Jet black with glossy sheen; occasional white specks on muzzle',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Medium, hardy, agile legs',
+      faceProfile: 'Straight'
+    },
+    productivity: {
+      primaryUtility: 'Meat',
+      averageYield: 'High dressing percentage with tender chevon',
+      fatPercentage: 'Lean meat',
+      weightMaleKg: '38 - 46 kg',
+      weightFemaleKg: '28 - 35 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Excellent resilience to northern Karnataka drought'
+    },
+    historicalSignificance: 'Bred in the historical Bidar region by pastoralists for chevon production.',
+    pastoralCommunities: ['Kuruba and Dhangar communities of Bidar'],
+    careRecommendations: ['Pasture grazing on Deccan hills, mineral salt supplement, rain shelter'],
+    imageUrl: 'https://images.unsplash.com/photo-1579613832125-5d34a13ffe0a?auto=format&fit=crop&w=800&q=80&goat=bidri',
+    tags: ['Karnataka', 'Bidri', 'Bidar', 'Deccan Plateau', 'ICAR-NBAGR 06033']
+  },
+  {
+    id: 'nandidurga-goat',
+    name: 'Nandidurga',
+    vernacularName: 'ನಂದಿದುರ್ಗ / Nandidurga Goat',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Karnataka',
+    homeTract: 'Tumkur, Kolar, Chikkaballapura, and Bangalore rural rocky hill tracts',
+    nbagrCode: 'INDIA_GOAT_0900_NANDIDURGA_06034',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Pure white to cream meat goat native to the Nandi hills region, featuring tall legs, backwardly curved horns, and high prolificacy in rocky scrublands.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'Lean muscle growth alleles',
+      thermalGene: 'Rocky plateau diurnal temperature adaptability'
+    },
+    physicalTraits: {
+      horns: 'Curved backwards and outwards',
+      ears: 'Medium, flat, pendulous',
+      coatColor: 'Completely white to light cream',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Medium to tall, lean and athletic',
+      faceProfile: 'Straight to slightly convex'
+    },
+    productivity: {
+      primaryUtility: 'Meat',
+      averageYield: 'High kidding rate with frequent twins',
+      fatPercentage: 'Lean carcass quality',
+      weightMaleKg: '42 - 50 kg',
+      weightFemaleKg: '30 - 38 kg',
+      hardiness: 'High',
+      heatTolerance: 'Adapted to semi-arid rocky boulder terrain'
+    },
+    historicalSignificance: 'Conserved around the sacred Nandi Hills plateau of eastern Karnataka.',
+    pastoralCommunities: ['Vokkaliga and Kuruba pastoralists'],
+    careRecommendations: ['Rocky hill browse, dry fodder, clean housing, timely vaccination'],
+    imageUrl: 'https://images.unsplash.com/photo-1584447141399-be2c62da6a14?auto=format&fit=crop&w=800&q=80&goat=nandidurga',
+    tags: ['Karnataka', 'Nandidurga', 'White Goat', 'Rocky Plateau', 'ICAR-NBAGR 06034']
+  },
+  {
+    id: 'bundelkhandi-goat',
+    name: 'Bundelkhandi',
+    vernacularName: 'बुंदेलखंडी / Bundelkhandi Bakri',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Madhya Pradesh & Uttar Pradesh',
+    homeTract: 'Jhansi, Lalitpur, Jalaun, Tikamgarh, and Chhatarpur ravines',
+    nbagrCode: 'INDIA_GOAT_1000_BUNDELKHANDI_06035',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Black dual-purpose goat of the Bundelkhand ravines, possessing long twisted horns, high disease resistance, and supreme tolerance to prolonged drought.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'FecB allied high twinning propensity',
+      thermalGene: 'Extreme Bundelkhand 47°C heatwave resistance'
+    },
+    physicalTraits: {
+      horns: 'Flat, twisted backwards and upwards',
+      ears: 'Medium, drooping',
+      coatColor: 'Solid black with coarse hair',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Medium, hardy, muscular frame',
+      faceProfile: 'Straight'
+    },
+    productivity: {
+      primaryUtility: 'Meat & Milk',
+      averageYield: '0.8 - 1.4 kg/day',
+      fatPercentage: '4.5%',
+      weightMaleKg: '40 - 48 kg',
+      weightFemaleKg: '28 - 36 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Supreme drought resistance in dry ravine soils'
+    },
+    historicalSignificance: 'Conserved across historical Bundelkhand ravines by pastoralists.',
+    pastoralCommunities: ['Ahir, Bundela, and tribal pastoralists'],
+    careRecommendations: ['Extensive grazing on thorny ravines, drinking water points in summer'],
+    imageUrl: 'https://images.unsplash.com/photo-1592194996308-7b43878e84a6?auto=format&fit=crop&w=800&q=80&goat=bundelkhandi',
+    tags: ['Bundelkhand', 'Madhya Pradesh', 'Uttar Pradesh', 'Drought Hardy', 'ICAR-NBAGR 06035']
+  },
+  {
+    id: 'narayanpatna-goat',
+    name: 'Narayanpatna',
+    vernacularName: 'ନାରାୟଣପାଟଣା / Koraput Hill Goat',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Odisha',
+    homeTract: 'Narayanpatna block and Koraput tribal hill tracts of Eastern Ghats',
+    nbagrCode: 'INDIA_GOAT_1500_NARAYANPATNA_06036',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Hardy tribal hill goat conserved by Eastern Ghats adivasis, sporting a black or dark brown coat, compact agile build, and natural parasite resistance.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'Endemic disease resistance alleles',
+      thermalGene: 'High-rainfall Eastern Ghats forest adaptation'
+    },
+    physicalTraits: {
+      horns: 'Pointed backwards and upwards',
+      ears: 'Medium, horizontal to drooping',
+      coatColor: 'Black, dark brown, or mixed with tan highlights',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Small to medium, compact, nimble hill climber',
+      faceProfile: 'Straight'
+    },
+    productivity: {
+      primaryUtility: 'Meat',
+      averageYield: 'Tender chevon with high prolificacy',
+      fatPercentage: 'Lean carcass quality',
+      weightMaleKg: '30 - 38 kg',
+      weightFemaleKg: '22 - 28 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Adapted to forest canopy humidity and mountain terrain'
+    },
+    historicalSignificance: 'Preserved by the Kondh tribal communities in the Koraput biodiversity hotspot.',
+    pastoralCommunities: ['Kondh and Paroja tribal communities'],
+    careRecommendations: ['Forest browse grazing, night shelter protection against predators'],
+    imageUrl: 'https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=800&q=80&goat=narayanpatna',
+    tags: ['Odisha', 'Koraput', 'Tribal Breed', 'Eastern Ghats', 'ICAR-NBAGR 06036']
+  },
+  {
+    id: 'sumi-ne-goat',
+    name: 'Sumi-Ne',
+    vernacularName: 'Sumi-Ne / Naga Hill Goat',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Nagaland',
+    homeTract: 'Zunheboto, Kohima, Phek, and Wokha mountainous hill tracts',
+    nbagrCode: 'INDIA_GOAT_1400_SUMINE_06037',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Unique indigenous goat of Nagaland conserved by the Sumi Naga tribe, characterized by thick coarse hair, compact muscular body, and adaptability to steep slopes.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'Cold-adapted highland alleles',
+      thermalGene: 'Highland mountain cold and wet monsoon tolerance'
+    },
+    physicalTraits: {
+      horns: 'Short, stout, pointed backwards',
+      ears: 'Medium, horizontal',
+      coatColor: 'Black, brown, white, or piebald with thick hair',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Compact, stocky, strong legs with hard hooves',
+      faceProfile: 'Straight'
+    },
+    productivity: {
+      primaryUtility: 'Meat',
+      averageYield: 'Tender chevon with high tribal cultural value',
+      fatPercentage: 'Lean highland meat',
+      weightMaleKg: '34 - 42 kg',
+      weightFemaleKg: '25 - 32 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Adapted to cold winter rain and steep rocky slopes'
+    },
+    historicalSignificance: 'Integral to the cultural heritage and traditional festivals of the Sumi Naga people.',
+    pastoralCommunities: ['Sumi Naga tribal community'],
+    careRecommendations: ['Highland browse, elevated bamboo sheds, vaccination against enterotoxaemia'],
+    imageUrl: 'https://images.unsplash.com/photo-1612837017391-4b6b7b0d0be0?auto=format&fit=crop&w=800&q=80&goat=sumine',
+    tags: ['Nagaland', 'Sumi-Ne', 'Naga Hills', 'Tribal Heritage', 'ICAR-NBAGR 06037']
+  },
+  {
+    id: 'macherla-goat',
+    name: 'Macherla',
+    vernacularName: 'మాచర్ల / Macherla Pothu',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Andhra Pradesh & Telangana',
+    homeTract: 'Guntur, Palnadu, Mahabubnagar, and Nalgonda semi-arid river basins',
+    nbagrCode: 'INDIA_GOAT_0100_MACHERLA_06038',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Tall dual-purpose meat and milk goat of Palnadu, displaying a dark brown to black coat, long pendulous ears, and remarkable endurance under hot semi-arid grazing.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'High muscle accretion and lactation efficiency',
+      thermalGene: 'Palnadu severe 46°C summer heat tolerance'
+    },
+    physicalTraits: {
+      horns: 'Curved backwards and outwards',
+      ears: 'Long, drooping, pendulous (20-24 cm)',
+      coatColor: 'Dark brown, black, or mixed patches',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Large, tall legs, well-proportioned frame',
+      faceProfile: 'Slightly roman nose'
+    },
+    productivity: {
+      primaryUtility: 'Meat & Milk',
+      averageYield: '1.0 - 1.8 kg/day',
+      fatPercentage: '4.4%',
+      weightMaleKg: '45 - 54 kg',
+      weightFemaleKg: '32 - 40 kg',
+      hardiness: 'High',
+      heatTolerance: 'Supreme adaptation to hot Krishna river basin summers'
+    },
+    historicalSignificance: 'Bred in the historical Palnadu region around Macherla for livestock trade and milk.',
+    pastoralCommunities: ['Yadava and Golla pastoralists of Andhra Pradesh'],
+    careRecommendations: ['Subabul and neem tree browse, clean water, shed ventilation'],
+    imageUrl: 'https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=800&q=80&goat=macherla',
+    tags: ['Andhra Pradesh', 'Telangana', 'Macherla', 'Palnadu', 'ICAR-NBAGR 06038']
+  },
+  {
+    id: 'suvarna-goat',
+    name: 'Suvarna',
+    vernacularName: 'ಸುವರ್ಣ / Golden Suvarna Goat',
+    scientificName: 'Capra hircus',
+    category: 'Goat',
+    stateOfOrigin: 'Karnataka',
+    homeTract: 'Bagalkot, Belagavi, and Vijayapura fertile river valley belts',
+    nbagrCode: 'INDIA_GOAT_0900_SUVARNA_06039',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Striking golden-brown dual-purpose goat registered by ICAR-NBAGR, noted for golden lustrous coat, high twinning percentage, and docile temperament.',
+    genomics: {
+      csn2Allele: 'CSN1S1 Caprine Standard',
+      karyotype: '2n = 60',
+      fatRegulatorGene: 'Golden phaeomelanin regulation and prolificacy',
+      thermalGene: 'Northern Karnataka river valley heat adaptability'
+    },
+    physicalTraits: {
+      horns: 'Short to medium, curved backwards',
+      ears: 'Medium, pendulous',
+      coatColor: 'Unique golden-brown / amber-fawn with silky sheen',
+      humpAndDewlap: 'None',
+      sizeAndBuild: 'Medium, well-formed udder and deep chest',
+      faceProfile: 'Straight to slightly convex'
+    },
+    productivity: {
+      primaryUtility: 'Dual-Purpose (Meat & Milk)',
+      averageYield: '1.2 - 2.0 kg/day',
+      fatPercentage: '4.5%',
+      weightMaleKg: '42 - 50 kg',
+      weightFemaleKg: '32 - 40 kg',
+      hardiness: 'High',
+      heatTolerance: 'High resistance to humid and dry heat cycles'
+    },
+    historicalSignificance: 'Named Suvarna (Golden) due to its radiant amber coat; selectively bred in northern Karnataka.',
+    pastoralCommunities: ['Kuruba and Lingayat farming families'],
+    careRecommendations: ['Quality green fodder, pulse grain supplementation, clean dry bedding'],
+    imageUrl: 'https://images.unsplash.com/photo-1605007493699-ce65834703a3?auto=format&fit=crop&w=800&q=80&goat=suvarna',
+    tags: ['Karnataka', 'Suvarna', 'Golden Goat', 'Dual-Purpose', 'ICAR-NBAGR 06039']
   }
+
 ];
 
 export const INDIAN_DOG_BREEDS: BreedInfo[] = [
@@ -4028,7 +5029,7 @@ export const INDIAN_DOG_BREEDS: BreedInfo[] = [
       'Free running in fenced open grounds',
       'Minimal grooming needed; weekly brush down'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1561037404-61cd46aa615b?auto=format&fit=crop&w=800&q=80&dog=chippiparai',
     tags: ['Tamil Nadu', 'Sighthound', 'Chippiparai', 'Silver Grey', 'Canine']
   },
   {
@@ -4071,7 +5072,7 @@ export const INDIAN_DOG_BREEDS: BreedInfo[] = [
       'Consistent early socialization and firm leadership',
       'Nutrient-rich diet with cooked meat and grains'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=800&q=80&dog=kombai',
     tags: ['Tamil Nadu', 'Boar Hound', 'Black Mask', 'Guardian', 'Kombai']
   },
   {
@@ -4114,7 +5115,7 @@ export const INDIAN_DOG_BREEDS: BreedInfo[] = [
       'Zero specialized diet needed; thrives on balanced household food',
       'Virtually zero breed-specific hereditary genetic diseases'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?auto=format&fit=crop&w=800&q=80&dog=pariah',
     tags: ['Pan-India', 'INDog', 'Ancient Landrace', 'Natural Immunity', 'Canis lupus']
   },
   {
@@ -4157,7 +5158,7 @@ export const INDIAN_DOG_BREEDS: BreedInfo[] = [
       'Frequent brushing for thick double coat',
       'Cool shaded housing in warm weather; high protein diet'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?auto=format&fit=crop&w=800&q=80&dog=gaddi',
     tags: ['Himalayas', 'Gaddi', 'Livestock Guardian', 'Himachal', 'Mastiff']
   },
   {
@@ -4197,7 +5198,7 @@ export const INDIAN_DOG_BREEDS: BreedInfo[] = [
     historicalSignificance: 'Royal favorite hound of His Highness Nawab Ahmad Ali Khan of Rampur.',
     pastoralCommunities: ['Rohilkhand royal kennels and hunting lineages'],
     careRecommendations: ['Open ground sprint exercise and high protein diet'],
-    imageUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80&dog=rampur',
     tags: ['Uttar Pradesh', 'Rampur', 'Sighthound', 'Nawab', 'Canine']
   },
   {
@@ -4237,7 +5238,7 @@ export const INDIAN_DOG_BREEDS: BreedInfo[] = [
     historicalSignificance: 'Named "Kanni" (Maiden) as it was traditionally presented by royal and landlord families to a bride on her wedding.',
     pastoralCommunities: ['Tirunelveli & Virudhunagar families'],
     careRecommendations: ['Gentle handling, daily exercise, home cooked meals with meat broth'],
-    imageUrl: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=800&q=80&dog=kanni',
     tags: ['Tamil Nadu', 'Kanni', 'Sighthound', 'Black and Tan', 'Canine']
   },
   {
@@ -4277,7 +5278,7 @@ export const INDIAN_DOG_BREEDS: BreedInfo[] = [
     historicalSignificance: 'Bred by duck farmers and fishermen along the freshwater Kolleru lake.',
     pastoralCommunities: ['Kolleru lake fishing and duck farming communities'],
     careRecommendations: ['Opportunities for swimming and active fetching exercise'],
-    imageUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1583511655826-05700d52f4d9?auto=format&fit=crop&w=800&q=80&dog=jonangi',
     tags: ['Andhra Pradesh', 'Kolleru', 'Duck Herder', 'Jonangi', 'Canine']
   },
   {
@@ -4317,7 +5318,7 @@ export const INDIAN_DOG_BREEDS: BreedInfo[] = [
     historicalSignificance: 'Nomadic guardians of the Gujjar-Bakharwal tribes across Pir Panjal passes.',
     pastoralCommunities: ['Bakharwal and Gujjar nomadic pastoralists'],
     careRecommendations: ['Heavy daily exercise, spacious outdoor terrain, high protein diet'],
-    imageUrl: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1583512603806-077998240c7a?auto=format&fit=crop&w=800&q=80&dog=bakharwal',
     tags: ['Kashmir', 'Bakharwal', 'Himalayan', 'Guardian', 'Pir Panjal']
   },
   {
@@ -4357,7 +5358,7 @@ export const INDIAN_DOG_BREEDS: BreedInfo[] = [
     historicalSignificance: 'Bred in Pandikona village of Kurnool for guarding farmsteads against wild boars and predators.',
     pastoralCommunities: ['Rayalaseema farming families'],
     careRecommendations: ['Farm patrol, basic homemade food with eggs and rice'],
-    imageUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1586671267731-dae08276a899?auto=format&fit=crop&w=800&q=80&dog=pandikona',
     tags: ['Andhra Pradesh', 'Kurnool', 'Pandikona', 'Farm Dog', 'Canine']
   },
   {
@@ -4397,9 +5398,330 @@ export const INDIAN_DOG_BREEDS: BreedInfo[] = [
     historicalSignificance: 'Descendant of ancient Persian and Rajput war and catch dogs used by royal houses.',
     pastoralCommunities: ['Punjabi and Rajasthani estate and livestock owners'],
     careRecommendations: ['Extensive early obedience training, high protein diet with bone broth'],
-    imageUrl: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1588943211346-0908a1fb0b01?auto=format&fit=crop&w=800&q=80&dog=bully',
     tags: ['Punjab', 'Indian Mastiff', 'Bully Kutta', 'Guardian', 'Giant Dog']
+  },
+  {
+    id: 'tangkhul-hui',
+    name: 'Tangkhul Hui',
+    vernacularName: 'তাংখুল হুই / Awang Hu / Manipur Dog',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Manipur',
+    homeTract: 'Ukhrul and Senapati mountainous hill tracts of Manipur',
+    nbagrCode: 'INDIA_DOG_1200_TANGKHULHUI_09013',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Rare indigenous guardian and hunting dog of Manipur, sporting a dense black double coat, curled tail over back, and exceptional agility on steep jungle slopes.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78',
+      fatRegulatorGene: 'High alpine endurance and muscular sprint capacity',
+      thermalGene: 'Dense sub-tropical rainforest cold and moisture endurance'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Prick or semi-erect, triangular',
+      coatColor: 'Jet black with dense undercoat; occasionally white spot on chest',
+      humpAndDewlap: 'Muscular neck with thick ruff, tightly curled tail over hip',
+      sizeAndBuild: 'Medium, compact, muscular frame with sure-footed paws',
+      faceProfile: 'Wedge-shaped head with sharp dark eyes and black muzzle'
+    },
+    productivity: {
+      primaryUtility: 'Livestock Guardian / Working',
+      averageYield: 'Wild Boar Tracking & Village Guard',
+      fatPercentage: 'Athletic lean build',
+      weightMaleKg: '22 - 28 kg',
+      weightFemaleKg: '18 - 24 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Adapted to heavy rain and sub-tropical mountain chills'
+    },
+    historicalSignificance: 'Historically conserved by the Tangkhul Naga warriors of Ukhrul for guarding hilltop homesteads.',
+    pastoralCommunities: ['Tangkhul Naga indigenous communities'],
+    careRecommendations: ['Spacious outdoor roaming, high-protein native diet, daily active exercise'],
+    imageUrl: 'https://images.unsplash.com/photo-1598133894008-61f7fdb8cc3a?auto=format&fit=crop&w=800&q=80&dog=tangkhul',
+    tags: ['Manipur', 'Tangkhul Hui', 'Naga Dog', 'Hill Guardian', 'Canine']
+  },
+  {
+    id: 'haofa-dog',
+    name: 'Haofa',
+    vernacularName: 'হাউফা / Tangkhul Naga Hunting Dog',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Manipur & Nagaland',
+    homeTract: 'Indo-Myanmar border rainforest hills of Ukhrul and Phek',
+    nbagrCode: 'INDIA_DOG_1200_HAOFA_09014',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Ancestral tribal sighthound and hunting hound of the Tangkhul region, renowned for silent tracking, prick ears, keen sense of smell, and fierce family loyalty.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78',
+      fatRegulatorGene: 'Superior olfactory receptor density',
+      thermalGene: 'Highland rainforest thermal adaptation'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Erect, pointed forward',
+      coatColor: 'Reddish-brown, brindle, fawn, or black',
+      humpAndDewlap: 'Tuck-up waist, slender athletic torso',
+      sizeAndBuild: 'Medium, nimble, lightning-fast reflexes',
+      faceProfile: 'Sharp tapered muzzle with keen amber eyes'
+    },
+    productivity: {
+      primaryUtility: 'Sighthound / Hunting',
+      averageYield: 'Game Tracking & High-Altitude Patrol',
+      fatPercentage: 'Lean hunting physique',
+      weightMaleKg: '20 - 26 kg',
+      weightFemaleKg: '16 - 22 kg',
+      hardiness: 'High',
+      heatTolerance: 'High resilience to rugged forest terrain'
+    },
+    historicalSignificance: 'Regarded as a sacred hunting partner in ancient Tangkhul Naga folklore and tribal songs.',
+    pastoralCommunities: ['Naga hunting and farming families'],
+    careRecommendations: ['Regular forest runs, fresh meats and rice, clean shelter'],
+    imageUrl: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=800&q=80&dog=haofa',
+    tags: ['Manipur', 'Nagaland', 'Haofa', 'Hunting Dog', 'Naga Hound']
+  },
+  {
+    id: 'alangu-mastiff',
+    name: 'Alangu Mastiff',
+    vernacularName: 'அலங்கு நாய் / South Indian War Mastiff',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Tamil Nadu & Karnataka',
+    homeTract: 'Thanjavur, Trichy, and southern Deccan plains',
+    nbagrCode: 'INDIA_DOG_1800_ALANGU_09015',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Colossal ancient South Indian catch dog and estate guardian, possessing a heavy square head, muscular shoulders, tight short coat, and fearless temperament.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78',
+      fatRegulatorGene: 'Hypertrophic jaw muscles and high bone density',
+      thermalGene: 'Short coat heat dissipation in tropical climate'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Dropped or semi-erect, thick leather',
+      coatColor: 'Fawn, brindle, red, or white with dark mask',
+      humpAndDewlap: 'Slight dewlap folds, broad massive chest',
+      sizeAndBuild: 'Giant mastiff, powerful heavy-boned structure',
+      faceProfile: 'Square skull with broad muzzle and scissor bite'
+    },
+    productivity: {
+      primaryUtility: 'Livestock Guardian / Working',
+      averageYield: 'Estate Protection & Large Predator Deterrence',
+      fatPercentage: 'Heavy mastiff build',
+      weightMaleKg: '50 - 68 kg',
+      weightFemaleKg: '40 - 55 kg',
+      hardiness: 'High',
+      heatTolerance: 'Excellent tolerance to southern Indian heat'
+    },
+    historicalSignificance: 'Historical war and royal guard dog of the Chola and Thanjavur Maratha kingdoms.',
+    pastoralCommunities: ['Estate owners and rural agriculturalists of Tamil Nadu'],
+    careRecommendations: ['Early socialization, firm guidance, high-protein diet with bone broth'],
+    imageUrl: 'https://images.unsplash.com/photo-1591769225440-811ad7d6eab2?auto=format&fit=crop&w=800&q=80&dog=alangu',
+    tags: ['Tamil Nadu', 'Alangu Mastiff', 'War Dog', 'Guard Dog', 'Giant Breed']
+  },
+  {
+    id: 'patti-dog',
+    name: 'Patti Dog',
+    vernacularName: 'ਪੱਟੀ ਕੁੱਤਾ / Malwa Working Dog',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Punjab',
+    homeTract: 'Patti tehsil, Majha, and Malwa agricultural plains of Punjab',
+    nbagrCode: 'INDIA_DOG_1600_PATTI_09016',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Fast, athletic medium-large working and guarding canine of Punjab, known for clean white or fawn coat, deep chest, and high guarding instinct on canal farms.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78',
+      fatRegulatorGene: 'Sustained endurance running alleles',
+      thermalGene: 'Plains extreme summer and winter adaptability'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Semi-erect or dropped',
+      coatColor: 'White, fawn, or light cream with occasional dark patches',
+      humpAndDewlap: 'Lean athletic waist and deep chest',
+      sizeAndBuild: 'Medium to large, swift and muscular',
+      faceProfile: 'Strong muzzle with alert expression'
+    },
+    productivity: {
+      primaryUtility: 'Livestock Guardian / Working',
+      averageYield: 'Farmstead Protection & Field Patrol',
+      fatPercentage: 'Lean working musculature',
+      weightMaleKg: '28 - 36 kg',
+      weightFemaleKg: '22 - 30 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Tolerates 46°C Punjab summers and 4°C winter frost'
+    },
+    historicalSignificance: 'Bred in the Patti tract of Tarn Taran district for agricultural watch and ward.',
+    pastoralCommunities: ['Punjabi farming families'],
+    careRecommendations: ['Extensive outdoor perimeter exercise, raw milk, eggs and rice diet'],
+    imageUrl: 'https://images.unsplash.com/photo-1612837017391-4b6b7b0d0be0?auto=format&fit=crop&w=800&q=80&dog=patti',
+    tags: ['Punjab', 'Patti Dog', 'Majha', 'Farm Guardian', 'Canine']
+  },
+  {
+    id: 'mahratta-hound',
+    name: 'Mahratta Hound',
+    vernacularName: 'मराठा शिकारी कुत्रा / Maratha Greyhound',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Maharashtra',
+    homeTract: 'Western Maharashtra and Deccan plateau coursing plains',
+    nbagrCode: 'INDIA_DOG_1100_MAHRATTA_09017',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Slender, lightning-fast coursing hound bred by the Marathas for hunting hare and small deer across the rocky black-soil Deccan plateau.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78',
+      fatRegulatorGene: 'High aerobic cardiovascular stroke volume',
+      thermalGene: 'Arid Deccan heat endurance during sprint pursuit'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Dropped flat, close to skull',
+      coatColor: 'Dark blue-grey brindle, black, or tan with dark points',
+      humpAndDewlap: 'Deep chest with narrow waist (tuck-up)',
+      sizeAndBuild: 'Medium sighthound, light-boned and aerodynamic',
+      faceProfile: 'Long narrow head with keen panoramic sight'
+    },
+    productivity: {
+      primaryUtility: 'Sighthound / Hunting',
+      averageYield: 'High-Speed Coursing (up to 55 km/h)',
+      fatPercentage: 'Ultra-lean sighthound frame',
+      weightMaleKg: '20 - 26 kg',
+      weightFemaleKg: '16 - 22 kg',
+      hardiness: 'High',
+      heatTolerance: 'Built for intense open-field pursuit under midday sun'
+    },
+    historicalSignificance: 'Rode with the Maratha light cavalry during the 17th and 18th centuries.',
+    pastoralCommunities: ['Dhangar pastoralists and rural Maratha hunters'],
+    careRecommendations: ['Open sprints in fenced fields, padded bedding, lean protein diet'],
+    imageUrl: 'https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=800&q=80&dog=mahratta',
+    tags: ['Maharashtra', 'Maratha Hound', 'Sighthound', 'Coursing', 'Deccan']
+  },
+  {
+    id: 'vikhan-sheepdog',
+    name: 'Vikhan Sheepdog',
+    vernacularName: 'विखन शिकारी कुत्रा / Himalayan Vikhan Hound',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Himachal Pradesh & Uttarakhand',
+    homeTract: 'High Himalayan valleys of Himachal and Uttarakhand border tracts',
+    nbagrCode: 'INDIA_DOG_0600_VIKHAN_09018',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Rare long-coated mountain flock guardian and leopard deterrent, possessing a thick lion-like mane, heavy bone, and fearless protective instinct in snow.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78',
+      fatRegulatorGene: 'Dense insulating undercoat gene markers',
+      thermalGene: 'Alpine snow and sub-zero blizzard adaptation'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Small, dropped flat',
+      coatColor: 'Black, red, fawn, or piebald with heavy rough coat',
+      humpAndDewlap: 'Thick protective fur ruff around neck and shoulders',
+      sizeAndBuild: 'Large, powerful legs with thick snow pads',
+      faceProfile: 'Strong broad muzzle with deep-set eyes'
+    },
+    productivity: {
+      primaryUtility: 'Livestock Guardian / Working',
+      averageYield: 'High-Altitude Flock & Village Defender',
+      fatPercentage: 'Heavy mountain build',
+      weightMaleKg: '38 - 50 kg',
+      weightFemaleKg: '30 - 40 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Supreme cold endurance; requires shaded refuge in hot plains'
+    },
+    historicalSignificance: 'Ancient guardian of transhumant sheep and goat flocks against snow leopards and wolves.',
+    pastoralCommunities: ['Himalayan nomadic shepherds'],
+    careRecommendations: ['Thorough seasonal coat brushing, cool mountain environment, high-energy feed'],
+    imageUrl: 'https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&w=800&q=80&dog=vikhan',
+    tags: ['Himachal Pradesh', 'Uttarakhand', 'Vikhan', 'Mountain Guardian', 'Snow Dog']
+  },
+  {
+    id: 'kaikadi-dog',
+    name: 'Kaikadi',
+    vernacularName: 'कैकडी कुत्रा / Nomadic Deccan Terrier',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Maharashtra & Karnataka',
+    homeTract: 'Solapur, Osmanabad, and Kalaburagi Deccan pastoral borders',
+    nbagrCode: 'INDIA_DOG_1100_KAIKADI_09019',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Compact, fiery hunting terrier bred by the nomadic Kaikadi tribe for flushing small game, rats, and hare from burrows across dry Deccan scrublands.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78',
+      fatRegulatorGene: 'High-speed burrowing and agile sprint alleles',
+      thermalGene: 'Dry thorn-scrub heat tolerance'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Erect or semi-pricked',
+      coatColor: 'Black, tan, white, or tricolor with short wiry coat',
+      humpAndDewlap: 'None (compact agile terrier conformation)',
+      sizeAndBuild: 'Small to medium, muscular, low center of gravity',
+      faceProfile: 'Fox-like wedge muzzle with keen dark eyes'
+    },
+    productivity: {
+      primaryUtility: 'Sighthound / Hunting',
+      averageYield: 'Rodent & Small Game Flushing',
+      fatPercentage: 'Lean wire-coated build',
+      weightMaleKg: '14 - 20 kg',
+      weightFemaleKg: '11 - 16 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Immune to thorny scrub scratches and arid midday heat'
+    },
+    historicalSignificance: 'Companion of the nomadic Kaikadi tribe during seasonal pastoral movements.',
+    pastoralCommunities: ['Kaikadi nomadic community of Maharashtra'],
+    careRecommendations: ['Active daily play, farm foraging, homemade rice and meat diet'],
+    imageUrl: 'https://images.unsplash.com/photo-1574158622682-e40e69881006?auto=format&fit=crop&w=800&q=80&dog=kaikadi',
+    tags: ['Maharashtra', 'Kaikadi', 'Deccan Terrier', 'Hunting Dog', 'Canine']
+  },
+  {
+    id: 'vaghari-hound',
+    name: 'Vaghari Hound',
+    vernacularName: 'વાઘરી શિકારી કૂતરો / Sinhala Vaghari Hound',
+    scientificName: 'Canis lupus familiaris',
+    category: 'Dog',
+    stateOfOrigin: 'Gujarat & Rajasthan',
+    homeTract: 'Kutch, Banaskantha, and Thar desert border scrublands',
+    nbagrCode: 'INDIA_DOG_0400_VAGHARI_09020',
+    nbagrStatus: 'Registered Indigenous',
+    description: 'Agile desert sighthound bred by the Vaghari community for tracking desert hare and monitor lizards across salty Rann scrub and sand dunes.',
+    genomics: {
+      csn2Allele: 'Canine Non-Dairy',
+      karyotype: '2n = 78',
+      fatRegulatorGene: 'High desert sprinting stamina',
+      thermalGene: 'Extreme saline desert sand heat resilience'
+    },
+    physicalTraits: {
+      horns: 'None',
+      ears: 'Semi-pricked or rose ears',
+      coatColor: 'Sandy fawn, red, or brindled with black points',
+      humpAndDewlap: 'Lean athletic waist and deep ribcage',
+      sizeAndBuild: 'Medium sighthound, wiry and swift',
+      faceProfile: 'Narrow pointed muzzle with sharp vision'
+    },
+    productivity: {
+      primaryUtility: 'Sighthound / Hunting',
+      averageYield: 'Arid Sand Dune Coursing',
+      fatPercentage: 'Lean athletic build',
+      weightMaleKg: '18 - 25 kg',
+      weightFemaleKg: '14 - 20 kg',
+      hardiness: 'Exceptional',
+      heatTolerance: 'Supreme tolerance to 48°C desert sun and saline dust'
+    },
+    historicalSignificance: 'Reared by the traditional Vaghari hunting community of Gujarat.',
+    pastoralCommunities: ['Vaghari pastoralists and hunters of Kutch'],
+    careRecommendations: ['Extensive running space, cool shade in summer, fresh meat diet'],
+    imageUrl: 'https://images.unsplash.com/photo-1568640347023-a616a30bc3bd?auto=format&fit=crop&w=800&q=80&dog=vaghari',
+    tags: ['Gujarat', 'Kutch', 'Vaghari Hound', 'Desert Sighthound', 'Canine']
   }
+
 ];
 
 export const INDIAN_BREEDS_CATALOG: BreedInfo[] = [

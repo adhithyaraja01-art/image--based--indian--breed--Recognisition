@@ -3,6 +3,7 @@ import { BreedInfo } from '../types/breed';
 import { INDIAN_BREEDS_CATALOG } from '../data/indigenousBreeds';
 import { compareBreeds } from '../utils/classifierLogic';
 import { ArrowLeftRight, Check, X, ShieldCheck, MapPin, Award } from 'lucide-react';
+import { BreedSpecimenImage } from './BreedSpecimenImage';
 
 interface BreedComparisonProps {
   initialBreedA?: string;
@@ -82,25 +83,17 @@ export const BreedComparison: React.FC<BreedComparisonProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Breed A Card */}
         <div className="bg-white rounded-3xl border border-stone-200 overflow-hidden shadow-xs">
-          <div className="relative aspect-[16/9] bg-stone-900">
-            <img
-              src={breedA.imageUrl}
-              alt={breedA.name}
-              onError={(e) => {
-                (e.target as HTMLImageElement).src =
-                  'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80';
-              }}
-              className="w-full h-full object-cover"
+          <div className="relative">
+            <BreedSpecimenImage
+              breed={breedA}
+              aspectRatioClass="aspect-[16/9]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent" />
-            <div className="absolute top-3 left-3 flex gap-2">
-              <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500 text-stone-950">
-                {breedA.category}
-              </span>
-            </div>
-            <div className="absolute bottom-4 left-4 text-white">
-              <h3 className="font-serif font-bold text-2xl text-amber-100">{breedA.name}</h3>
-              <p className="text-sm font-serif text-amber-300">({breedA.vernacularName})</p>
+            <div className="p-4 bg-stone-900 text-white flex items-baseline justify-between">
+              <div>
+                <h3 className="font-serif font-bold text-xl text-amber-100">{breedA.name}</h3>
+                <p className="text-xs font-serif text-amber-300">({breedA.vernacularName})</p>
+              </div>
+              <span className="text-xs font-mono text-stone-300">{breedA.stateOfOrigin}</span>
             </div>
           </div>
           <div className="p-5 text-xs text-stone-600 space-y-2">
@@ -110,25 +103,17 @@ export const BreedComparison: React.FC<BreedComparisonProps> = ({
 
         {/* Breed B Card */}
         <div className="bg-white rounded-3xl border border-stone-200 overflow-hidden shadow-xs">
-          <div className="relative aspect-[16/9] bg-stone-900">
-            <img
-              src={breedB.imageUrl}
-              alt={breedB.name}
-              onError={(e) => {
-                (e.target as HTMLImageElement).src =
-                  'https://images.unsplash.com/photo-1546445317-29f4545e9d53?auto=format&fit=crop&w=800&q=80';
-              }}
-              className="w-full h-full object-cover"
+          <div className="relative">
+            <BreedSpecimenImage
+              breed={breedB}
+              aspectRatioClass="aspect-[16/9]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent" />
-            <div className="absolute top-3 left-3 flex gap-2">
-              <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500 text-stone-950">
-                {breedB.category}
-              </span>
-            </div>
-            <div className="absolute bottom-4 left-4 text-white">
-              <h3 className="font-serif font-bold text-2xl text-amber-100">{breedB.name}</h3>
-              <p className="text-sm font-serif text-amber-300">({breedB.vernacularName})</p>
+            <div className="p-4 bg-stone-900 text-white flex items-baseline justify-between">
+              <div>
+                <h3 className="font-serif font-bold text-xl text-amber-100">{breedB.name}</h3>
+                <p className="text-xs font-serif text-amber-300">({breedB.vernacularName})</p>
+              </div>
+              <span className="text-xs font-mono text-stone-300">{breedB.stateOfOrigin}</span>
             </div>
           </div>
           <div className="p-5 text-xs text-stone-600 space-y-2">

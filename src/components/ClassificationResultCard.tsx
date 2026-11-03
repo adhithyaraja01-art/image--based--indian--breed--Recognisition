@@ -28,7 +28,8 @@ import {
   Gauge,
   TrendingUp,
   Milk,
-  FileText
+  FileText,
+  Globe
 } from 'lucide-react';
 
 interface ReliabilityMetrics {
@@ -121,6 +122,9 @@ export const ClassificationResultCard: React.FC<ClassificationResultCardProps> =
   const [cloudSavedSuccess, setCloudSavedSuccess] = useState<boolean>(false);
 
   const getCategoryLabel = (category: string) => {
+    if (result.isForeignBreed) {
+      return `Exotic / Foreign ${category} (${result.scientificName})`;
+    }
     switch (category) {
       case 'Cattle': return 'Indian Cattle (Bos indicus)';
       case 'Buffalo': return 'Indian River Buffalo (Bubalus bubalis)';
@@ -195,6 +199,36 @@ export const ClassificationResultCard: React.FC<ClassificationResultCardProps> =
         </div>
       )}
 
+      {/* Prominent Foreign Breed Identification Banner */}
+      {result.isForeignBreed && (
+        <div className="bg-gradient-to-r from-amber-500/20 via-amber-500/10 to-orange-500/20 border-b-2 border-amber-500/60 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-amber-950">
+          <div className="flex items-start sm:items-center gap-3.5">
+            <div className="p-2.5 rounded-xl bg-amber-600 text-white flex-shrink-0 shadow-md">
+              <Globe className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="px-2 py-0.5 rounded-md bg-amber-600 text-white text-[10px] font-bold uppercase tracking-wider">
+                  Exotic Specimen
+                </span>
+                <span className="text-xs font-semibold text-amber-900">
+                  Non-Indigenous Lineage
+                </span>
+              </div>
+              <h3 className="font-bold text-base sm:text-lg text-amber-950 mt-0.5">
+                This uploaded image is identified as Foreign Breed
+              </h3>
+              <p className="text-xs text-amber-900/90 mt-0.5 max-w-2xl">
+                Identified as <strong>{result.predictedBreed}</strong> (Origin: {result.stateOfOrigin}). This breed is of foreign / exotic origin and is not registered in India's ICAR-NBAGR Indigenous Animal Genetic Resources registry.
+              </p>
+            </div>
+          </div>
+          <span className="px-3 py-1.5 rounded-xl bg-amber-600/20 border border-amber-600/40 text-amber-900 font-mono text-xs font-bold whitespace-nowrap self-start sm:self-auto shadow-xs">
+            Exotic Origin: {result.stateOfOrigin}
+          </span>
+        </div>
+      )}
+
       {/* Top Header Card */}
       <div className="p-6 sm:p-8 bg-gradient-to-br from-stone-900 via-stone-800 to-amber-950 text-white relative">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
@@ -206,6 +240,11 @@ export const ClassificationResultCard: React.FC<ClassificationResultCardProps> =
                 alt={result.predictedBreed}
                 className="w-full h-full object-cover"
               />
+              {result.isForeignBreed && (
+                <span className="absolute top-1 left-1 bg-amber-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow">
+                  Foreign
+                </span>
+              )}
               <span className="absolute bottom-0 inset-x-0 bg-stone-900/80 text-[10px] text-amber-300 text-center py-0.5 font-mono">
                 Specimen
               </span>
@@ -329,7 +368,7 @@ export const ClassificationResultCard: React.FC<ClassificationResultCardProps> =
                   <span>AI Identification Confidence & Reliability Meter</span>
                 </h4>
                 <p className="text-[11px] text-stone-400">
-                  The AI model is <strong className="text-amber-300 font-bold">{result.confidence}% sure</strong> that this specimen is an indigenous <strong>{result.predictedBreed}</strong> ({result.category}).
+                  The AI model is <strong className="text-amber-300 font-bold">{result.confidence}% sure</strong> that this specimen is {result.isForeignBreed ? 'an exotic / foreign' : 'an indigenous'} <strong>{result.predictedBreed}</strong> ({result.category}).
                 </p>
               </div>
             </div>
@@ -605,6 +644,7 @@ export const ClassificationResultCard: React.FC<ClassificationResultCardProps> =
         {/* TAB 0: 11-Table Detailed Breed Dossier */}
         {activeTab === 'dossier' && (
           <DetailedBreedReportSection
+            result={result}
             breedName={result.predictedBreed}
             confidence={result.confidence}
             imagePreviewUrl={imagePreviewUrl}

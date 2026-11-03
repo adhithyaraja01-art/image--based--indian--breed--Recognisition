@@ -17,6 +17,7 @@ import { BreedModal } from './components/BreedModal';
 import { HistoryDrawer } from './components/HistoryDrawer';
 import { ProjectLabReportModal } from './components/ProjectLabReportModal';
 import { StudentJournalDrawer } from './components/StudentJournalDrawer';
+import { LoginModal } from './components/LoginModal';
 import { AuthProvider } from './firebase/authContext';
 import { SettingsProvider, useSettings } from './context/SettingsContext';
 import { SettingsView } from './components/SettingsView';
@@ -219,7 +220,7 @@ function MainAppContent() {
                     Indigenous Livestock &amp; Canine State Distribution Map
                   </h2>
                   <p className="text-xs sm:text-sm text-stone-600 mt-1 max-w-2xl">
-                    Interactive D3.js choropleth visualization indexing all 99 certified Indian breeds across Cattle (53), Buffalo (20), Goat (14), and Dog (12).
+                    Interactive D3.js choropleth visualization indexing all 132 certified Indian breeds across Cattle (53), Buffalo (20), Goat (39), and Dog (20).
                   </p>
                 </div>
                 <button
@@ -436,6 +437,9 @@ function MainAppContent() {
         onSelectScan={handleSelectHistoryScan}
         onClearHistory={handleClearHistory}
       />
+
+      {/* Firebase Authentication & Login Modal */}
+      <LoginModal />
 
       {/* Modern Academic & Agricultural Footer */}
       <Footer

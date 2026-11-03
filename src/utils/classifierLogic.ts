@@ -10,6 +10,679 @@ export function normalizeConfidence(score: number): number {
   return clamped;
 }
 
+export interface ForeignBreedEntry {
+  category: BreedCategory;
+  country: string;
+  standardName: string;
+  scientificName: string;
+  karyotype: string;
+  traits: {
+    horns: string;
+    ears: string;
+    coatColor: string;
+    humpAndDewlap: string;
+    sizeAndBuild: string;
+    faceProfile: string;
+  };
+  utility: string;
+  averageYield: string;
+  summary: string;
+}
+
+export const KNOWN_FOREIGN_BREEDS: Record<string, ForeignBreedEntry> = {
+  'holstein': {
+    category: 'Cattle',
+    country: 'Netherlands / Germany',
+    standardName: 'Holstein Friesian (HF)',
+    scientificName: 'Bos taurus',
+    karyotype: '2n = 60 (Bos taurus)',
+    traits: {
+      horns: 'Short inward curved or polled',
+      ears: 'Medium, horizontal (non-pendulous)',
+      coatColor: 'Distinct piebald black-and-white patches',
+      humpAndDewlap: 'Absent; flat cervicothoracic line and minimal dewlap',
+      sizeAndBuild: 'Large, angular dairy conformation, deep wedge body',
+      faceProfile: 'Straight facial profile with wide muzzle'
+    },
+    utility: 'Milch (Intensive Dairy)',
+    averageYield: '7,000 – 10,000 kg / lactation',
+    summary: 'The world\'s highest-yielding dairy cattle breed of European origin (Bos taurus). Unlike indigenous Indian Zebu cattle (Bos indicus), it lacks a thoracic hump, carries the A1 beta-casein allele, and possesses lower heat/tick tolerance in tropical climates.'
+  },
+  'holstein friesian': {
+    category: 'Cattle',
+    country: 'Netherlands / Germany',
+    standardName: 'Holstein Friesian (HF)',
+    scientificName: 'Bos taurus',
+    karyotype: '2n = 60 (Bos taurus)',
+    traits: {
+      horns: 'Short inward curved or polled',
+      ears: 'Medium, horizontal (non-pendulous)',
+      coatColor: 'Distinct piebald black-and-white patches',
+      humpAndDewlap: 'Absent; flat cervicothoracic line and minimal dewlap',
+      sizeAndBuild: 'Large, angular dairy conformation, deep wedge body',
+      faceProfile: 'Straight facial profile with wide muzzle'
+    },
+    utility: 'Milch (Intensive Dairy)',
+    averageYield: '7,000 – 10,000 kg / lactation',
+    summary: 'The world\'s highest-yielding dairy cattle breed of European origin (Bos taurus). Unlike indigenous Indian Zebu cattle (Bos indicus), it lacks a thoracic hump, carries the A1 beta-casein allele, and possesses lower heat/tick tolerance in tropical climates.'
+  },
+  'hf': {
+    category: 'Cattle',
+    country: 'Netherlands / Germany',
+    standardName: 'Holstein Friesian (HF)',
+    scientificName: 'Bos taurus',
+    karyotype: '2n = 60 (Bos taurus)',
+    traits: {
+      horns: 'Short inward curved or polled',
+      ears: 'Medium, horizontal',
+      coatColor: 'Black and white piebald markings',
+      humpAndDewlap: 'Absent; flat cervicothoracic line',
+      sizeAndBuild: 'Large, angular dairy conformation',
+      faceProfile: 'Straight facial profile'
+    },
+    utility: 'Milch (Intensive Dairy)',
+    averageYield: '7,000 – 10,000 kg / lactation',
+    summary: 'The world\'s highest-yielding dairy cattle breed of European origin (Bos taurus).'
+  },
+  'jersey': {
+    category: 'Cattle',
+    country: 'Island of Jersey (Channel Islands, UK)',
+    standardName: 'Jersey Cattle',
+    scientificName: 'Bos taurus',
+    karyotype: '2n = 60 (Bos taurus)',
+    traits: {
+      horns: 'Small, curved inward or polled',
+      ears: 'Small to medium, active',
+      coatColor: 'Fawn to light yellowish-brown with dark points and light muzzle ring',
+      humpAndDewlap: 'Absent; flat back without thoracic hump',
+      sizeAndBuild: 'Compact, refined dairy conformation',
+      faceProfile: 'Dished face with prominent, dark expressive eyes'
+    },
+    utility: 'Milch (High-Fat Dairy)',
+    averageYield: '4,500 – 6,500 kg / lactation',
+    summary: 'A British dairy breed renowned for high butterfat content (4.8%–5.5%). As a Bos taurus breed, it lacks the thoracic hump and pendulous dewlap characteristic of indigenous Indian Zebu cattle.'
+  },
+  'guernsey': {
+    category: 'Cattle',
+    country: 'Guernsey (Channel Islands, UK)',
+    standardName: 'Guernsey',
+    scientificName: 'Bos taurus',
+    karyotype: '2n = 60 (Bos taurus)',
+    traits: {
+      horns: 'Short, forward and upward curved',
+      ears: 'Medium',
+      coatColor: 'Fawn with white markings',
+      humpAndDewlap: 'Absent (Bos taurus)',
+      sizeAndBuild: 'Medium dairy frame',
+      faceProfile: 'Straight profile'
+    },
+    utility: 'Milch (Golden Milk Dairy)',
+    averageYield: '5,000 – 7,000 kg / lactation',
+    summary: 'A British Channel Island breed known for rich golden milk high in beta-carotene.'
+  },
+  'ayrshire': {
+    category: 'Cattle',
+    country: 'Scotland (United Kingdom)',
+    standardName: 'Ayrshire',
+    scientificName: 'Bos taurus',
+    karyotype: '2n = 60 (Bos taurus)',
+    traits: {
+      horns: 'Graceful lyre-shaped horns curling backward and upward',
+      ears: 'Medium, erect',
+      coatColor: 'Red and white jagged patterns',
+      humpAndDewlap: 'Absent',
+      sizeAndBuild: 'Medium-large rugged dairy frame',
+      faceProfile: 'Clean straight profile'
+    },
+    utility: 'Milch (Dairy)',
+    averageYield: '6,000 – 8,000 kg / lactation',
+    summary: 'A Scottish temperate dairy breed noted for foraging ability and udder conformation.'
+  },
+  'brown swiss': {
+    category: 'Cattle',
+    country: 'Switzerland',
+    standardName: 'Brown Swiss',
+    scientificName: 'Bos taurus',
+    karyotype: '2n = 60 (Bos taurus)',
+    traits: {
+      horns: 'Short or polled',
+      ears: 'Large with furry white interior fringe',
+      coatColor: 'Solid grey-brown to dark brown with light muzzle band',
+      humpAndDewlap: 'Absent',
+      sizeAndBuild: 'Large, muscular dual-purpose frame',
+      faceProfile: 'Broad forehead'
+    },
+    utility: 'Dual-Purpose (Milch & Draught)',
+    averageYield: '6,500 – 9,000 kg / lactation',
+    summary: 'An ancient Alpine European dairy breed known for high protein milk ideal for cheese making.'
+  },
+  'angus': {
+    category: 'Cattle',
+    country: 'Scotland (United Kingdom)',
+    standardName: 'Aberdeen Angus',
+    scientificName: 'Bos taurus',
+    karyotype: '2n = 60 (Bos taurus)',
+    traits: {
+      horns: 'Naturally polled (hornless)',
+      ears: 'Medium',
+      coatColor: 'Solid black or solid red',
+      humpAndDewlap: 'Absent',
+      sizeAndBuild: 'Compact, deep, muscular cylindrical beef conformation',
+      faceProfile: 'Broad poll and short face'
+    },
+    utility: 'Beef (Meat)',
+    averageYield: 'N/A (Beef production)',
+    summary: 'A British beef breed widely farmed worldwide for marbled beef production.'
+  },
+  'hereford': {
+    category: 'Cattle',
+    country: 'England (United Kingdom)',
+    standardName: 'Hereford',
+    scientificName: 'Bos taurus',
+    karyotype: '2n = 60 (Bos taurus)',
+    traits: {
+      horns: 'Downward curving or polled',
+      ears: 'Medium',
+      coatColor: 'Rich red with white face, crest, dewlap, underline, and switch',
+      humpAndDewlap: 'Absent',
+      sizeAndBuild: 'Heavy, blocky muscular beef conformation',
+      faceProfile: 'Iconic white face'
+    },
+    utility: 'Beef (Meat)',
+    averageYield: 'N/A (Beef production)',
+    summary: 'A quintessential British beef breed known for its distinctive white face.'
+  },
+  'boer': {
+    category: 'Goat',
+    country: 'South Africa',
+    standardName: 'Boer Goat',
+    scientificName: 'Capra hircus',
+    karyotype: '2n = 60',
+    traits: {
+      horns: 'Prominent, backward curving horns',
+      ears: 'Long, broad, pendulous lop ears',
+      coatColor: 'White body with reddish-brown head and neck blaze',
+      humpAndDewlap: 'Thick muscular dewlap fold without thoracic hump',
+      sizeAndBuild: 'Heavy, stocky, muscular meat conformation',
+      faceProfile: 'Convex Roman nose'
+    },
+    utility: 'Meat (Caprine)',
+    averageYield: '1.5 – 2.5 kg / day (Nursing)',
+    summary: 'An elite commercial meat goat developed in South Africa, prized globally for fast growth rate and heavy muscling.'
+  },
+  'saanen': {
+    category: 'Goat',
+    country: 'Switzerland',
+    standardName: 'Saanen Dairy Goat',
+    scientificName: 'Capra hircus',
+    karyotype: '2n = 60',
+    traits: {
+      horns: 'Polled or short saber horns',
+      ears: 'Medium, erect, forward-pointing',
+      coatColor: 'Solid white or creamy white short hair',
+      humpAndDewlap: 'Absent',
+      sizeAndBuild: 'Large, refined dairy conformation with well-attached udder',
+      faceProfile: 'Straight or slightly dished profile'
+    },
+    utility: 'Milch (Commercial Dairy)',
+    averageYield: '800 – 1,200 kg / lactation',
+    summary: 'The "Holstein of the goat world" originating in the Saanen valley of Switzerland, producing high volumes of dairy milk.'
+  },
+  'alpine': {
+    category: 'Goat',
+    country: 'French Alps',
+    standardName: 'French Alpine',
+    scientificName: 'Capra hircus',
+    karyotype: '2n = 60',
+    traits: {
+      horns: 'Medium backward sweeping or polled',
+      ears: 'Medium, erect, alert',
+      coatColor: 'Multi-colored (cou blanc, cou clair, sundgau, chamoisee)',
+      humpAndDewlap: 'Absent',
+      sizeAndBuild: 'Graceful dairy build, rugged agility',
+      faceProfile: 'Straight profile'
+    },
+    utility: 'Milch (Dairy)',
+    averageYield: '750 – 1,000 kg / lactation',
+    summary: 'A hardy dairy goat of European alpine origin.'
+  },
+  'german shepherd': {
+    category: 'Dog',
+    country: 'Germany',
+    standardName: 'German Shepherd (GSD)',
+    scientificName: 'Canis lupus familiaris',
+    karyotype: '2n = 78',
+    traits: {
+      horns: 'None',
+      ears: 'Erect, pointed, forward-facing',
+      coatColor: 'Black and tan saddle, solid black, or sable with double coat',
+      humpAndDewlap: 'Clean athletic throat and neck',
+      sizeAndBuild: 'Medium-large, longer than tall, deep chest, sloping topline',
+      faceProfile: 'Strong wedge-shaped head with dark almond eyes and black nose'
+    },
+    utility: 'Working / Police / Service / Herding',
+    averageYield: 'N/A',
+    summary: 'A world-famous German working and pastoral dog breed developed by Max von Stephanitz in 1899. Not indigenous to India.'
+  },
+  'gsd': {
+    category: 'Dog',
+    country: 'Germany',
+    standardName: 'German Shepherd (GSD)',
+    scientificName: 'Canis lupus familiaris',
+    karyotype: '2n = 78',
+    traits: {
+      horns: 'None',
+      ears: 'Erect, pointed',
+      coatColor: 'Black and tan saddle',
+      humpAndDewlap: 'Clean throat',
+      sizeAndBuild: 'Medium-large athletic build',
+      faceProfile: 'Wedge head'
+    },
+    utility: 'Working / Service',
+    averageYield: 'N/A',
+    summary: 'A German working dog breed of European origin.'
+  },
+  'golden retriever': {
+    category: 'Dog',
+    country: 'Scotland (United Kingdom)',
+    standardName: 'Golden Retriever',
+    scientificName: 'Canis lupus familiaris',
+    karyotype: '2n = 78',
+    traits: {
+      horns: 'None',
+      ears: 'Short, drop ears lying close to cheek',
+      coatColor: 'Rich lustrous golden to cream water-repellent dense coat',
+      humpAndDewlap: 'Clean neck',
+      sizeAndBuild: 'Sturdy, well-balanced, symmetrical athletic gun dog',
+      faceProfile: 'Broad skull with friendly, intelligent expression'
+    },
+    utility: 'Gun Dog / Companion / Guide Dog',
+    averageYield: 'N/A',
+    summary: 'A British retriever breed developed at Guisachan in Scotland. Known for gentle temperament and lush golden coat.'
+  },
+  'labrador': {
+    category: 'Dog',
+    country: 'Newfoundland (Canada) / United Kingdom',
+    standardName: 'Labrador Retriever',
+    scientificName: 'Canis lupus familiaris',
+    karyotype: '2n = 78',
+    traits: {
+      horns: 'None',
+      ears: 'Drop ears hanging close to head',
+      coatColor: 'Solid yellow, black, or chocolate short dense water-resistant coat',
+      humpAndDewlap: 'Clean neck',
+      sizeAndBuild: 'Strong, athletic build with distinctive "otter tail"',
+      faceProfile: 'Broad head with kind, friendly eyes'
+    },
+    utility: 'Retriever / Guide / Companion',
+    averageYield: 'N/A',
+    summary: 'One of the world\'s most popular companion and retrieving dog breeds, originating from the St. John\'s water dog in Canada.'
+  },
+  'labrador retriever': {
+    category: 'Dog',
+    country: 'Newfoundland (Canada) / United Kingdom',
+    standardName: 'Labrador Retriever',
+    scientificName: 'Canis lupus familiaris',
+    karyotype: '2n = 78',
+    traits: {
+      horns: 'None',
+      ears: 'Drop ears hanging close to head',
+      coatColor: 'Solid yellow, black, or chocolate',
+      humpAndDewlap: 'Clean neck',
+      sizeAndBuild: 'Strong build with otter tail',
+      faceProfile: 'Broad head'
+    },
+    utility: 'Retriever / Companion',
+    averageYield: 'N/A',
+    summary: 'A Canadian/British retriever breed of foreign origin.'
+  },
+  'siberian husky': {
+    category: 'Dog',
+    country: 'Siberia (Russia)',
+    standardName: 'Siberian Husky',
+    scientificName: 'Canis lupus familiaris',
+    karyotype: '2n = 78',
+    traits: {
+      horns: 'None',
+      ears: 'Medium, triangular, erect, set high and close',
+      coatColor: 'Thick double coat in black, grey, red, or agouti with white markings; blue or bi-color eyes',
+      humpAndDewlap: 'Clean muscular neck',
+      sizeAndBuild: 'Compact, graceful, endurance sled dog build with fox-brush tail',
+      faceProfile: 'Wolf-like Arctic head with distinctive facial mask'
+    },
+    utility: 'Sled Dog / Arctic Working',
+    averageYield: 'N/A',
+    summary: 'An Arctic working sled dog bred by the Chukchi people of northeastern Siberia, Russia.'
+  },
+  'husky': {
+    category: 'Dog',
+    country: 'Siberia (Russia)',
+    standardName: 'Siberian Husky',
+    scientificName: 'Canis lupus familiaris',
+    karyotype: '2n = 78',
+    traits: {
+      horns: 'None',
+      ears: 'Triangular erect ears',
+      coatColor: 'Double coat with mask and blue/brown eyes',
+      humpAndDewlap: 'Clean neck',
+      sizeAndBuild: 'Arctic endurance build',
+      faceProfile: 'Wolf-like Arctic head'
+    },
+    utility: 'Sled Dog',
+    averageYield: 'N/A',
+    summary: 'An Arctic sled dog originating from Siberia, Russia.'
+  },
+  'rottweiler': {
+    category: 'Dog',
+    country: 'Germany',
+    standardName: 'Rottweiler',
+    scientificName: 'Canis lupus familiaris',
+    karyotype: '2n = 78',
+    traits: {
+      horns: 'None',
+      ears: 'Medium pendant triangular drop ears',
+      coatColor: 'Black with clearly defined rich rust/mahogany tan markings',
+      humpAndDewlap: 'Muscular throat without excess skin folds',
+      sizeAndBuild: 'Robust, powerful, muscular molosser working build with deep broad chest',
+      faceProfile: 'Broad skull with powerful jaws and dark brown almond eyes'
+    },
+    utility: 'Guard / Working / Cattle Drover',
+    averageYield: 'N/A',
+    summary: 'A German mastiff-type cattle drover and guardian breed originating in Rottweil, Germany. An exotic non-indigenous canine breed outside India\'s ICAR-NBAGR registry.'
+  },
+  'rotweiller': {
+    category: 'Dog',
+    country: 'Germany',
+    standardName: 'Rottweiler',
+    scientificName: 'Canis lupus familiaris',
+    karyotype: '2n = 78',
+    traits: {
+      horns: 'None',
+      ears: 'Medium pendant triangular drop ears',
+      coatColor: 'Black with clearly defined rich rust/mahogany tan markings',
+      humpAndDewlap: 'Muscular throat',
+      sizeAndBuild: 'Robust, powerful, muscular molosser working build',
+      faceProfile: 'Broad skull with powerful jaws'
+    },
+    utility: 'Guard / Working / Cattle Drover',
+    averageYield: 'N/A',
+    summary: 'A German mastiff-type cattle drover and guardian breed originating in Rottweil, Germany.'
+  },
+  'rotweiler': {
+    category: 'Dog',
+    country: 'Germany',
+    standardName: 'Rottweiler',
+    scientificName: 'Canis lupus familiaris',
+    karyotype: '2n = 78',
+    traits: {
+      horns: 'None',
+      ears: 'Medium pendant triangular drop ears',
+      coatColor: 'Black with clearly defined rich rust/mahogany tan markings',
+      humpAndDewlap: 'Muscular throat',
+      sizeAndBuild: 'Robust, powerful, muscular molosser working build',
+      faceProfile: 'Broad skull with powerful jaws'
+    },
+    utility: 'Guard / Working / Cattle Drover',
+    averageYield: 'N/A',
+    summary: 'A German mastiff-type cattle drover and guardian breed originating in Rottweil, Germany.'
+  },
+  'rottweiller': {
+    category: 'Dog',
+    country: 'Germany',
+    standardName: 'Rottweiler',
+    scientificName: 'Canis lupus familiaris',
+    karyotype: '2n = 78',
+    traits: {
+      horns: 'None',
+      ears: 'Medium pendant triangular drop ears',
+      coatColor: 'Black with clearly defined rich rust/mahogany tan markings',
+      humpAndDewlap: 'Muscular throat',
+      sizeAndBuild: 'Robust, powerful, muscular molosser working build',
+      faceProfile: 'Broad skull with powerful jaws'
+    },
+    utility: 'Guard / Working / Cattle Drover',
+    averageYield: 'N/A',
+    summary: 'A German mastiff-type cattle drover and guardian breed originating in Rottweil, Germany.'
+  },
+  'rottie': {
+    category: 'Dog',
+    country: 'Germany',
+    standardName: 'Rottweiler',
+    scientificName: 'Canis lupus familiaris',
+    karyotype: '2n = 78',
+    traits: {
+      horns: 'None',
+      ears: 'Medium pendant triangular drop ears',
+      coatColor: 'Black with rich rust markings',
+      humpAndDewlap: 'Muscular throat',
+      sizeAndBuild: 'Robust molosser working build',
+      faceProfile: 'Broad skull'
+    },
+    utility: 'Guard / Working / Cattle Drover',
+    averageYield: 'N/A',
+    summary: 'A German working dog breed originating in Rottweil, Germany.'
+  },
+  'beagle': {
+    category: 'Dog',
+    country: 'United Kingdom',
+    standardName: 'Beagle',
+    scientificName: 'Canis lupus familiaris',
+    karyotype: '2n = 78',
+    traits: {
+      horns: 'None',
+      ears: 'Long, rounded drop ears reaching near tip of nose',
+      coatColor: 'Classic tricolor (black, tan, white) with white tail tip',
+      humpAndDewlap: 'Slight throat skin folds',
+      sizeAndBuild: 'Sturdy, compact small hound build',
+      faceProfile: 'Broad slightly domed head with soft hound expression'
+    },
+    utility: 'Scenthound / Hunting / Companion',
+    averageYield: 'N/A',
+    summary: 'A British small scenthound originally bred for tracking hare and rabbit.'
+  },
+  'doberman': {
+    category: 'Dog',
+    country: 'Germany',
+    standardName: 'Doberman Pinscher',
+    scientificName: 'Canis lupus familiaris',
+    karyotype: '2n = 78',
+    traits: {
+      horns: 'None',
+      ears: 'Erect or dropped',
+      coatColor: 'Black, red, blue, or fawn with rust markings',
+      humpAndDewlap: 'Clean arched neck',
+      sizeAndBuild: 'Sleek, muscular, elegant square build',
+      faceProfile: 'Long wedge head'
+    },
+    utility: 'Protection / Guard',
+    averageYield: 'N/A',
+    summary: 'A German protection breed developed by Karl Friedrich Louis Dobermann.'
+  },
+  'poodle': {
+    category: 'Dog',
+    country: 'France / Germany',
+    standardName: 'Poodle (Standard / Miniature / Toy)',
+    scientificName: 'Canis lupus familiaris',
+    karyotype: '2n = 78',
+    traits: {
+      horns: 'None',
+      ears: 'Hanging close to head with long fringes',
+      coatColor: 'Dense, curly, non-shedding coat in black, white, apricot, or grey',
+      humpAndDewlap: 'Clean neck',
+      sizeAndBuild: 'Square-proportioned elegant build',
+      faceProfile: 'Fine, chiseled muzzle'
+    },
+    utility: 'Water Retriever / Companion',
+    averageYield: 'N/A',
+    summary: 'A historic European water retriever and companion dog.'
+  },
+  'pug': {
+    category: 'Dog',
+    country: 'China / European Kennel Development',
+    standardName: 'Pug',
+    scientificName: 'Canis lupus familiaris',
+    karyotype: '2n = 78',
+    traits: {
+      horns: 'None',
+      ears: 'Small thin rose or button ears',
+      coatColor: 'Fawn or black with black mask and trace',
+      humpAndDewlap: 'Wrinkled neck folds',
+      sizeAndBuild: 'Square, cobby, muscular dwarf mastiff body with curled tail',
+      faceProfile: 'Brachycephalic flat wrinkled face'
+    },
+    utility: 'Companion / Lap Dog',
+    averageYield: 'N/A',
+    summary: 'A compact brachycephalic toy dog breed of foreign origin.'
+  }
+};
+
+/**
+ * Checks if a string or label represents a known foreign breed.
+ */
+export function detectForeignBreedInfo(input: string): ForeignBreedEntry | undefined {
+  if (!input) return undefined;
+  const lower = input.toLowerCase().trim();
+
+  // 1. Direct key match
+  if (KNOWN_FOREIGN_BREEDS[lower]) {
+    return KNOWN_FOREIGN_BREEDS[lower];
+  }
+
+  // 2. Normalized stem/typo matching
+  const clean = lower.replace(/[^a-z0-9]/g, '');
+  if (clean.includes('rottw') || clean.includes('rotw') || clean.includes('rottie')) {
+    return KNOWN_FOREIGN_BREEDS['rottweiler'];
+  }
+  if (clean.includes('doberm')) {
+    return KNOWN_FOREIGN_BREEDS['doberman'];
+  }
+  if (clean.includes('shepherd') || clean.includes('alsatian') || clean.includes('gsd')) {
+    return KNOWN_FOREIGN_BREEDS['german shepherd'];
+  }
+  if (clean.includes('golden') || (clean.includes('retriever') && clean.includes('gold'))) {
+    return KNOWN_FOREIGN_BREEDS['golden retriever'];
+  }
+  if (clean.includes('labrad') || (clean.includes('retriever') && clean.includes('lab'))) {
+    return KNOWN_FOREIGN_BREEDS['labrador'];
+  }
+  if (clean.includes('husky') || clean.includes('malamute')) {
+    return KNOWN_FOREIGN_BREEDS['siberian husky'];
+  }
+  if (clean.includes('beagle')) {
+    return KNOWN_FOREIGN_BREEDS['beagle'];
+  }
+  if (clean.includes('bulldog') || clean.includes('frenchie')) {
+    return KNOWN_FOREIGN_BREEDS['bulldog'];
+  }
+  if (clean.includes('poodle')) {
+    return KNOWN_FOREIGN_BREEDS['poodle'];
+  }
+  if (clean.includes('pug')) {
+    return KNOWN_FOREIGN_BREEDS['pug'];
+  }
+  if (clean.includes('holstein') || clean.includes('friesian')) {
+    return KNOWN_FOREIGN_BREEDS['holstein'];
+  }
+  if (clean.includes('jersey') && !clean.includes('newjersey')) {
+    return KNOWN_FOREIGN_BREEDS['jersey'];
+  }
+  if (clean.includes('boer')) {
+    return KNOWN_FOREIGN_BREEDS['boer'];
+  }
+  if (clean.includes('saanen')) {
+    return KNOWN_FOREIGN_BREEDS['saanen'];
+  }
+
+  // 3. Substring match
+  for (const [key, entry] of Object.entries(KNOWN_FOREIGN_BREEDS)) {
+    if (lower === key || lower.includes(key) || key.includes(lower)) {
+      return entry;
+    }
+    if (lower.includes(entry.standardName.toLowerCase())) {
+      return entry;
+    }
+  }
+
+  // Generic foreign keywords
+  if (lower.includes('foreign') || lower.includes('exotic') || lower.includes('taurus')) {
+    return KNOWN_FOREIGN_BREEDS['holstein'];
+  }
+
+  return undefined;
+}
+
+/**
+ * Creates a complete ClassificationResult specifically designated as a Foreign Breed.
+ */
+export function createForeignBreedClassificationResult(
+  foreignKeyOrName: string,
+  confidenceScore = 95,
+  userHint?: string
+): ClassificationResult {
+  const entry = detectForeignBreedInfo(foreignKeyOrName) || KNOWN_FOREIGN_BREEDS['holstein'];
+  const confidence = normalizeConfidence(confidenceScore);
+
+  return {
+    predictedBreed: entry.standardName,
+    vernacularName: entry.country,
+    category: entry.category,
+    scientificName: entry.scientificName,
+    confidence,
+    stateOfOrigin: entry.country,
+    homeTract: `${entry.country} (Non-Indian Exotic Origin)`,
+    nbagrCode: 'EXOTIC_NON_NBAGR',
+    utility: entry.utility,
+    summary: `This uploaded image is identified as Foreign Breed (${entry.standardName}). Originating from ${entry.country}, it is an exotic non-indigenous breed outside the ICAR-NBAGR Indian National Registry. ${entry.summary}`,
+    detectedVisualFeatures: [
+      `Foreign Breed Conformation (${entry.standardName})`,
+      `Country of Origin: ${entry.country}`,
+      entry.traits.coatColor,
+      entry.traits.humpAndDewlap,
+      entry.traits.faceProfile
+    ],
+    genomics: {
+      csn2Allele: entry.category === 'Cattle' ? 'A1/A2 or A1/A1 (Exotic Bos taurus marker)' : 'Non-Indig Caprine/Canine',
+      karyotype: entry.karyotype,
+      fatRegulatorGene: 'Exotic Temperate Lipid loci',
+      thermalGene: 'Temperate Climate Adaptation (Reduced Tropical Thermotolerance)'
+    },
+    physicalTraits: entry.traits,
+    productivity: {
+      primaryUtility: entry.utility,
+      averageYield: entry.averageYield,
+      fatPercentage: entry.category === 'Cattle' ? '3.5% – 4.2%' : entry.category === 'Goat' ? '3.5% – 4.0%' : 'N/A',
+      weightMaleKg: entry.category === 'Cattle' ? '800 – 1000 kg' : entry.category === 'Goat' ? '110 – 135 kg' : '30 – 40 kg',
+      weightFemaleKg: entry.category === 'Cattle' ? '600 – 750 kg' : entry.category === 'Goat' ? '80 – 100 kg' : '22 – 32 kg',
+      hardiness: 'Moderate',
+      heatTolerance: 'Low to moderate in tropical heat; requires climate-controlled housing or fan misting in India'
+    },
+    nbagrStatus: 'Exotic / Foreign Breed (Not Registered under ICAR-NBAGR)',
+    conservationStatus: 'Globally Distributed Commercial Breed',
+    historicalSignificance: `Developed internationally in ${entry.country}. In India, it is classified as an exotic or crossbred strain, distinct from indigenous genetic stock.`,
+    traditionalCommunities: [`International Breeders in ${entry.country}`, 'Commercial Dairies / Kennels'],
+    careRecommendations: [
+      'Climate control / ventilation required during extreme Indian summer temperatures',
+      'High-energy formulated balanced ration and disease monitoring for tropical tick-borne diseases',
+      'Consult veterinary extension regarding exotic crossbreeding guidelines'
+    ],
+    topCandidates: [
+      {
+        breedName: entry.standardName,
+        vernacularName: `Foreign (${entry.country})`,
+        category: entry.category,
+        confidence,
+        keyDifferentiatingFeature: 'This uploaded image is identified as Foreign Breed'
+      }
+    ],
+    isIndigenouslyRegistered: false,
+    isForeignBreed: true,
+    foreignBreedNotice: 'This uploaded image is identified as Foreign Breed',
+    foreignBreedName: entry.standardName,
+    foreignOriginCountry: entry.country,
+    distinguishingNotice: `This uploaded image is identified as Foreign Breed (${entry.standardName} from ${entry.country}). It does not carry ICAR-NBAGR indigenous accession certification.`
+  };
+}
+
 /**
  * Searches the catalog across Cattle, Buffalo, Goat, and Dog by query text, category, and state.
  */
@@ -168,6 +841,7 @@ export function breedToClassificationResult(
     careRecommendations: breed.careRecommendations,
     topCandidates,
     isIndigenouslyRegistered: true,
+    isForeignBreed: false,
     distinguishingNotice:
       distinguishingNotice ||
       `Verified against the national register of Indian indigenous ${breed.category.toLowerCase()} breeds.`
@@ -284,15 +958,35 @@ export function buildEnrichedClassificationResult(
               keyDifferentiatingFeature: 'Primary distinctive phenotypic markers matching registered NBAGR descriptors'
             }
           ],
-    isIndigenouslyRegistered: raw.isIndigenouslyRegistered ?? true,
-    distinguishingNotice: raw.distinguishingNotice,
+    isIndigenouslyRegistered: raw.isForeignBreed ? false : (raw.isIndigenouslyRegistered ?? true),
+    isForeignBreed: Boolean(
+      raw.isForeignBreed ||
+      (raw.predictedBreed ? detectForeignBreedInfo(raw.predictedBreed) : undefined) ||
+      (imageFilenameOrHint ? detectForeignBreedInfo(imageFilenameOrHint) : undefined)
+    ),
+    foreignBreedNotice: (
+      raw.isForeignBreed ||
+      (raw.predictedBreed && detectForeignBreedInfo(raw.predictedBreed)) ||
+      (imageFilenameOrHint && detectForeignBreedInfo(imageFilenameOrHint))
+    )
+      ? 'This uploaded image is identified as Foreign Breed'
+      : undefined,
+    foreignBreedName: raw.foreignBreedName ||
+      (raw.predictedBreed ? detectForeignBreedInfo(raw.predictedBreed)?.standardName : undefined) ||
+      (imageFilenameOrHint ? detectForeignBreedInfo(imageFilenameOrHint)?.standardName : undefined),
+    foreignOriginCountry: raw.foreignOriginCountry ||
+      (raw.predictedBreed ? detectForeignBreedInfo(raw.predictedBreed)?.country : undefined) ||
+      (imageFilenameOrHint ? detectForeignBreedInfo(imageFilenameOrHint)?.country : undefined),
+    distinguishingNotice: (raw.isForeignBreed || (raw.predictedBreed && detectForeignBreedInfo(raw.predictedBreed)))
+      ? `This uploaded image is identified as Foreign Breed. It does not carry ICAR-NBAGR indigenous registration.`
+      : raw.distinguishingNotice,
     nonBovineWarning: raw.nonBovineWarning
   };
 }
 
 /**
  * Intelligent Fallback heuristic classifier when Gemini API is 403 / unavailable or in offline evaluation mode.
- * Dynamically resolves to ANY of the 73 registered ICAR-NBAGR breeds based on student hints, state,
+ * Dynamically resolves to ANY of the registered ICAR-NBAGR breeds or foreign breeds based on student hints, state,
  * keyword matching, or deterministic image hash rotation. Never locks strictly to Gir!
  */
 export function generateFallbackClassification(
@@ -301,8 +995,13 @@ export function generateFallbackClassification(
 ): ClassificationResult {
   const lowerHint = (imageHint || '').trim().toLowerCase();
 
-  // 1. Check if user hint directly matches any of the 73 registered breeds
+  // 1. Check if user uploaded/hinted a foreign breed
   if (lowerHint) {
+    const foreignEntry = detectForeignBreedInfo(lowerHint);
+    if (foreignEntry) {
+      return createForeignBreedClassificationResult(lowerHint, 96, imageHint);
+    }
+
     const matched = findCatalogBreed(lowerHint);
     if (matched) {
       return breedToClassificationResult(

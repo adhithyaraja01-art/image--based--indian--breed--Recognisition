@@ -1,5 +1,6 @@
 import { BreedCategory, BreedInfo, ClassificationResult } from '../types/breed';
 import { INDIAN_BREEDS_CATALOG } from '../data/indigenousBreeds';
+import { detectForeignBreedInfo, ForeignBreedEntry } from '../utils/classifierLogic';
 
 export interface DetailedReportRow {
   parameter: string;
@@ -70,10 +71,79 @@ const SOURCE_GENOMICS = 'National Center for Biotechnology Information (NCBI) / 
 const SOURCE_GENOMICS_URL = 'https://www.ncbi.nlm.nih.gov/gene/281099';
 
 /**
+ * Creates a dynamic BreedInfo representation for recognized foreign breeds
+ * so the 11-table detailed dossier accurately presents foreign breed traits
+ * instead of falling back to Indian breeds like Gir Cow or Mudhol Hound.
+ */
+export function createForeignBreedInfo(
+  foreignEntry: ForeignBreedEntry,
+  fallbackImage?: string
+): BreedInfo {
+  const isDog = foreignEntry.category === 'Dog';
+  const isCattle = foreignEntry.category === 'Cattle';
+
+  return {
+    id: `foreign-${foreignEntry.standardName.toLowerCase().replace(/[^a-z0-9]/g, '-')}`,
+    name: foreignEntry.standardName,
+    vernacularName: `Foreign / Exotic ${foreignEntry.category} (${foreignEntry.country})`,
+    scientificName: foreignEntry.scientificName,
+    category: foreignEntry.category,
+    stateOfOrigin: foreignEntry.country,
+    homeTract: `${foreignEntry.country} (Introduced / Exotic breed outside Indian indigenous native tract)`,
+    nbagrCode: 'NON-ICAR (Exotic Foreign Breed)',
+    nbagrStatus: 'Common / Abundant',
+    description: foreignEntry.summary,
+    imageUrl: fallbackImage || (isDog
+      ? 'https://images.unsplash.com/photo-1567752881298-894bb81f9379?w=800&auto=format&fit=crop&q=80'
+      : isCattle
+      ? 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?w=800&auto=format&fit=crop&q=80'
+      : 'https://images.unsplash.com/photo-1524024973431-2ad916746881?w=800&auto=format&fit=crop&q=80'),
+    tags: ['Foreign Breed', 'Exotic Germplasm', foreignEntry.category, foreignEntry.country],
+    genomics: {
+      csn2Allele: isCattle ? 'A1/A2 or A1/A1 (European Bos taurus)' : (isDog ? 'Canine Non-Dairy' : 'Caprine Standard'),
+      karyotype: foreignEntry.karyotype,
+      fatRegulatorGene: isCattle ? 'DGAT1 K232A (European allele)' : (isDog ? 'IGF1 / MSTN' : 'Caprine standard'),
+      thermalGene: 'Temperate European expression (Low tropical heat shock protein response compared to Indian Zebu)'
+    },
+    physicalTraits: {
+      horns: foreignEntry.traits.horns,
+      ears: foreignEntry.traits.ears,
+      coatColor: foreignEntry.traits.coatColor,
+      humpAndDewlap: foreignEntry.traits.humpAndDewlap,
+      sizeAndBuild: foreignEntry.traits.sizeAndBuild,
+      faceProfile: foreignEntry.traits.faceProfile
+    },
+    productivity: {
+      primaryUtility: foreignEntry.utility,
+      averageYield: foreignEntry.averageYield,
+      fatPercentage: isCattle ? '3.5% - 4.5%' : 'N/A',
+      weightMaleKg: isDog ? '50 – 60 kg' : (isCattle ? '900 – 1100 kg' : '90 – 130 kg'),
+      weightFemaleKg: isDog ? '35 – 48 kg' : (isCattle ? '650 – 750 kg' : '80 – 100 kg'),
+      hardiness: 'Moderate',
+      heatTolerance: 'Moderate (Temperate climate adapted; requires active cooling/shelter in Indian tropical conditions)'
+    },
+    historicalSignificance: foreignEntry.summary,
+    pastoralCommunities: ['Commercial Breeders', 'Exotic Germplasm Farms / International Kennel Registries'],
+    careRecommendations: [
+      'Provide climate control, adequate ventilation, and shaded housing during tropical Indian summers.',
+      'Maintain strict vaccination schedule and vector control against tropical tick-borne diseases (Theileriosis, Babesiosis, Ehrlichiosis).',
+      'Follow balanced high-nutrient diet suited for exotic germplasm requirements.',
+      'Note: This animal is a foreign/exotic breed and is not eligible for ICAR-NBAGR indigenous germplasm conservation schemes.'
+    ]
+  };
+}
+
+/**
  * Height estimates based on certified physical traits
  */
 function getEstimatedHeight(breed: BreedInfo): string {
   if (breed.category === 'Cattle') {
+    if (breed.name.includes('Holstein') || breed.id.includes('holstein')) {
+      return 'Male: 155 – 165 cm | Female: 145 – 155 cm (Large European Dairy Frame)';
+    }
+    if (breed.name.includes('Jersey') || breed.id.includes('jersey')) {
+      return 'Male: 125 – 135 cm | Female: 115 – 125 cm (Compact Dairy)';
+    }
     if (breed.name.includes('Vechur') || breed.name.includes('Punganur') || breed.name.includes('Kasaragod')) {
       return 'Male: 90 – 105 cm | Female: 80 – 95 cm (Miniature Zebu)';
     }
@@ -89,6 +159,9 @@ function getEstimatedHeight(breed: BreedInfo): string {
     return 'Male: 125 – 140 cm | Female: 118 – 132 cm';
   }
   if (breed.category === 'Goat') {
+    if (breed.name.includes('Boer') || breed.id.includes('boer')) {
+      return 'Male: 75 – 90 cm | Female: 65 – 80 cm (Heavy Muscular Meat)';
+    }
     if (breed.name.includes('Jamunapari') || breed.name.includes('Beetal') || breed.name.includes('Jakhrana')) {
       return 'Male: 90 – 105 cm | Female: 75 – 85 cm (Tall Milch)';
     }
@@ -98,6 +171,12 @@ function getEstimatedHeight(breed: BreedInfo): string {
     return 'Male: 65 – 80 cm | Female: 60 – 72 cm';
   }
   if (breed.category === 'Dog') {
+    if (breed.name.toLowerCase().includes('rottw') || breed.id.includes('rottw')) {
+      return 'Male: 61 – 69 cm | Female: 56 – 63 cm (Robust Working Molosser)';
+    }
+    if (breed.name.toLowerCase().includes('shepherd') || breed.id.includes('shepherd')) {
+      return 'Male: 60 – 65 cm | Female: 55 – 60 cm (Athletic Working Shepherd)';
+    }
     if (breed.name.includes('Mudhol') || breed.name.includes('Rajapalayam') || breed.name.includes('Rampur') || breed.name.includes('Caravan')) {
       return 'Male: 65 – 75 cm | Female: 60 – 68 cm (Sighthound)';
     }
@@ -1555,14 +1634,23 @@ function buildConservationTable(breed: BreedInfo): DetailedReportRow[] {
   const isBuffalo = breed.category === 'Buffalo';
   const isGoat = breed.category === 'Goat';
   const isDog = breed.category === 'Dog';
+  const isForeign = breed.id.startsWith('foreign-') || breed.nbagrCode.includes('NON-ICAR') || breed.stateOfOrigin.includes('Germany') || breed.stateOfOrigin.includes('Netherlands') || breed.stateOfOrigin.includes('Kingdom') || breed.stateOfOrigin.includes('South Africa') || breed.stateOfOrigin.includes('Russia') || breed.stateOfOrigin.includes('Switzerland');
 
-  const defaultRef = isCattle || isBuffalo ? SOURCE_ICAR_NBAGR : isGoat ? SOURCE_CIRG : SOURCE_KCI;
-  const defaultUrl = isCattle || isBuffalo ? SOURCE_NBAGR_URL : isGoat ? SOURCE_CIRG_URL : SOURCE_KCI_URL;
+  const defaultRef = isForeign
+    ? (isDog ? SOURCE_KCI : SOURCE_ICAR_NBAGR)
+    : (isCattle || isBuffalo ? SOURCE_ICAR_NBAGR : isGoat ? SOURCE_CIRG : SOURCE_KCI);
+  const defaultUrl = isForeign
+    ? (isDog ? SOURCE_KCI_URL : SOURCE_NBAGR_URL)
+    : (isCattle || isBuffalo ? SOURCE_NBAGR_URL : isGoat ? SOURCE_CIRG_URL : SOURCE_KCI_URL);
 
-  const status = breed.nbagrStatus || 'Registered Indigenous';
+  const status = isForeign
+    ? 'Exotic / Foreign Breed (Outside ICAR-NBAGR Indigenous Conservation Registry)'
+    : (breed.nbagrStatus || 'Registered Indigenous');
 
   let popInfo = 'Data not available';
-  if (status.includes('Endangered') || status.includes('Rare')) {
+  if (isForeign) {
+    popInfo = `Exotic imported breed; global breed population maintained by international registries in country of origin (${breed.stateOfOrigin}).`;
+  } else if (status.includes('Endangered') || status.includes('Rare')) {
     popInfo = 'Estimated under 10,000 breeding head; active in-situ and ex-situ cryopreservation ongoing';
   } else if (status.includes('Priority')) {
     popInfo = 'Estimated 15,000 – 40,000 head; prioritized for pedigree registration and pureline breeding';
@@ -1570,13 +1658,15 @@ function buildConservationTable(breed: BreedInfo): DetailedReportRow[] {
     popInfo = 'Stable breeding population in native home tract; documented in national livestock census';
   }
 
-  const efforts = isCattle
+  const efforts = isForeign
+    ? `International Breed Registry Standards (FCI / VDH / Kennel Club / World Holstein Friesian Federation). Non-native to India.`
+    : (isCattle
     ? 'Rashtriya Gokul Mission (RGM), National Bureau of Animal Genetic Resources Gene Bank (cryopreservation of semen and embryos), and state bull mother farms'
     : isBuffalo
     ? 'Central Institute for Research on Buffaloes (CIRB) progeny testing program, state artificial insemination network, and breed registration'
     : isGoat
     ? 'ICAR-CIRG breed multiplication herds, National Livestock Mission (NLM) goat breeding units, and community buck exchange programs'
-    : 'Kennel Club of India (KCI) Indian Breeds Club registration, native breed dog shows, PM Man Ki Baat indigenous dog promotion, and paramilitary induction';
+    : 'Kennel Club of India (KCI) Indian Breeds Club registration, native breed dog shows, PM Man Ki Baat indigenous dog promotion, and paramilitary induction');
 
   return [
     {
@@ -1632,17 +1722,36 @@ export function generateDetailedBreedReport(
 ): DetailedBreedReport {
   let breed: BreedInfo | undefined;
   let confidenceVal: number | undefined = explicitConfidence;
+  let isForeignExplicit = false;
 
   if (typeof breedOrResult === 'string') {
     breed = INDIAN_BREEDS_CATALOG.find(
       (b) => b.name.toLowerCase() === breedOrResult.toLowerCase() || b.id.toLowerCase() === breedOrResult.toLowerCase()
     );
+    if (!breed) {
+      const foreign = detectForeignBreedInfo(breedOrResult);
+      if (foreign) {
+        breed = createForeignBreedInfo(foreign);
+        isForeignExplicit = true;
+      }
+    }
   } else if ('predictedBreed' in breedOrResult) {
     const res = breedOrResult as ClassificationResult;
     confidenceVal = res.confidence;
+    if (res.isForeignBreed) {
+      isForeignExplicit = true;
+    }
     breed = INDIAN_BREEDS_CATALOG.find(
       (b) => b.name.toLowerCase() === res.predictedBreed.toLowerCase()
     );
+    if (!breed) {
+      const foreign = (res.foreignBreedName ? detectForeignBreedInfo(res.foreignBreedName) : undefined)
+        || detectForeignBreedInfo(res.predictedBreed);
+      if (foreign) {
+        breed = createForeignBreedInfo(foreign, undefined);
+        isForeignExplicit = true;
+      }
+    }
   } else {
     breed = breedOrResult as BreedInfo;
   }
@@ -1651,6 +1760,8 @@ export function generateDetailedBreedReport(
   if (!breed) {
     breed = INDIAN_BREEDS_CATALOG[0];
   }
+
+  const isForeign = isForeignExplicit || breed.id.startsWith('foreign-') || breed.nbagrCode.includes('NON-ICAR');
 
   const generatedDate = new Date().toLocaleDateString('en-IN', {
     day: 'numeric',
@@ -1670,7 +1781,9 @@ export function generateDetailedBreedReport(
     confidence: confidenceVal,
     imageUrl: breed.imageUrl,
     generatedDate,
-    verifiedStatus: breed.nbagrStatus,
+    verifiedStatus: isForeign
+      ? 'Exotic / Foreign Breed (Outside ICAR-NBAGR National Registry)'
+      : breed.nbagrStatus,
     keyHighlights: {
       category: breed.category,
       utility: breed.productivity.primaryUtility,

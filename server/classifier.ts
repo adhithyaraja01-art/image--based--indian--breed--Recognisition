@@ -22,7 +22,7 @@ const bovineClassificationSchema = {
   properties: {
     predictedBreed: {
       type: Type.STRING,
-      description: 'The identified Indian indigenous Cattle or Buffalo breed name in English (e.g. Gir, Sahiwal, Kankrej, Ongole, Kangayam, Vechur, Tharparkar, Murrah, Jaffarabadi, Nili-Ravi, Surti, Bhadawari, Toda, Banni)'
+      description: 'The identified breed name. If an indigenous Indian breed, its registered name (e.g. Gir, Murrah, Jamunapari, Mudhol Hound). IF IT IS A FOREIGN/EXOTIC BREED (e.g. Rottweiler, German Shepherd, Golden Retriever, Labrador, Siberian Husky, Holstein Friesian, Jersey, Boer Goat), you MUST set predictedBreed to that exact foreign breed name (e.g. "Rottweiler", "German Shepherd", "Holstein Friesian") and set isForeignBreed = true!'
     },
     vernacularName: {
       type: Type.STRING,
@@ -139,6 +139,22 @@ const bovineClassificationSchema = {
     isIndigenouslyRegistered: {
       type: Type.BOOLEAN
     },
+    isForeignBreed: {
+      type: Type.BOOLEAN,
+      description: 'Set to TRUE if the image depicts a foreign, exotic, or non-indigenous breed (e.g. Holstein Friesian, Jersey, Angus, Hereford, Boer, Saanen, German Shepherd, Golden Retriever, Labrador, Siberian Husky, Rottweiler, Beagle, Bulldog, etc.) that is NOT an Indian indigenous breed registered by ICAR-NBAGR.'
+    },
+    foreignBreedNotice: {
+      type: Type.STRING,
+      description: 'If isForeignBreed is true, MUST EXACTLY contain: "This uploaded image is identified as Foreign Breed"'
+    },
+    foreignBreedName: {
+      type: Type.STRING,
+      description: 'The specific name of the identified foreign breed (e.g. Holstein Friesian, German Shepherd, Jersey, Golden Retriever, Boer Goat, etc.).'
+    },
+    foreignOriginCountry: {
+      type: Type.STRING,
+      description: 'The foreign country or geographic region of origin (e.g. Netherlands / Germany, Germany, United Kingdom, South Africa, Switzerland, etc.).'
+    },
     distinguishingNotice: {
       type: Type.STRING,
       description: 'How to distinguish this breed from crossbred (e.g. HF cross, Jersey cross) or related breeds'
@@ -229,14 +245,24 @@ Your project objective: Classify and document strictly INDIAN INDIGENOUS LIVESTO
 ${categoryDirective}
 ${optionalHint ? `Student Field Hint: "${optionalHint}"` : ''}
 
-Analyze diagnostic features:
-- Cranial / facial morphometry (convex forehead, Roman nose, wedge head, sighthound skull)
-- Horn morphology (spiral, lyre, crescent, sickle, flat, or hornless)
-- Conformation, coat color, ear posture (pendulous, prick, rose, semi-drooping)
-- Karyotype (2n=60 for Cattle & Goat; 2n=50 for Buffalo; 2n=78 for Dog)
-- Genotype markers (CSN2 A2/A2 in cattle, CSN1S1 in goats, MSTN/IGF1 in dogs)
+PRIORITY 1 - IMMEDIATE CHECK FOR FOREIGN / EXOTIC BREEDS:
+First, check whether the animal in the image is a foreign/exotic breed that does not belong to the ICAR-NBAGR Indian Indigenous Registry:
+- Foreign Dogs: Rottweiler, German Shepherd, Golden Retriever, Labrador Retriever, Siberian Husky, Doberman Pinscher, Beagle, Bulldog, Poodle, Boxer, Dachshund, Great Dane, Chihuahua, Pomeranian, Shih Tzu, etc.
+- Foreign Cattle: Holstein Friesian (HF), Jersey, Guernsey, Ayrshire, Brown Swiss, Angus, Hereford, Charolais, Simmental, etc.
+- Foreign Goats: Boer Goat, Saanen, Alpine, Toggenburg, Anglo-Nubian, etc.
+IF THE SPECIMEN IS A FOREIGN BREED (such as Rottweiler, German Shepherd, Holstein Friesian, etc.):
+  1. Set "predictedBreed": the exact foreign breed name (e.g. "Rottweiler", "German Shepherd", "Holstein Friesian"). DO NOT force or misclassify it as an Indian breed (like Mudhol Hound, Bully Kutta, or Gir)!
+  2. Set "isForeignBreed": true.
+  3. Set "isIndigenouslyRegistered": false.
+  4. Set "foreignBreedNotice": "This uploaded image is identified as Foreign Breed".
+  5. Set "foreignBreedName": the identified foreign breed name (e.g. "Rottweiler").
+  6. Set "foreignOriginCountry": country/region of origin (e.g. "Germany", "Netherlands / Germany", "United Kingdom", "South Africa").
+  7. Set "nbagrCode": "EXOTIC_NON_NBAGR".
+  8. Set "nbagrStatus": "Exotic / Foreign Breed (Not Registered under ICAR-NBAGR)".
+  9. Set "summary": "This uploaded image is identified as Foreign Breed (" + foreignBreedName + "). Originating from " + foreignOriginCountry + ", it is an exotic non-indigenous breed outside the ICAR-NBAGR Indian National Registry."
+  10. Set "distinguishingNotice": "This uploaded image is identified as Foreign Breed. It does not carry ICAR-NBAGR indigenous registration."
 
-If the uploaded image shows an animal outside these 4 categories or an exotic non-Indian breed, explain so in distinguishingNotice/nonBovineWarning.
+If the uploaded image shows an animal outside these categories, explain so in distinguishingNotice/nonBovineWarning.
 Output strictly valid JSON conforming to the schema.`;
 
     const startTime = Date.now();

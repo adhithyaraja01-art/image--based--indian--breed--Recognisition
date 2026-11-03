@@ -61,4 +61,29 @@ describe('breedDetailedInfoService', () => {
     assert.strictEqual(report.confidence, 94);
     assert.strictEqual(report.breedName, 'Sahiwal');
   });
+
+  it('generates accurate foreign breed report for Rottweiler and misspellings without falling back to Gir', () => {
+    const rottweilerReport = generateDetailedBreedReport('Rottweiler', 92);
+    assert.strictEqual(rottweilerReport.breedName, 'Rottweiler');
+    assert.strictEqual(rottweilerReport.category, 'Dog');
+    assert.strictEqual(rottweilerReport.stateOfOrigin, 'Germany');
+    assert.strictEqual(rottweilerReport.scientificName, 'Canis lupus familiaris');
+    assert.ok(rottweilerReport.verifiedStatus.includes('Exotic') || rottweilerReport.verifiedStatus.includes('Foreign'));
+    assert.notStrictEqual(rottweilerReport.breedName, 'Gir');
+
+    // Test common misspelling 'rotweiller'
+    const rotweillerReport = generateDetailedBreedReport('rotweiller', 88);
+    assert.strictEqual(rotweillerReport.breedName, 'Rottweiler');
+    assert.strictEqual(rotweillerReport.category, 'Dog');
+    assert.strictEqual(rotweillerReport.stateOfOrigin, 'Germany');
+    assert.notStrictEqual(rotweillerReport.breedName, 'Gir');
+
+    // Test Holstein Friesian foreign cattle
+    const hfReport = generateDetailedBreedReport('Holstein Friesian', 95);
+    assert.strictEqual(hfReport.breedName, 'Holstein Friesian (HF)');
+    assert.strictEqual(hfReport.category, 'Cattle');
+    assert.strictEqual(hfReport.scientificName, 'Bos taurus');
+    assert.ok(hfReport.verifiedStatus.includes('Exotic') || hfReport.verifiedStatus.includes('Foreign'));
+    assert.notStrictEqual(hfReport.breedName, 'Gir');
+  });
 });

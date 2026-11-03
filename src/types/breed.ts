@@ -79,6 +79,10 @@ export interface ClassificationResult {
   careRecommendations: string[];
   topCandidates: CandidateBreed[];
   isIndigenouslyRegistered: boolean;
+  isForeignBreed?: boolean;
+  foreignBreedNotice?: string;
+  foreignBreedName?: string;
+  foreignOriginCountry?: string;
   distinguishingNotice?: string;
   nonBovineWarning?: string;
   categorySupported?: boolean;

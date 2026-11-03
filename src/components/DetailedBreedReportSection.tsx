@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { ClassificationResult } from '../types/breed';
 import {
   DetailedBreedReport,
   DetailedReportRow,
@@ -29,6 +30,7 @@ import { generateBreedSvgDataUri } from '../utils/breedSvgBadge';
 
 interface DetailedBreedReportSectionProps {
   report?: DetailedBreedReport;
+  result?: ClassificationResult;
   breedName?: string;
   confidence?: number;
   imagePreviewUrl?: string;
@@ -53,6 +55,7 @@ interface TableDefinition {
 
 export const DetailedBreedReportSection: React.FC<DetailedBreedReportSectionProps> = ({
   report: providedReport,
+  result,
   breedName,
   confidence,
   imagePreviewUrl,
@@ -60,12 +63,13 @@ export const DetailedBreedReportSection: React.FC<DetailedBreedReportSectionProp
   onExploreBreed,
   showPrintButton = true
 }) => {
-  // Generate report dynamically based on the actual predicted breed and confidence
+  // Generate report dynamically based on the actual predicted breed, classification result, and confidence
   const report = useMemo(() => {
     if (providedReport) return providedReport;
+    if (result) return generateDetailedBreedReport(result, confidence);
     if (breedName) return generateDetailedBreedReport(breedName, confidence);
     return generateDetailedBreedReport('Gir', confidence);
-  }, [providedReport, breedName, confidence]);
+  }, [providedReport, result, breedName, confidence]);
 
   const [activeTableFilter, setActiveTableFilter] = useState<string>('all');
   const [tableSearchQuery, setTableSearchQuery] = useState<string>('');
@@ -246,6 +250,13 @@ export const DetailedBreedReportSection: React.FC<DetailedBreedReportSectionProp
     report.category === 'Buffalo' ? '🐃' :
     report.category === 'Goat' ? '🐐' : '🐕';
 
+  const isForeign =
+    Boolean(result?.isForeignBreed) ||
+    report.verifiedStatus.includes('Exotic') ||
+    report.verifiedStatus.includes('Foreign') ||
+    report.nbagrCode.includes('NON-ICAR') ||
+    report.breedId.startsWith('foreign-');
+
   return (
     <section className="space-y-8 animate-fadeIn" id="detailed-breed-dossier-report">
       {/* Section Header & Print Controls */}
@@ -256,10 +267,17 @@ export const DetailedBreedReportSection: React.FC<DetailedBreedReportSectionProp
               <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${badgeBg} shadow-xs`}>
                 {emoji} {report.category}
               </span>
-              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-900 border border-emerald-200 flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-700" />
-                ICAR-NBAGR Registered Indigenous Breed
-              </span>
+              {isForeign ? (
+                <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1.5 shadow-xs">
+                  <AlertTriangle className="w-3.5 h-3.5 text-amber-700" />
+                  Exotic / Foreign Breed (Outside ICAR-NBAGR National Registry)
+                </span>
+              ) : (
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-900 border border-emerald-200 flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-700" />
+                  ICAR-NBAGR Registered Indigenous Breed
+                </span>
+              )}
               {typeof report.confidence === 'number' && (
                 <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-900 border border-amber-200 font-mono">
                   AI Prediction Certainty: {report.confidence}%
@@ -281,6 +299,20 @@ export const DetailedBreedReportSection: React.FC<DetailedBreedReportSectionProp
             <p className="text-xs sm:text-sm font-mono text-emerald-800">
               Taxonomy: <strong className="italic">{report.scientificName}</strong> · Accession: <strong>{report.nbagrCode}</strong> · Origin: <strong>{report.stateOfOrigin}</strong>
             </p>
+
+            {isForeign && (
+              <div className="mt-3 p-3.5 rounded-2xl bg-amber-50/90 border border-amber-300 text-amber-950 flex items-start gap-3 shadow-xs">
+                <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                <div className="space-y-0.5">
+                  <p className="font-bold text-sm text-amber-950">
+                    This uploaded image is identified as Foreign Breed
+                  </p>
+                  <p className="text-xs text-amber-900 leading-relaxed">
+                    Specimen: <strong>{report.breedName}</strong> ({report.category}) · Country of Origin: <strong>{report.stateOfOrigin}</strong>. This animal is an exotic/foreign breed outside India's ICAR-NBAGR indigenous germplasm registry.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Action Hub: Print/Download PDF & Directory Navigation */}

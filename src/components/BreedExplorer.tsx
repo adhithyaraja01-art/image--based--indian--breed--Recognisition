@@ -5,6 +5,7 @@ import { filterBreeds } from '../utils/classifierLogic';
 import { Search, Filter, MapPin, Eye, ArrowLeftRight, ShieldCheck, Sparkles, Play, Star } from 'lucide-react';
 import { EmptyState } from './EmptyState';
 import { generateBreedSvgDataUri } from '../utils/breedSvgBadge';
+import { BreedSpecimenImage } from './BreedSpecimenImage';
 import { useAuth } from '../firebase/authContext';
 import { toggleFavoriteBreedInFirestore, fetchUserFavorites } from '../firebase/firestoreService';
 
@@ -147,13 +148,13 @@ export const BreedExplorer: React.FC<BreedExplorerProps> = ({
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-semibold uppercase tracking-wider mb-2 border border-emerald-200">
               <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-              Complete ICAR-NBAGR &amp; Canine Registry: 99 Certified Breeds
+              Complete ICAR-NBAGR &amp; Canine Registry: {INDIAN_BREEDS_CATALOG.length} Certified Breeds
             </div>
             <h2 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
               Indian Indigenous Breed Directory ({INDIAN_BREEDS_CATALOG.length} Registered)
             </h2>
             <p className="text-stone-600 text-sm mt-1 max-w-3xl leading-relaxed">
-              Every officially registered indigenous Indian Zebu cattle (53 breeds), river buffalo (20 breeds), goat (14 breeds), and native canine breed (12 breeds) recognized by ICAR-NBAGR and national archives, complete with certified accession codes, chromosomal karyotypes, and biological traits.
+              Every officially registered indigenous Indian Zebu cattle (53 breeds), river buffalo (20 breeds), goat (39 breeds), and native canine breed (20 breeds) recognized by ICAR-NBAGR and national registries, complete with certified accession codes, chromosomal karyotypes, and biological traits.
             </p>
           </div>
 
@@ -337,33 +338,18 @@ export const BreedExplorer: React.FC<BreedExplorerProps> = ({
                 className="bg-white rounded-2xl border border-stone-200/90 overflow-hidden shadow-xs hover:shadow-lg hover:border-emerald-500 transition-all group flex flex-col justify-between"
               >
                 {/* Photo & Specimen Header */}
-                <div
-                  className="relative aspect-[16/10] bg-stone-100 overflow-hidden cursor-pointer"
-                  onClick={() => onSelectBreed(breed)}
-                >
-                  <img
-                    src={breed.imageUrl.replace('/src/assets/images/', '/assets/images/')}
-                    alt={`${breed.name} ${breed.category}`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    onError={(e) => {
-                      e.currentTarget.src = generateBreedSvgDataUri(breed.name, breed.category, breed.nbagrCode, 'light');
-                    }}
+                <div className="relative overflow-hidden cursor-pointer">
+                  <BreedSpecimenImage
+                    breed={breed}
+                    onClick={() => onSelectBreed(breed)}
+                    aspectRatioClass="aspect-[16/10]"
                   />
-                  <div className="absolute top-3 left-3 flex items-center gap-1.5 flex-wrap">
-                    <span className={`px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${badgeBg} shadow-xs`}>
-                      {emoji} {breed.category}
-                    </span>
-                    <span className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-stone-900/80 text-amber-300 border border-amber-400/20 backdrop-blur-xs flex items-center gap-1">
-                      <ShieldCheck className="w-3 h-3 text-amber-400" />
-                      {breed.nbagrStatus}
-                    </span>
-                  </div>
 
                   {/* Bookmark Star Button */}
                   <button
                     type="button"
                     onClick={(e) => handleToggleCardFavorite(e, breed)}
-                    className={`absolute top-3 right-3 p-1.5 rounded-full backdrop-blur-xs transition-colors cursor-pointer z-10 ${
+                    className={`absolute top-3 right-3 p-1.5 rounded-full backdrop-blur-xs transition-colors cursor-pointer z-20 ${
                       favoriteIds.has(breed.id.toLowerCase().replace(/[^a-z0-9_-]/g, '-'))
                         ? 'bg-amber-500 text-stone-950 ring-2 ring-amber-300 shadow-md'
                         : 'bg-stone-900/60 text-white/80 hover:text-white hover:bg-stone-900 shadow-xs'
@@ -374,8 +360,8 @@ export const BreedExplorer: React.FC<BreedExplorerProps> = ({
                     <Star className={`w-3.5 h-3.5 ${favoriteIds.has(breed.id.toLowerCase().replace(/[^a-z0-9_-]/g, '-')) ? 'fill-current' : ''}`} />
                   </button>
 
-                  <div className="absolute bottom-2 right-2 bg-stone-900/80 text-stone-200 text-[10px] font-mono px-2 py-0.5 rounded backdrop-blur-xs">
-                    {breed.genomics.karyotype}
+                  <div className="absolute top-10 right-3 bg-stone-900/80 text-stone-200 text-[10px] font-mono px-2 py-0.5 rounded backdrop-blur-xs z-10 pointer-events-none">
+                    {breed.genomics.karyotype.split(' ')[0]}
                   </div>
                 </div>
 

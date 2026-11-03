@@ -140,3 +140,32 @@ test('SUPPORTED_LANGUAGES defines all 13 regional languages with full metadata a
   const kashmiri = SUPPORTED_LANGUAGES.find((l) => l.code === 'ks')!;
   assert.equal(kashmiri.isRtl, true);
 });
+
+test('detectForeignBreed identifies exotic breeds and displays: This uploaded image is identified as Foreign Breed', () => {
+  // Test Holstein Friesian
+  const holsteinResult = generateFallbackClassification('holstein');
+  assert.equal(holsteinResult.isForeignBreed, true);
+  assert.equal(holsteinResult.isIndigenouslyRegistered, false);
+  assert.equal(holsteinResult.foreignBreedNotice, 'This uploaded image is identified as Foreign Breed');
+  assert.ok(holsteinResult.summary.includes('This uploaded image is identified as Foreign Breed'));
+  assert.equal(holsteinResult.predictedBreed, 'Holstein Friesian (HF)');
+
+  // Test German Shepherd
+  const gsdResult = generateFallbackClassification('german shepherd');
+  assert.equal(gsdResult.isForeignBreed, true);
+  assert.equal(gsdResult.foreignBreedNotice, 'This uploaded image is identified as Foreign Breed');
+  assert.equal(gsdResult.predictedBreed, 'German Shepherd (GSD)');
+  assert.equal(gsdResult.stateOfOrigin, 'Germany');
+
+  // Test Boer Goat
+  const boerResult = generateFallbackClassification('boer');
+  assert.equal(boerResult.isForeignBreed, true);
+  assert.equal(boerResult.foreignBreedNotice, 'This uploaded image is identified as Foreign Breed');
+  assert.equal(boerResult.stateOfOrigin, 'South Africa');
+
+  // Verify that indigenous breed is NOT flagged as foreign
+  const girResult = generateFallbackClassification('gir');
+  assert.equal(girResult.isForeignBreed, false);
+  assert.equal(girResult.isIndigenouslyRegistered, true);
+  assert.equal(girResult.foreignBreedNotice, undefined);
+});

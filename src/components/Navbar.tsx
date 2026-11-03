@@ -52,7 +52,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenHistory,
   onOpenJournal
 }) => {
-  const { currentUser, userProfile, loginWithGoogle, logout, loading } = useAuth();
+  const { currentUser, userProfile, loginWithGoogle, logout, loading, openAuthModal } = useAuth();
   const { t, isDarkMode, toggleTheme } = useSettings();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -390,6 +390,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                       <span>Sign in with Google</span>
                     </button>
 
+                    <button
+                      onClick={() => {
+                        setIsProfileMenuOpen(false);
+                        openAuthModal();
+                      }}
+                      className="w-full mt-1.5 flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-xl border border-stone-200 hover:bg-emerald-50 text-stone-700 hover:text-emerald-950 text-[11px] font-semibold transition-all cursor-pointer"
+                    >
+                      <span>More Options (Email / Guest)</span>
+                    </button>
+
                     <div className="mt-3 pt-3 border-t border-stone-100 space-y-1">
                       <button
                         onClick={() => handleTabClick('profile')}
@@ -657,14 +667,25 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </button>
               </div>
             ) : (
-              <button
-                onClick={handleLogin}
-                disabled={isLoggingIn}
-                className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-emerald-800 text-white font-semibold hover:bg-emerald-900 text-xs shadow-xs cursor-pointer"
-              >
-                <LogIn className="w-3.5 h-3.5" />
-                <span>Sign in with Google</span>
-              </button>
+              <div className="space-y-2">
+                <button
+                  onClick={handleLogin}
+                  disabled={isLoggingIn}
+                  className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-emerald-800 text-white font-semibold hover:bg-emerald-900 text-xs shadow-xs cursor-pointer"
+                >
+                  <LogIn className="w-3.5 h-3.5" />
+                  <span>Sign in with Google</span>
+                </button>
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    openAuthModal();
+                  }}
+                  className="w-full flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-xl border border-stone-200 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold cursor-pointer"
+                >
+                  <span>More Options (Email / Guest)</span>
+                </button>
+              </div>
             )}
           </div>
         </div>

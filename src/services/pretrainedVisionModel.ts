@@ -2,7 +2,7 @@ import * as tf from '@tensorflow/tfjs';
 import * as mobilenet from '@tensorflow-models/mobilenet';
 import { ClassificationResult, BreedCategory } from '../types/breed';
 import { INDIAN_BREEDS_CATALOG, INDIAN_BOVINE_BREEDS } from '../data/indigenousBreeds';
-import { breedToClassificationResult, findCatalogBreed } from '../utils/classifierLogic';
+import { breedToClassificationResult, findCatalogBreed, detectForeignBreedInfo, createForeignBreedClassificationResult } from '../utils/classifierLogic';
 
 let cachedModel: mobilenet.MobileNet | null = null;
 let isModelLoading = false;
@@ -260,6 +260,42 @@ export async function classifyWithPretrainedModel(
   const nonTargetProb = topRawPrediction ? topRawPrediction.probability : 0;
 
   const lowerHint = (optionalHint || '').toLowerCase().trim();
+
+  // 3a. Check if user provided hint corresponds to a foreign breed
+  if (lowerHint) {
+    const foreignFromHint = detectForeignBreedInfo(lowerHint);
+    if (foreignFromHint) {
+      const foreignResult = createForeignBreedClassificationResult(lowerHint, 96, optionalHint);
+      foreignResult.aiModelInfo = {
+        modelName: 'Google MobileNet v2 Deep Neural Network',
+        modelType: 'On-Device MobileNet v2',
+        inferenceTimeMs: inferenceDuration,
+        topRawPredictions: rawPredictions.slice(0, 3),
+        tensorResolution: '224 x 224 x 3 (RGB Float32)'
+      };
+      return foreignResult;
+    }
+  }
+
+  // 3b. Check if top ImageNet predictions from MobileNet indicate an exotic/foreign breed
+  for (const pred of rawPredictions) {
+    const foreignMatch = detectForeignBreedInfo(pred.className);
+    if (foreignMatch && (pred.probability > 0.03 || pred === rawPredictions[0])) {
+      const foreignResult = createForeignBreedClassificationResult(
+        foreignMatch.standardName,
+        Math.min(99, Math.max(85, Math.round(pred.probability * 100 * 2.5))),
+        optionalHint
+      );
+      foreignResult.aiModelInfo = {
+        modelName: 'Google MobileNet v2 Deep Neural Network',
+        modelType: 'On-Device MobileNet v2',
+        inferenceTimeMs: inferenceDuration,
+        topRawPredictions: rawPredictions.slice(0, 3),
+        tensorResolution: '224 x 224 x 3 (RGB Float32)'
+      };
+      return foreignResult;
+    }
+  }
 
   // Determine detected category
   let detectedCategory: BreedCategory;
