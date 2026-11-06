@@ -169,3 +169,52 @@ test('detectForeignBreed identifies exotic breeds and displays: This uploaded im
   assert.equal(girResult.isIndigenouslyRegistered, true);
   assert.equal(girResult.foreignBreedNotice, undefined);
 });
+
+test('detectForeignBreed correctly classifies Rottweiler and spelling variants as foreign without defaulting to Gir', () => {
+  const rottResult1 = generateFallbackClassification('rottweiler');
+  assert.equal(rottResult1.isForeignBreed, true);
+  assert.equal(rottResult1.identificationStatus, 'identified_foreign');
+  assert.equal(rottResult1.predictedBreed, 'Rottweiler');
+  assert.notEqual(rottResult1.predictedBreed, 'Gir');
+  assert.equal(rottResult1.stateOfOrigin, 'Germany');
+  assert.equal(rottResult1.statusMessage, 'This uploaded image is identified as Foreign Breed');
+
+  // Common user misspelling: 'rotweiller'
+  const rottResult2 = generateFallbackClassification('rotweiller');
+  assert.equal(rottResult2.isForeignBreed, true);
+  assert.equal(rottResult2.identificationStatus, 'identified_foreign');
+  assert.equal(rottResult2.predictedBreed, 'Rottweiler');
+  assert.notEqual(rottResult2.predictedBreed, 'Gir');
+});
+
+test('detects unsupported animals and flags them with unsupported_animal status', () => {
+  const catResult = generateFallbackClassification('cat');
+  assert.equal(catResult.isUnsupportedAnimal, true);
+  assert.equal(catResult.identificationStatus, 'unsupported_animal');
+  assert.ok(catResult.unsupportedAnimalType?.includes('Cat'));
+  assert.ok(catResult.statusMessage?.includes('Unsupported Animal'));
+
+  const horseResult = generateFallbackClassification('horse');
+  assert.equal(horseResult.isUnsupportedAnimal, true);
+  assert.equal(horseResult.identificationStatus, 'unsupported_animal');
+  assert.ok(horseResult.unsupportedAnimalType?.includes('Horse'));
+
+  const carResult = generateFallbackClassification('car');
+  assert.equal(carResult.isUnsupportedAnimal, true);
+  assert.equal(carResult.identificationStatus, 'unsupported_animal');
+});
+
+test('detects unknown / unsupported breeds and does not invent predictions or default to Gir', () => {
+  const unknownResult = generateFallbackClassification('unknown');
+  assert.equal(unknownResult.isUnknownBreed, true);
+  assert.equal(unknownResult.identificationStatus, 'unknown_breed');
+  assert.equal(unknownResult.predictedBreed, 'Unknown / Unsupported Breed');
+  assert.notEqual(unknownResult.predictedBreed, 'Gir');
+
+  // Blank/unhinted image fallback must be unknown / uncertain, NOT Gir
+  const blankResult = generateFallbackClassification();
+  assert.equal(blankResult.isUnknownBreed, true);
+  assert.notEqual(blankResult.predictedBreed, 'Gir');
+  assert.ok(blankResult.confidence < 60);
+});
+

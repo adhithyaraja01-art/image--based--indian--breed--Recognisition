@@ -41,7 +41,7 @@ import {
 const STORAGE_KEY = 'indian_bovine_history_v2';
 
 function MainAppContent() {
-  const { isDarkMode } = useSettings();
+  const { isDarkMode, settings } = useSettings();
   const [activeTab, setActiveTab] = useState<ActiveTab>('home');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [currentResult, setCurrentResult] = useState<ClassificationResult | null>(null);
@@ -119,7 +119,8 @@ function MainAppContent() {
         imageBase64: base64Image,
         hint: hint || sample?.subtitle,
         engine: engine || 'auto',
-        category
+        category,
+        minConfidenceThreshold: settings?.minConfidenceThreshold ?? 60
       });
 
       setCurrentResult(result);

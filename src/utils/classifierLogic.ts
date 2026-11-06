@@ -1,4 +1,4 @@
-import { BreedCategory, BreedInfo, ClassificationResult } from '../types/breed';
+import { BreedCategory, BreedInfo, ClassificationResult, IdentificationStatus } from '../types/breed';
 import { INDIAN_BREEDS_CATALOG, INDIAN_BOVINE_BREEDS } from '../data/indigenousBreeds';
 
 /**
@@ -676,10 +676,166 @@ export function createForeignBreedClassificationResult(
     ],
     isIndigenouslyRegistered: false,
     isForeignBreed: true,
+    identificationStatus: 'identified_foreign',
+    statusMessage: 'This uploaded image is identified as Foreign Breed',
     foreignBreedNotice: 'This uploaded image is identified as Foreign Breed',
     foreignBreedName: entry.standardName,
     foreignOriginCountry: entry.country,
     distinguishingNotice: `This uploaded image is identified as Foreign Breed (${entry.standardName} from ${entry.country}). It does not carry ICAR-NBAGR indigenous accession certification.`
+  };
+}
+
+/**
+ * Creates a complete ClassificationResult for an Unknown or Unsupported Breed.
+ */
+export function createUnknownBreedClassificationResult(
+  category: BreedCategory = 'Cattle',
+  confidenceScore = 45,
+  reason?: string,
+  observedFeatures?: string[]
+): ClassificationResult {
+  const confidence = normalizeConfidence(confidenceScore);
+  const scientificName = category === 'Cattle' ? 'Bos indicus / Bos taurus'
+    : category === 'Buffalo' ? 'Bubalus bubalis'
+    : category === 'Goat' ? 'Capra hircus'
+    : 'Canis lupus familiaris';
+
+  return {
+    predictedBreed: 'Unknown / Unsupported Breed',
+    vernacularName: 'अज्ञात / गैर-पंजीकृत नस्ल',
+    category,
+    scientificName,
+    confidence,
+    stateOfOrigin: 'Non-Standard / Undefined Regional Lineage',
+    homeTract: 'Crossbred, Non-descript, or Unregistered Local Population',
+    nbagrCode: 'NON_REGISTERED_LOCAL',
+    utility: category === 'Dog' ? 'Working / Companion' : 'General Domestic Livestock',
+    summary: 'The uploaded image depicts a specimen whose phenotypic traits (horns, dewlap, coat pattern, cranial profile) do not align with any certified ICAR-NBAGR registered indigenous breed, nor a standardized foreign breed descriptor.',
+    detectedVisualFeatures: observedFeatures && observedFeatures.length > 0 ? observedFeatures : [
+      'Atypical cranial or horn conformation not conforming to NBAGR accession standards',
+      'Potential crossbred (indigenous x exotic) or non-descript local landrace',
+      reason || 'Morphological divergence exceeds certified indigenous breed threshold'
+    ],
+    genomics: {
+      csn2Allele: 'Undetermined / Polymorphic',
+      karyotype: category === 'Buffalo' ? '2n = 50' : category === 'Dog' ? '2n = 78' : '2n = 60',
+      fatRegulatorGene: 'Polymorphic Variable Loci',
+      thermalGene: 'Variable Environmental Adaptation'
+    },
+    physicalTraits: {
+      horns: 'Atypical or indeterminate horn orientation',
+      ears: 'Variable ear conformation',
+      coatColor: 'Mixed / non-standard coat pigmentation',
+      humpAndDewlap: 'Intermediate or indeterminate thoracic structure',
+      sizeAndBuild: 'Intermediate conformation',
+      faceProfile: 'Atypical facial profile'
+    },
+    productivity: {
+      primaryUtility: 'General Agricultural / Domestic',
+      averageYield: 'Variable non-standard yield',
+      fatPercentage: 'Variable',
+      weightMaleKg: 'Variable',
+      weightFemaleKg: 'Variable',
+      hardiness: 'Moderate',
+      heatTolerance: 'Moderate'
+    },
+    nbagrStatus: 'Common / Abundant',
+    conservationStatus: 'Unregistered / Non-Accessioned Population',
+    historicalSignificance: 'Specimens from non-standardized breeding or multi-generation crossbreeding lacking registered pedigree records.',
+    traditionalCommunities: ['Local Farmers', 'Non-Pedigreed Keepers'],
+    careRecommendations: [
+      'Maintain standard hygienic housing and balanced local green fodder ration',
+      'For accurate genetic lineage determination, blood sample genotyping is recommended'
+    ],
+    topCandidates: [
+      {
+        breedName: 'Unknown / Unsupported Breed',
+        vernacularName: 'Non-descript',
+        category,
+        confidence,
+        keyDifferentiatingFeature: 'Does not match any of the 132 certified ICAR-NBAGR breed descriptors'
+      }
+    ],
+    isIndigenouslyRegistered: false,
+    isUnknownBreed: true,
+    isUnsupportedBreed: true,
+    identificationStatus: 'unknown_breed',
+    statusMessage: 'Unsupported Breed: The specimen does not match certified ICAR-NBAGR indigenous accession standards or recognized breed morphology.',
+    distinguishingNotice: 'Unsupported Breed: Phenotypic markers do not conform to any registered Indian indigenous accession or standardized foreign breed.'
+  };
+}
+
+/**
+ * Creates a complete ClassificationResult for an Unsupported Animal (outside Cattle, Buffalo, Goat, Dog).
+ */
+export function createUnsupportedAnimalClassificationResult(
+  detectedAnimal: string = 'Non-Target Subject',
+  confidenceScore = 88,
+  rawTopPredictions?: { className: string; probability: number }[]
+): ClassificationResult {
+  const confidence = normalizeConfidence(confidenceScore);
+  const animalClean = detectedAnimal.replace(/_/g, ' ');
+
+  return {
+    predictedBreed: `Unsupported Animal (${animalClean})`,
+    vernacularName: 'असमर्थित पशु वर्ग (Non-Target)',
+    category: 'Cattle',
+    scientificName: 'Non-Bovine/Caprine/Canine Taxon',
+    confidence,
+    stateOfOrigin: 'Outside Application Scope',
+    homeTract: 'Non-Target Biological Species',
+    nbagrCode: 'UNSUPPORTED_ANIMAL_TAXON',
+    utility: 'Non-Target Subject',
+    summary: `The uploaded image is identified as ${animalClean}. This academic classification system is specifically designed and certified for Indian Indigenous Cattle (Bos indicus), River Buffalo (Bubalus bubalis), Goats (Capra hircus), and Dogs (Canis lupus familiaris).`,
+    detectedVisualFeatures: [
+      `Detected subject: ${animalClean}`,
+      'Taxonomic family outside bovine, bubaline, caprine, and canine scopes',
+      'No ICAR-NBAGR indigenous breed accession applies to this species'
+    ],
+    genomics: {
+      csn2Allele: 'Non-Applicable Species',
+      karyotype: 'Non-Target Taxon',
+      fatRegulatorGene: 'Non-Target Taxon',
+      thermalGene: 'Non-Target Taxon'
+    },
+    physicalTraits: {
+      horns: 'N/A (Non-Target Species)',
+      ears: 'N/A (Non-Target Species)',
+      coatColor: 'N/A (Non-Target Species)',
+      humpAndDewlap: 'N/A (Non-Target Species)',
+      sizeAndBuild: 'N/A (Non-Target Species)',
+      faceProfile: 'N/A (Non-Target Species)'
+    },
+    productivity: {
+      primaryUtility: 'Non-Target Subject',
+      averageYield: 'N/A',
+      fatPercentage: 'N/A',
+      weightMaleKg: 'N/A',
+      weightFemaleKg: 'N/A',
+      hardiness: 'Moderate',
+      heatTolerance: 'N/A'
+    },
+    nbagrStatus: 'Common / Abundant',
+    conservationStatus: 'Non-Target Species (Outside ICAR-NBAGR Indigenous Livestock Scope)',
+    historicalSignificance: 'Subject belongs to a biological class or species outside the four supported categories of Indian Indigenous livestock and native working dogs.',
+    traditionalCommunities: ['N/A'],
+    careRecommendations: [
+      'Upload a photograph of an Indian Cattle, Buffalo, Goat, or Dog for valid ICAR-NBAGR breed identification.'
+    ],
+    topCandidates: (rawTopPredictions || []).slice(0, 3).map((p) => ({
+      breedName: p.className,
+      category: 'Cattle' as BreedCategory,
+      confidence: Math.round(p.probability * 100),
+      keyDifferentiatingFeature: 'Outside supported livestock scope'
+    })),
+    isIndigenouslyRegistered: false,
+    categorySupported: false,
+    isUnsupportedAnimal: true,
+    unsupportedAnimalType: animalClean,
+    identificationStatus: 'unsupported_animal',
+    statusMessage: `Unsupported Animal: This application strictly classifies Indian Indigenous Cattle, Buffalo, Goat, and Dog breeds. The detected subject is "${animalClean}", which is outside supported categories.`,
+    nonBovineWarning: `The uploaded image is identified as ${animalClean}. This academic classification system is certified strictly for Indian Indigenous Cattle, Buffalo, Goat, and Dog breeds.`,
+    distinguishingNotice: `Unsupported Animal: Detected "${animalClean}". Please upload a photo of Indian Cattle, Buffalo, Goat, or Dog.`
   };
 }
 
@@ -741,7 +897,12 @@ export function findCatalogBreed(breedNameOrHint: string): BreedInfo | undefined
   const byPartialName = catalog.find((b) => {
     const bName = b.name.toLowerCase();
     const vName = b.vernacularName.toLowerCase();
-    return target.includes(bName) || bName.includes(target) || target.includes(vName) || vName.includes(target);
+    return (
+      (target.length >= 4 && bName.includes(target)) ||
+      target.includes(bName) ||
+      (target.length >= 4 && vName.includes(target)) ||
+      (vName.length >= 4 && target.includes(vName))
+    );
   });
   if (byPartialName) return byPartialName;
 
@@ -842,6 +1003,11 @@ export function breedToClassificationResult(
     topCandidates,
     isIndigenouslyRegistered: true,
     isForeignBreed: false,
+    identificationStatus: confidence < 60 ? 'uncertain_breed' : 'identified_indigenous',
+    isUncertain: confidence < 60,
+    statusMessage: confidence < 60
+      ? 'Breed identification is uncertain. Please upload a clearer image.'
+      : 'Supported Indigenous Indian Breed (ICAR-NBAGR Registered)',
     distinguishingNotice:
       distinguishingNotice ||
       `Verified against the national register of Indian indigenous ${breed.category.toLowerCase()} breeds.`
@@ -856,6 +1022,44 @@ export function buildEnrichedClassificationResult(
   imageFilenameOrHint?: string
 ): ClassificationResult {
   const matchedBreed = raw.predictedBreed ? findCatalogBreed(raw.predictedBreed) : undefined;
+
+  const isForeign = Boolean(
+    raw.isForeignBreed ||
+    raw.identificationStatus === 'identified_foreign' ||
+    (raw.predictedBreed ? detectForeignBreedInfo(raw.predictedBreed) : undefined) ||
+    (imageFilenameOrHint ? detectForeignBreedInfo(imageFilenameOrHint) : undefined)
+  );
+
+  const isUnsupportedAnimal = Boolean(
+    raw.isUnsupportedAnimal ||
+    raw.identificationStatus === 'unsupported_animal' ||
+    raw.categorySupported === false
+  );
+
+  const isUnknown = Boolean(
+    raw.isUnknownBreed ||
+    raw.isUnsupportedBreed ||
+    raw.identificationStatus === 'unknown_breed' ||
+    raw.identificationStatus === 'unsupported_breed' ||
+    (raw.predictedBreed && raw.predictedBreed.toLowerCase().includes('unknown'))
+  );
+
+  const confidence = normalizeConfidence(raw.confidence ?? (isUnknown ? 45 : 94));
+  const threshold = raw.confidenceThresholdUsed ?? 60;
+  const isUncertain = confidence < threshold;
+
+  let identificationStatus: IdentificationStatus;
+  if (isUnsupportedAnimal) {
+    identificationStatus = 'unsupported_animal';
+  } else if (isForeign) {
+    identificationStatus = 'identified_foreign';
+  } else if (isUnknown) {
+    identificationStatus = 'unknown_breed';
+  } else if (isUncertain) {
+    identificationStatus = 'uncertain_breed';
+  } else {
+    identificationStatus = 'identified_indigenous';
+  }
 
   const validCategories: BreedCategory[] = ['Cattle', 'Buffalo', 'Goat', 'Dog'];
   const category = (raw.category && validCategories.includes(raw.category as BreedCategory)
@@ -873,21 +1077,47 @@ export function buildEnrichedClassificationResult(
   };
   const def = getDefaultBreed(category);
 
-  const breedName = raw.predictedBreed || matchedBreed?.name || def.name;
-  const vernacular = raw.vernacularName || matchedBreed?.vernacularName || def.vern;
-  const confidence = normalizeConfidence(raw.confidence ?? 94);
+  const breedName = isUnsupportedAnimal
+    ? (raw.predictedBreed || `Unsupported Animal (${raw.unsupportedAnimalType || 'Non-Target'})`)
+    : isUnknown
+    ? (raw.predictedBreed || 'Unknown / Unsupported Breed')
+    : isForeign
+    ? (raw.predictedBreed || raw.foreignBreedName || 'Foreign Breed')
+    : (raw.predictedBreed || matchedBreed?.name || def.name);
+
+  const vernacular = isUnsupportedAnimal
+    ? 'असमर्थित पशु वर्ग'
+    : isUnknown
+    ? 'अज्ञात नस्ल'
+    : (raw.vernacularName || matchedBreed?.vernacularName || def.vern);
+
   const scientificName = raw.scientificName || matchedBreed?.scientificName || def.sci;
+
+  let statusMessage = raw.statusMessage;
+  if (!statusMessage) {
+    if (isUnsupportedAnimal) {
+      statusMessage = `Unsupported Animal: This application strictly classifies Indian Indigenous Cattle, Buffalo, Goat, and Dog breeds.`;
+    } else if (isForeign) {
+      statusMessage = 'This uploaded image is identified as Foreign Breed';
+    } else if (isUnknown) {
+      statusMessage = 'Unsupported Breed: The specimen does not match certified ICAR-NBAGR indigenous accession standards or recognized breed morphology.';
+    } else if (isUncertain) {
+      statusMessage = 'Breed identification is uncertain. Please upload a clearer image.';
+    } else {
+      statusMessage = 'Supported Indigenous Indian Breed (ICAR-NBAGR Registered)';
+    }
+  }
 
   return {
     predictedBreed: breedName,
     vernacularName: vernacular,
     category,
-    scientificName: raw.scientificName || matchedBreed?.scientificName || scientificName,
+    scientificName,
     confidence,
     stateOfOrigin: raw.stateOfOrigin || matchedBreed?.stateOfOrigin || (category === 'Buffalo' ? 'Haryana & Punjab' : 'Gujarat'),
     homeTract: raw.homeTract || matchedBreed?.homeTract || 'Indo-Gangetic / Saurashtra breeding tract',
-    nbagrCode: raw.nbagrCode || matchedBreed?.nbagrCode || (category === 'Buffalo' ? 'INDIA_BUFFALO_1700_MURRAH_04008' : 'INDIA_CATTLE_0400_GIR_03009'),
-    utility: raw.utility || matchedBreed?.productivity.primaryUtility || 'Milch (Dairy)',
+    nbagrCode: isUnsupportedAnimal ? 'UNSUPPORTED_ANIMAL_TAXON' : isUnknown ? 'NON_REGISTERED_LOCAL' : isForeign ? 'EXOTIC_NON_NBAGR' : (raw.nbagrCode || matchedBreed?.nbagrCode || (category === 'Buffalo' ? 'INDIA_BUFFALO_1700_MURRAH_04008' : 'INDIA_CATTLE_0400_GIR_03009')),
+    utility: raw.utility || matchedBreed?.productivity.primaryUtility || (category === 'Dog' ? 'Working / Companion' : 'Milch (Dairy)'),
     summary:
       raw.summary ||
       matchedBreed?.description ||
@@ -902,7 +1132,7 @@ export function buildEnrichedClassificationResult(
           ],
     genomics: matchedBreed?.genomics || {
       csn2Allele: 'A2/A2 (Homozygous)',
-      karyotype: category === 'Buffalo' ? '2n = 50' : '2n = 60',
+      karyotype: category === 'Buffalo' ? '2n = 50' : category === 'Dog' ? '2n = 78' : '2n = 60',
       fatRegulatorGene: category === 'Buffalo' ? 'DGAT1 and PPARGC1A lipid synthase' : 'DGAT1 K232A / SCD1 polymorphism',
       thermalGene: category === 'Buffalo' ? 'Melanin rich epidermis requiring water immersion' : 'HSP70 / HSF1 high constitutive expression',
       ncbiLocusLink: 'https://www.ncbi.nlm.nih.gov/gene/281099',
@@ -920,7 +1150,7 @@ export function buildEnrichedClassificationResult(
       faceProfile: raw.physicalTraits?.faceProfile || matchedBreed?.physicalTraits.faceProfile || 'Characteristic facial profile'
     },
     productivity: {
-      primaryUtility: matchedBreed?.productivity.primaryUtility || (raw.productivity?.primaryUtility as any) || 'Milch (Dairy)',
+      primaryUtility: matchedBreed?.productivity.primaryUtility || (raw.productivity?.primaryUtility as any) || (category === 'Dog' ? 'Working / Companion' : 'Milch (Dairy)'),
       averageYield: raw.productivity?.averageYield || matchedBreed?.productivity.averageYield || 'High indigenous lactation yield',
       fatPercentage: raw.productivity?.fatPercentage || matchedBreed?.productivity.fatPercentage || (category === 'Buffalo' ? '7.0% - 8.5%' : '4.5% - 5.0%'),
       weightMaleKg: raw.productivity?.weightMaleKg || matchedBreed?.productivity.weightMaleKg || (category === 'Buffalo' ? '700 kg' : '520 kg'),
@@ -928,8 +1158,8 @@ export function buildEnrichedClassificationResult(
       hardiness: raw.productivity?.hardiness || matchedBreed?.productivity.hardiness || 'Exceptional',
       heatTolerance: raw.productivity?.heatTolerance || matchedBreed?.productivity.heatTolerance || 'High tropical heat tolerance'
     },
-    nbagrStatus: raw.nbagrStatus || matchedBreed?.nbagrStatus || 'Registered Indigenous',
-    conservationStatus: raw.conservationStatus || 'Conserved & Monitored by ICAR-NBAGR',
+    nbagrStatus: raw.nbagrStatus || matchedBreed?.nbagrStatus || (isForeign ? 'Exotic / Foreign Breed' : isUnknown ? 'Common / Abundant' : 'Registered Indigenous'),
+    conservationStatus: raw.conservationStatus || (isForeign ? 'Globally Distributed Commercial Breed' : isUnknown ? 'Unregistered / Non-Accessioned Population' : 'Conserved & Monitored by ICAR-NBAGR'),
     historicalSignificance:
       raw.historicalSignificance ||
       matchedBreed?.historicalSignificance ||
@@ -958,27 +1188,26 @@ export function buildEnrichedClassificationResult(
               keyDifferentiatingFeature: 'Primary distinctive phenotypic markers matching registered NBAGR descriptors'
             }
           ],
-    isIndigenouslyRegistered: raw.isForeignBreed ? false : (raw.isIndigenouslyRegistered ?? true),
-    isForeignBreed: Boolean(
-      raw.isForeignBreed ||
-      (raw.predictedBreed ? detectForeignBreedInfo(raw.predictedBreed) : undefined) ||
-      (imageFilenameOrHint ? detectForeignBreedInfo(imageFilenameOrHint) : undefined)
-    ),
-    foreignBreedNotice: (
-      raw.isForeignBreed ||
-      (raw.predictedBreed && detectForeignBreedInfo(raw.predictedBreed)) ||
-      (imageFilenameOrHint && detectForeignBreedInfo(imageFilenameOrHint))
-    )
-      ? 'This uploaded image is identified as Foreign Breed'
-      : undefined,
-    foreignBreedName: raw.foreignBreedName ||
-      (raw.predictedBreed ? detectForeignBreedInfo(raw.predictedBreed)?.standardName : undefined) ||
-      (imageFilenameOrHint ? detectForeignBreedInfo(imageFilenameOrHint)?.standardName : undefined),
-    foreignOriginCountry: raw.foreignOriginCountry ||
-      (raw.predictedBreed ? detectForeignBreedInfo(raw.predictedBreed)?.country : undefined) ||
-      (imageFilenameOrHint ? detectForeignBreedInfo(imageFilenameOrHint)?.country : undefined),
-    distinguishingNotice: (raw.isForeignBreed || (raw.predictedBreed && detectForeignBreedInfo(raw.predictedBreed)))
+    isIndigenouslyRegistered: (isForeign || isUnknown || isUnsupportedAnimal) ? false : (raw.isIndigenouslyRegistered ?? true),
+    isForeignBreed: isForeign,
+    isUnknownBreed: isUnknown,
+    isUnsupportedBreed: isUnknown,
+    isUnsupportedAnimal: isUnsupportedAnimal,
+    categorySupported: !isUnsupportedAnimal,
+    isUncertain,
+    identificationStatus,
+    statusMessage,
+    unsupportedAnimalType: raw.unsupportedAnimalType,
+    confidenceThresholdUsed: threshold,
+    foreignBreedNotice: isForeign ? 'This uploaded image is identified as Foreign Breed' : undefined,
+    foreignBreedName: raw.foreignBreedName || (raw.predictedBreed ? detectForeignBreedInfo(raw.predictedBreed)?.standardName : undefined) || (imageFilenameOrHint ? detectForeignBreedInfo(imageFilenameOrHint)?.standardName : undefined),
+    foreignOriginCountry: raw.foreignOriginCountry || (raw.predictedBreed ? detectForeignBreedInfo(raw.predictedBreed)?.country : undefined) || (imageFilenameOrHint ? detectForeignBreedInfo(imageFilenameOrHint)?.country : undefined),
+    distinguishingNotice: isForeign
       ? `This uploaded image is identified as Foreign Breed. It does not carry ICAR-NBAGR indigenous registration.`
+      : isUnsupportedAnimal
+      ? `Unsupported Animal: Subject is outside the four supported categories.`
+      : isUnknown
+      ? `Unsupported Breed: Phenotypic traits do not conform to certified ICAR-NBAGR indigenous accessions.`
       : raw.distinguishingNotice,
     nonBovineWarning: raw.nonBovineWarning
   };
@@ -1002,6 +1231,53 @@ export function generateFallbackClassification(
       return createForeignBreedClassificationResult(lowerHint, 96, imageHint);
     }
 
+    // 2. Check if hint represents an unsupported animal outside Cattle, Buffalo, Goat, Dog
+    const unsupportedAnimalKeywords: Record<string, string> = {
+      cat: 'Domestic Cat (Felis catus)',
+      kitten: 'Domestic Cat (Felis catus)',
+      feline: 'Domestic Cat (Felis catus)',
+      horse: 'Horse (Equus caballus)',
+      mare: 'Horse (Equus caballus)',
+      stallion: 'Horse (Equus caballus)',
+      equine: 'Horse (Equus caballus)',
+      elephant: 'Elephant (Elephas maximus)',
+      camel: 'Camel (Camelus dromedarius)',
+      zebra: 'Zebra (Equus quagga)',
+      lion: 'Lion (Panthera leo)',
+      tiger: 'Tiger (Panthera tigris)',
+      bear: 'Bear (Ursidae)',
+      bird: 'Avian / Bird Species',
+      parrot: 'Avian / Bird (Parrot)',
+      eagle: 'Avian / Bird (Eagle)',
+      chicken: 'Poultry / Chicken (Gallus domesticus)',
+      duck: 'Waterfowl / Duck',
+      pig: 'Swine / Pig (Sus scrofa)',
+      hog: 'Swine / Pig (Sus scrofa)',
+      monkey: 'Primate / Monkey',
+      rabbit: 'Lagomorph / Rabbit',
+      deer: 'Cervid / Deer',
+      car: 'Inanimate Object (Vehicle)',
+      vehicle: 'Inanimate Object (Vehicle)',
+      laptop: 'Inanimate Object (Electronic)'
+    };
+
+    for (const [kw, animalName] of Object.entries(unsupportedAnimalKeywords)) {
+      const wordRegex = new RegExp(`\\b${kw}s?\\b`, 'i');
+      if (wordRegex.test(lowerHint)) {
+        return createUnsupportedAnimalClassificationResult(animalName, 88);
+      }
+    }
+
+    // 3. Check if hint explicitly requests unknown/unsupported breed
+    if (lowerHint.includes('unknown') || lowerHint.includes('unsupported') || lowerHint.includes('nondescript') || lowerHint.includes('mongrel') || lowerHint.includes('mutt')) {
+      return createUnknownBreedClassificationResult(
+        'Cattle',
+        45,
+        'Morphological traits do not align with certified ICAR-NBAGR accessions.'
+      );
+    }
+
+    // 4. Check catalog match
     const matched = findCatalogBreed(lowerHint);
     if (matched) {
       return breedToClassificationResult(
@@ -1073,14 +1349,22 @@ export function generateFallbackClassification(
       const dogBreed = findCatalogBreed('Mudhol Hound') || INDIAN_BREEDS_CATALOG.find(b => b.category === 'Dog')!;
       return breedToClassificationResult(dogBreed, 95, 'Classified as Native Indian Indigenous Canine (Canis lupus familiaris).');
     }
+
+    if (lowerHint.includes('unknown') || lowerHint.includes('unsupported') || lowerHint.includes('nondescript') || lowerHint.includes('mongrel') || lowerHint.includes('mutt')) {
+      return createUnknownBreedClassificationResult(
+        'Cattle',
+        45,
+        'Morphological traits do not align with certified ICAR-NBAGR accessions.'
+      );
+    }
   }
 
-  // 2. If no hint matched, return baseline reference without fabricating random breeds
-  const baseline = findCatalogBreed('Gir') || INDIAN_BREEDS_CATALOG[0] || INDIAN_BOVINE_BREEDS[0];
-  return breedToClassificationResult(
-    baseline,
-    70,
-    'Baseline reference specimen. Upload photo for live neural network classification.'
+  // 2. If no valid hint or breed matched, return an Unknown / Uncertain result.
+  // DO NOT invent a prediction or default hardcoded to Gir!
+  return createUnknownBreedClassificationResult(
+    'Cattle',
+    42,
+    'Specimen morphology is unfamiliar or unclear. Please upload a clear lateral profile of a registered indigenous breed.'
   );
 }
 

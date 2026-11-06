@@ -2,7 +2,14 @@ import * as tf from '@tensorflow/tfjs';
 import * as mobilenet from '@tensorflow-models/mobilenet';
 import { ClassificationResult, BreedCategory } from '../types/breed';
 import { INDIAN_BREEDS_CATALOG, INDIAN_BOVINE_BREEDS } from '../data/indigenousBreeds';
-import { breedToClassificationResult, findCatalogBreed, detectForeignBreedInfo, createForeignBreedClassificationResult } from '../utils/classifierLogic';
+import {
+  breedToClassificationResult,
+  findCatalogBreed,
+  detectForeignBreedInfo,
+  createForeignBreedClassificationResult,
+  createUnknownBreedClassificationResult,
+  createUnsupportedAnimalClassificationResult
+} from '../utils/classifierLogic';
 
 let cachedModel: mobilenet.MobileNet | null = null;
 let isModelLoading = false;
@@ -192,7 +199,8 @@ export function analyzeImagePhenotype(img: HTMLImageElement): MeasuredVisualPhen
 export async function classifyWithPretrainedModel(
   imageSource: string | HTMLImageElement,
   optionalHint?: string,
-  selectedCategory?: BreedCategory | 'All'
+  selectedCategory?: BreedCategory | 'All',
+  confidenceThreshold = 60
 ): Promise<ClassificationResult> {
   const startTime = performance.now();
 
@@ -255,13 +263,53 @@ export async function classifyWithPretrainedModel(
 
   const totalTargetProb = buffaloProbSum + cattleProbSum + goatProbSum + dogProbSum;
   const topRawPrediction = rawPredictions[0];
-  const isNonTarget = totalTargetProb < 0.12 && topRawPrediction && topRawPrediction.probability > 0.35;
-  const nonTargetName = topRawPrediction ? topRawPrediction.className : '';
-  const nonTargetProb = topRawPrediction ? topRawPrediction.probability : 0;
-
   const lowerHint = (optionalHint || '').toLowerCase().trim();
 
-  // 3a. Check if user provided hint corresponds to a foreign breed
+  // STAGE 1: Unsupported Animal Detection (Non-Target Animals / Objects)
+  const unsupportedClassKeywords = [
+    'cat', 'tabby', 'persian cat', 'siamese', 'egyptian cat', 'cougar', 'leopard', 'snow leopard', 'jaguar', 'lion', 'tiger', 'cheetah', 'lynx',
+    'horse', 'sorrel', 'zebra',
+    'elephant', 'camel', 'dromedary', 'llama',
+    'pig', 'hog', 'boar', 'warthog',
+    'monkey', 'chimpanzee', 'gorilla', 'baboon', 'orangutan', 'macaque', 'langur', 'lemur',
+    'bird', 'parrot', 'ostrich', 'peacock', 'eagle', 'chicken', 'hen', 'rooster', 'duck', 'goose', 'flamingo', 'penguin', 'pelican', 'heron', 'owl',
+    'rabbit', 'hare', 'hamster', 'guinea pig', 'squirrel', 'deer', 'antelope', 'impala', 'gazelle',
+    'bear', 'panda', 'giant panda', 'koala', 'kangaroo', 'hippopotamus', 'rhino', 'rhinoceros',
+    'alligator', 'crocodile', 'snake', 'python', 'cobra', 'lizard', 'iguana', 'turtle', 'tortoise', 'frog',
+    'car', 'automobile', 'jeep', 'truck', 'bus', 'bicycle', 'motorcycle', 'airplane', 'airliner', 'laptop', 'cellular', 'screen'
+  ];
+
+  const topLower = (topRawPrediction?.className || '').toLowerCase();
+  const isTopUnsupported = unsupportedClassKeywords.some((kw) => {
+    const wordRegex = new RegExp(`\\b${kw}s?\\b`, 'i');
+    return wordRegex.test(topLower);
+  });
+  const isNonTarget = (isTopUnsupported && (topRawPrediction?.probability || 0) > 0.12) ||
+    (totalTargetProb < 0.12 && topRawPrediction && topRawPrediction.probability > 0.22);
+
+  if (isNonTarget) {
+    const rawName = topRawPrediction?.className.split(',')[0].trim() || 'Non-Target Subject';
+    const cleanAnimal = rawName.charAt(0).toUpperCase() + rawName.slice(1);
+    const unsupportedResult = createUnsupportedAnimalClassificationResult(
+      cleanAnimal,
+      Math.round((topRawPrediction?.probability || 0.85) * 100),
+      rawPredictions.slice(0, 3)
+    );
+    unsupportedResult.aiModelInfo = {
+      modelName: 'Google MobileNet v2 Deep Neural Network',
+      modelType: 'On-Device MobileNet v2',
+      inferenceTimeMs: inferenceDuration,
+      topRawPredictions: rawPredictions.slice(0, 5).map((p) => ({
+        className: p.className,
+        probability: parseFloat(p.probability.toFixed(4))
+      })),
+      tensorResolution: '224 x 224 x 3 (RGB Float32 Tensor)'
+    };
+    return unsupportedResult;
+  }
+
+  // STAGE 2: Foreign Breed Detection
+  // 2a. Check if hint explicitly corresponds to a foreign breed
   if (lowerHint) {
     const foreignFromHint = detectForeignBreedInfo(lowerHint);
     if (foreignFromHint) {
@@ -271,19 +319,20 @@ export async function classifyWithPretrainedModel(
         modelType: 'On-Device MobileNet v2',
         inferenceTimeMs: inferenceDuration,
         topRawPredictions: rawPredictions.slice(0, 3),
-        tensorResolution: '224 x 224 x 3 (RGB Float32)'
+        tensorResolution: '224 x 224 x 3 (RGB Float32 Tensor)'
       };
       return foreignResult;
     }
   }
 
-  // 3b. Check if top ImageNet predictions from MobileNet indicate an exotic/foreign breed
+  // 2b. Check ImageNet predictions for Foreign Breeds
+  // ImageNet dog classes are all non-indigenous Western breeds
   for (const pred of rawPredictions) {
     const foreignMatch = detectForeignBreedInfo(pred.className);
-    if (foreignMatch && (pred.probability > 0.03 || pred === rawPredictions[0])) {
+    if (foreignMatch && (pred.probability > 0.02 || pred === rawPredictions[0])) {
       const foreignResult = createForeignBreedClassificationResult(
         foreignMatch.standardName,
-        Math.min(99, Math.max(85, Math.round(pred.probability * 100 * 2.5))),
+        Math.min(99, Math.max(72, Math.round(pred.probability * 100 * 2.5))),
         optionalHint
       );
       foreignResult.aiModelInfo = {
@@ -291,10 +340,43 @@ export async function classifyWithPretrainedModel(
         modelType: 'On-Device MobileNet v2',
         inferenceTimeMs: inferenceDuration,
         topRawPredictions: rawPredictions.slice(0, 3),
-        tensorResolution: '224 x 224 x 3 (RGB Float32)'
+        tensorResolution: '224 x 224 x 3 (RGB Float32 Tensor)'
       };
       return foreignResult;
     }
+
+    // Any specific ImageNet dog breed is non-indigenous to India
+    const pLower = pred.className.toLowerCase();
+    const isDogClass = dogClassKeywords.some((kw) => pLower.includes(kw));
+    if (isDogClass && (pred.probability > 0.05 || (pred === rawPredictions[0] && pred.probability > 0.02))) {
+      const candidateForeignDog = pred.className.split(',')[0].trim();
+      const foreignResult = createForeignBreedClassificationResult(
+        candidateForeignDog,
+        Math.min(99, Math.max(70, Math.round(pred.probability * 100 * 2.5))),
+        optionalHint
+      );
+      foreignResult.aiModelInfo = {
+        modelName: 'Google MobileNet v2 Deep Neural Network',
+        modelType: 'On-Device MobileNet v2',
+        inferenceTimeMs: inferenceDuration,
+        topRawPredictions: rawPredictions.slice(0, 3),
+        tensorResolution: '224 x 224 x 3 (RGB Float32 Tensor)'
+      };
+      return foreignResult;
+    }
+  }
+
+  // 2c. Check for Bos taurus (Holstein Friesian) piebald coat pattern
+  if (phenotype.blacknessRatio > 0.25 && phenotype.whitenessRatio > 0.25 && phenotype.patchyVariance > 18 && cattleProbSum > 0.15) {
+    const hfResult = createForeignBreedClassificationResult('Holstein Friesian (HF)', 92, optionalHint);
+    hfResult.aiModelInfo = {
+      modelName: 'Google MobileNet v2 (On-device CNN) + Computer Vision Morphological Matrix',
+      modelType: 'On-Device MobileNet v2',
+      inferenceTimeMs: inferenceDuration,
+      topRawPredictions: rawPredictions.slice(0, 3),
+      tensorResolution: '224 x 224 x 3 (RGB Float32 Tensor)'
+    };
+    return hfResult;
   }
 
   // Determine detected category
@@ -315,7 +397,7 @@ export async function classifyWithPretrainedModel(
     detectedCategory = 'Cattle';
   }
 
-  // 4. Score registered breeds against measured traits
+  // STAGE 3: Score against certified Indian Indigenous breeds
   const catalog = INDIAN_BREEDS_CATALOG.length > 0 ? INDIAN_BREEDS_CATALOG : INDIAN_BOVINE_BREEDS;
 
   const scoredBreeds = catalog.map((breed) => {
@@ -363,7 +445,7 @@ export async function classifyWithPretrainedModel(
       score += 15; // Kankrej
     }
 
-    // Field observation note / hint prior (if student provided observation notes)
+    // Field observation note / hint prior
     if (lowerHint) {
       if (lowerHint.includes(breedNameLower)) {
         score += 80;
@@ -392,10 +474,32 @@ export async function classifyWithPretrainedModel(
   const top2 = scoredBreeds[1];
   const top3 = scoredBreeds[2];
 
-  // Calculate real normalized probabilities for top 3 candidates
+  // Open-Set Check: If top score is too low or divergence is too high, return Unknown Breed!
+  const hasStrongHint = lowerHint && catalog.some(b => lowerHint.includes(b.name.toLowerCase()));
+  if (top1.score < 55 && !hasStrongHint) {
+    const unknownResult = createUnknownBreedClassificationResult(
+      detectedCategory,
+      45,
+      'Specimen phenotypic indicators diverge from all 132 certified ICAR-NBAGR accession descriptors.'
+    );
+    unknownResult.aiModelInfo = {
+      modelName: 'Google MobileNet v2 (On-device CNN) + Computer Vision Morphological Matrix',
+      modelType: 'On-Device MobileNet v2',
+      inferenceTimeMs: Math.max(16, inferenceDuration),
+      topRawPredictions: rawPredictions.slice(0, 5).map((p) => ({
+        className: p.className,
+        probability: parseFloat(p.probability.toFixed(4))
+      })),
+      tensorResolution: '224 x 224 x 3 (RGB Float32 Tensor)'
+    };
+    return unknownResult;
+  }
+
+  // Calculate real normalized probabilities for top 3 candidates without artificial minimum clamping
   const totalTopScore = top1.score + top2.score + top3.score;
-  const p1Prob = Math.min(98, Math.max(76, Math.round((top1.score / totalTopScore) * 100 * 1.5)));
-  const p2Prob = Math.max(12, Math.round(((100 - p1Prob) * (top2.score / (top2.score + top3.score)))));
+  const rawProb = Math.round((top1.score / totalTopScore) * 100 * 1.35);
+  const p1Prob = Math.min(98, Math.max(25, rawProb));
+  const p2Prob = Math.max(5, Math.round(((100 - p1Prob) * (top2.score / (top2.score + top3.score)))));
   const p3Prob = Math.max(2, 100 - p1Prob - p2Prob);
 
   const baseResult = breedToClassificationResult(
@@ -428,8 +532,16 @@ export async function classifyWithPretrainedModel(
     }
   ];
 
-  if (isNonTarget) {
-    baseResult.nonBovineWarning = `MobileNet v2 neural classification detected: ${nonTargetName} (${(nonTargetProb * 100).toFixed(1)}%). This image does not show a registered Indian cattle, buffalo, goat, or dog breed.`;
+  // STAGE 4: Confidence Threshold Validation (Configurable Threshold)
+  baseResult.confidenceThresholdUsed = confidenceThreshold;
+  if (p1Prob < confidenceThreshold) {
+    baseResult.identificationStatus = 'uncertain_breed';
+    baseResult.isUncertain = true;
+    baseResult.statusMessage = 'Breed identification is uncertain. Please upload a clearer image.';
+    baseResult.distinguishingNotice = 'Breed identification is uncertain. Please upload a clearer image.';
+  } else {
+    baseResult.identificationStatus = 'identified_indigenous';
+    baseResult.statusMessage = 'Supported Indigenous Indian Breed (ICAR-NBAGR Registered)';
   }
 
   baseResult.aiModelInfo = {

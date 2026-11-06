@@ -120,8 +120,82 @@ export const ClassificationResultCard: React.FC<ClassificationResultCardProps> =
   const [copiedNotification, setCopiedNotification] = useState<boolean>(false);
   const [isSavingToCloud, setIsSavingToCloud] = useState<boolean>(false);
   const [cloudSavedSuccess, setCloudSavedSuccess] = useState<boolean>(false);
+  const [showModelInspector, setShowModelInspector] = useState<boolean>(false);
+
+  const threshold = settings.minConfidenceThreshold ?? 60;
+  const isUncertain = Boolean(
+    result.isUncertain ||
+    result.identificationStatus === 'uncertain_breed' ||
+    (result.confidence < threshold && !result.isForeignBreed && !result.isUnsupportedAnimal)
+  );
+
+  const identificationStatus = result.identificationStatus || (
+    result.isUnsupportedAnimal ? 'unsupported_animal' :
+    result.isForeignBreed ? 'identified_foreign' :
+    result.isUnknownBreed ? 'unknown_breed' :
+    isUncertain ? 'uncertain_breed' : 'identified_indigenous'
+  );
+
+  const getStatusBadge = () => {
+    switch (identificationStatus) {
+      case 'unsupported_animal':
+        return {
+          label: 'Unsupported Animal (Non-Target)',
+          badgeClass: 'bg-rose-500/20 text-rose-300 border-rose-500/40',
+          dotClass: 'bg-rose-400'
+        };
+      case 'identified_foreign':
+        return {
+          label: 'Foreign / Exotic Breed',
+          badgeClass: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
+          dotClass: 'bg-amber-400'
+        };
+      case 'unknown_breed':
+      case 'unsupported_breed':
+        return {
+          label: 'Unknown / Unsupported Breed',
+          badgeClass: 'bg-stone-500/20 text-stone-300 border-stone-500/40',
+          dotClass: 'bg-stone-400'
+        };
+      case 'uncertain_breed':
+        return {
+          label: `Uncertain (< ${threshold}% Threshold)`,
+          badgeClass: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/40',
+          dotClass: 'bg-yellow-400'
+        };
+      case 'identified_indigenous':
+      default:
+        return {
+          label: 'Certified Indigenous Breed',
+          badgeClass: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
+          dotClass: 'bg-emerald-400'
+        };
+    }
+  };
+
+  const getSupportedOrUnsupportedMessage = () => {
+    if (result.isUnsupportedAnimal) {
+      return `Unsupported Animal: This application strictly classifies Indian Indigenous Cattle, Buffalo, Goat, and Dog breeds. The detected subject is outside supported categories.`;
+    }
+    if (result.isForeignBreed) {
+      return `This uploaded image is identified as Foreign Breed. It is an exotic non-indigenous breed outside the ICAR-NBAGR Indian National Registry.`;
+    }
+    if (identificationStatus === 'uncertain_breed' || isUncertain) {
+      return `Breed identification is uncertain. Please upload a clearer image.`;
+    }
+    if (result.isUnknownBreed) {
+      return `Unsupported Breed: The specimen does not match certified ICAR-NBAGR indigenous accession standards or recognized breed morphology.`;
+    }
+    return `Supported Indigenous Indian Breed: Registered under National ICAR-NBAGR Indigenous Animal Genetic Resources standards.`;
+  };
+
+  const statusBadge = getStatusBadge();
+  const supportedMessage = getSupportedOrUnsupportedMessage();
 
   const getCategoryLabel = (category: string) => {
+    if (result.isUnsupportedAnimal) {
+      return `Unsupported Subject: ${result.unsupportedAnimalType || 'Non-Target'}`;
+    }
     if (result.isForeignBreed) {
       return `Exotic / Foreign ${category} (${result.scientificName})`;
     }
@@ -135,6 +209,9 @@ export const ClassificationResultCard: React.FC<ClassificationResultCardProps> =
   };
 
   const getTaxonomyLabel = (category: string, scientificName: string) => {
+    if (result.isUnsupportedAnimal) {
+      return `${scientificName} • Outside Target Scope`;
+    }
     switch (category) {
       case 'Cattle': return `${scientificName} • Bovidae / Bovinae`;
       case 'Buffalo': return `${scientificName} • Bovidae / Bovinae`;
@@ -149,13 +226,13 @@ export const ClassificationResultCard: React.FC<ClassificationResultCardProps> =
       navigator
         .share({
           title: `Indian Breed Classification: ${result.predictedBreed}`,
-          text: `Classified ${result.predictedBreed} (${result.category} • ${result.scientificName}) with ${result.confidence}% confidence. Origin: ${result.stateOfOrigin}, NBAGR Code: ${result.nbagrCode}.`,
+          text: `Classified ${result.predictedBreed} (${result.category} • ${result.scientificName}) with ${result.confidence}% confidence. Status: ${statusBadge.label}.`,
           url: window.location.href
         })
         .catch(() => {});
     } else {
       navigator.clipboard.writeText(
-        `Indian Breed Classification: ${result.predictedBreed} (${result.vernacularName}) - ${result.category} (${result.scientificName}), Origin: ${result.stateOfOrigin}. NBAGR Code: ${result.nbagrCode}. Confidence: ${result.confidence}%.`
+        `Indian Breed Classification: ${result.predictedBreed} - Status: ${statusBadge.label}, Confidence: ${result.confidence}%. ${supportedMessage}`
       );
       setCopiedNotification(true);
       setTimeout(() => setCopiedNotification(false), 2500);
@@ -189,19 +266,39 @@ export const ClassificationResultCard: React.FC<ClassificationResultCardProps> =
 
   return (
     <div className="w-full bg-white rounded-3xl border border-stone-200 shadow-xl overflow-hidden transition-all print:shadow-none print:border-none">
-      {/* Non-bovine warning notice if user uploaded unrelated animal */}
-      {result.nonBovineWarning && (
-        <div className="bg-red-50 border-b border-red-200 px-6 py-3.5 flex items-center gap-2.5 text-xs text-red-900 font-medium">
-          <AlertTriangle className="w-4 h-4 text-red-600 flex-shrink-0" />
-          <span>
-            <strong>Project Scope Notice: </strong> {result.nonBovineWarning}
+      {/* 1. Unsupported Animal Banner */}
+      {result.isUnsupportedAnimal && (
+        <div className="bg-rose-950/70 border-b-2 border-rose-500/80 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-rose-100 animate-fadeIn">
+          <div className="flex items-start sm:items-center gap-3.5">
+            <div className="p-2.5 rounded-xl bg-rose-600 text-white flex-shrink-0 shadow-md">
+              <AlertTriangle className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="px-2 py-0.5 rounded-md bg-rose-600 text-white text-[10px] font-bold uppercase tracking-wider">
+                  Unsupported Animal
+                </span>
+                <span className="text-xs font-semibold text-rose-200">
+                  Non-Target Biological Scope
+                </span>
+              </div>
+              <h3 className="font-bold text-base sm:text-lg text-rose-100 mt-0.5">
+                Unsupported Animal ({result.unsupportedAnimalType || 'Non-Target Subject'})
+              </h3>
+              <p className="text-xs text-rose-200/90 mt-0.5 max-w-2xl">
+                This academic classification system is strictly calibrated for Indian Indigenous Cattle (<em>Bos indicus</em>), River Buffalo (<em>Bubalus bubalis</em>), Goats (<em>Capra hircus</em>), and Dogs (<em>Canis lupus familiaris</em>). The uploaded image does not belong to these categories.
+              </p>
+            </div>
+          </div>
+          <span className="px-3 py-1.5 rounded-xl bg-rose-900/60 border border-rose-500/50 text-rose-200 font-mono text-xs font-bold whitespace-nowrap self-start sm:self-auto">
+            Scope Filter: Active
           </span>
         </div>
       )}
 
-      {/* Prominent Foreign Breed Identification Banner */}
+      {/* 2. Prominent Foreign Breed Identification Banner */}
       {result.isForeignBreed && (
-        <div className="bg-gradient-to-r from-amber-500/20 via-amber-500/10 to-orange-500/20 border-b-2 border-amber-500/60 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-amber-950">
+        <div className="bg-gradient-to-r from-amber-500/20 via-amber-500/10 to-orange-500/20 border-b-2 border-amber-500/60 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-amber-950 dark:text-amber-100 animate-fadeIn">
           <div className="flex items-start sm:items-center gap-3.5">
             <div className="p-2.5 rounded-xl bg-amber-600 text-white flex-shrink-0 shadow-md">
               <Globe className="w-5 h-5" />
@@ -211,26 +308,347 @@ export const ClassificationResultCard: React.FC<ClassificationResultCardProps> =
                 <span className="px-2 py-0.5 rounded-md bg-amber-600 text-white text-[10px] font-bold uppercase tracking-wider">
                   Exotic Specimen
                 </span>
-                <span className="text-xs font-semibold text-amber-900">
+                <span className="text-xs font-semibold text-amber-900 dark:text-amber-300">
                   Non-Indigenous Lineage
                 </span>
               </div>
-              <h3 className="font-bold text-base sm:text-lg text-amber-950 mt-0.5">
+              <h3 className="font-bold text-base sm:text-lg text-amber-950 dark:text-amber-100 mt-0.5">
                 This uploaded image is identified as Foreign Breed
               </h3>
-              <p className="text-xs text-amber-900/90 mt-0.5 max-w-2xl">
+              <p className="text-xs text-amber-900/90 dark:text-amber-200/90 mt-0.5 max-w-2xl">
                 Identified as <strong>{result.predictedBreed}</strong> (Origin: {result.stateOfOrigin}). This breed is of foreign / exotic origin and is not registered in India's ICAR-NBAGR Indigenous Animal Genetic Resources registry.
               </p>
             </div>
           </div>
-          <span className="px-3 py-1.5 rounded-xl bg-amber-600/20 border border-amber-600/40 text-amber-900 font-mono text-xs font-bold whitespace-nowrap self-start sm:self-auto shadow-xs">
+          <span className="px-3 py-1.5 rounded-xl bg-amber-600/20 border border-amber-600/40 text-amber-900 dark:text-amber-300 font-mono text-xs font-bold whitespace-nowrap self-start sm:self-auto shadow-xs">
             Exotic Origin: {result.stateOfOrigin}
           </span>
         </div>
       )}
 
-      {/* Top Header Card */}
+      {/* 3. Uncertain Identification Banner (When Confidence < Threshold) */}
+      {isUncertain && !result.isForeignBreed && !result.isUnsupportedAnimal && (
+        <div className="bg-yellow-500/15 border-b-2 border-yellow-500/60 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-yellow-950 dark:text-yellow-100 animate-fadeIn">
+          <div className="flex items-start sm:items-center gap-3.5">
+            <div className="p-2.5 rounded-xl bg-yellow-600 text-white flex-shrink-0 shadow-md">
+              <AlertTriangle className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="px-2 py-0.5 rounded-md bg-yellow-600 text-white text-[10px] font-bold uppercase tracking-wider">
+                  Uncertainty Warning
+                </span>
+                <span className="text-xs font-semibold text-yellow-900 dark:text-yellow-300">
+                  Confidence ({result.confidence}%) &lt; Threshold ({threshold}%)
+                </span>
+              </div>
+              <h3 className="font-bold text-base sm:text-lg text-yellow-950 dark:text-yellow-100 mt-0.5">
+                Breed identification is uncertain. Please upload a clearer image.
+              </h3>
+              <p className="text-xs text-yellow-900/90 dark:text-yellow-200/90 mt-0.5 max-w-2xl">
+                The visual indicators in this photo do not meet the minimum certainty threshold ({threshold}%). For best results, capture a clear side-profile in natural light showing horns, dewlap, and cranial contours.
+              </p>
+            </div>
+          </div>
+          <span className="px-3 py-1.5 rounded-xl bg-yellow-600/20 border border-yellow-600/40 text-yellow-900 dark:text-yellow-300 font-mono text-xs font-bold whitespace-nowrap self-start sm:self-auto shadow-xs">
+            Score: {result.confidence}% (Threshold: {threshold}%)
+          </span>
+        </div>
+      )}
+
+      {/* 4. Unknown / Unsupported Breed Banner */}
+      {result.isUnknownBreed && !result.isUnsupportedAnimal && !result.isForeignBreed && !isUncertain && (
+        <div className="bg-stone-800/40 border-b-2 border-stone-600 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-stone-200 animate-fadeIn">
+          <div className="flex items-start sm:items-center gap-3.5">
+            <div className="p-2.5 rounded-xl bg-stone-700 text-white flex-shrink-0 shadow-md">
+              <Info className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="px-2 py-0.5 rounded-md bg-stone-700 text-white text-[10px] font-bold uppercase tracking-wider">
+                  Unsupported Breed
+                </span>
+                <span className="text-xs font-semibold text-stone-300">
+                  Unregistered / Non-Accessioned
+                </span>
+              </div>
+              <h3 className="font-bold text-base sm:text-lg text-stone-100 mt-0.5">
+                Unknown / Unsupported Breed
+              </h3>
+              <p className="text-xs text-stone-300 mt-0.5 max-w-2xl">
+                The specimen belongs to the supported animal category ({result.category}), but its conformation diverges from certified ICAR-NBAGR indigenous accession standards and recognized foreign breeds.
+              </p>
+            </div>
+          </div>
+          <span className="px-3 py-1.5 rounded-xl bg-stone-800 border border-stone-600 text-stone-300 font-mono text-xs font-bold whitespace-nowrap self-start sm:self-auto">
+            Non-Accessioned
+          </span>
+        </div>
+      )}
+
+      {/* TOP HEADER CARD */}
       <div className="p-6 sm:p-8 bg-gradient-to-br from-stone-900 via-stone-800 to-amber-950 text-white relative">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
+            {/* Cropped Preview Thumbnail */}
+            <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden border-2 border-amber-400/50 shadow-lg bg-stone-950 flex-shrink-0 group">
+              <img
+                src={imagePreviewUrl}
+                alt={result.predictedBreed}
+                className="w-full h-full object-cover"
+              />
+              {result.isForeignBreed && (
+                <span className="absolute top-1 left-1 bg-amber-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow">
+                  Foreign
+                </span>
+              )}
+              {result.isUnsupportedAnimal && (
+                <span className="absolute top-1 left-1 bg-rose-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow">
+                  Non-Target
+                </span>
+              )}
+              <span className="absolute bottom-0 inset-x-0 bg-stone-900/80 text-[10px] text-amber-300 text-center py-0.5 font-mono">
+                Specimen
+              </span>
+            </div>
+
+            <div>
+              <div className="flex flex-wrap items-center gap-2 mb-2 text-xs text-stone-300">
+                <span className="text-amber-400 font-semibold">
+                  {getCategoryLabel(result.category)}
+                </span>
+                <span aria-hidden="true" className="text-stone-600">·</span>
+                <span className="font-mono text-stone-300">{result.nbagrCode}</span>
+                <span aria-hidden="true" className="text-stone-600">·</span>
+                <span>{result.stateOfOrigin}</span>
+              </div>
+
+              <div className="flex items-baseline gap-3 flex-wrap">
+                <h2 className="text-2xl sm:text-4xl font-serif font-bold text-amber-100">
+                  {result.predictedBreed}
+                </h2>
+                {result.vernacularName && (
+                  <span className="text-base sm:text-xl text-amber-300/80 font-normal">
+                    ({result.vernacularName})
+                  </span>
+                )}
+              </div>
+
+              {/* Status Badge Tag */}
+              <div className="flex items-center gap-2 mt-2 flex-wrap">
+                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border shadow-xs ${statusBadge.badgeClass}`}>
+                  <span className={`w-2 h-2 rounded-full ${statusBadge.dotClass} animate-pulse`} />
+                  <span>{statusBadge.label}</span>
+                </span>
+                <span className="text-xs text-stone-400 font-mono">
+                  Confidence: <strong className="text-amber-300">{result.confidence}%</strong>
+                </span>
+              </div>
+
+              <p className="text-xs sm:text-sm text-stone-400 font-mono mt-1">
+                Taxonomy: <span className="italic text-stone-200">{getTaxonomyLabel(result.category, result.scientificName)}</span>
+              </p>
+            </div>
+          </div>
+
+          {/* Quick Confidence Pill with Visual Circular Gauge & Progress Bar */}
+          <div className="flex items-center gap-4 bg-stone-900/95 border border-amber-500/30 rounded-2xl p-4 backdrop-blur-sm self-stretch sm:self-auto justify-between sm:justify-start shadow-xl ring-1 ring-white/5">
+            <div className="text-left space-y-1">
+              <span className="text-[10px] font-semibold text-stone-400 uppercase tracking-wider block">
+                Model Certainty
+              </span>
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl font-extrabold text-amber-300 font-mono tracking-tight">
+                  {result.confidence}%
+                </span>
+                <span className="text-xs text-stone-400 font-medium">Sure</span>
+              </div>
+              {/* Mini visual progress bar */}
+              <div className="w-28 sm:w-32 h-1.5 bg-stone-950 rounded-full overflow-hidden border border-stone-800">
+                <div
+                  className={`h-full rounded-full bg-gradient-to-r ${reliability.barGradient} transition-all duration-700`}
+                  style={{ width: `${Math.min(100, Math.max(5, result.confidence))}%` }}
+                />
+              </div>
+              <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold border mt-0.5 ${reliability.badgeClass}`}>
+                {reliability.tier}
+              </span>
+            </div>
+
+            {/* Circular Radial Progress Gauge */}
+            <div className="relative w-14 h-14 flex items-center justify-center flex-shrink-0" title={`Model Confidence: ${result.confidence}%`}>
+              <svg className="w-14 h-14 -rotate-90 transform" viewBox="0 0 48 48">
+                <circle
+                  cx="24"
+                  cy="24"
+                  r="19"
+                  className="stroke-stone-800"
+                  strokeWidth="3.5"
+                  fill="none"
+                />
+                <circle
+                  cx="24"
+                  cy="24"
+                  r="19"
+                  className={`${reliability.circleStrokeClass} transition-all duration-1000 ease-out`}
+                  strokeWidth="3.5"
+                  strokeDasharray={119.38}
+                  strokeDashoffset={119.38 - (119.38 * result.confidence) / 100}
+                  strokeLinecap="round"
+                  fill="none"
+                />
+              </svg>
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                <Gauge className="w-3.5 h-3.5 text-amber-400 mb-0.5" />
+                <span className="text-[10px] font-extrabold font-mono text-white leading-none">
+                  {result.confidence}%
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* =========================================================================
+            REQUIRED DIAGNOSTIC ASSESSMENT RESULT DISPLAY:
+            * Predicted animal category
+            * Predicted breed
+            * Confidence score
+            * Identification status
+            * Supported or unsupported breed message
+            ========================================================================= */}
+        <div className="mt-6 bg-stone-950/80 border border-stone-700/80 rounded-2xl p-4 sm:p-5 shadow-inner">
+          <div className="flex items-center justify-between pb-3 border-b border-stone-800">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <span>Diagnostic Classification Assessment</span>
+            </h4>
+            <button
+              onClick={() => setShowModelInspector(!showModelInspector)}
+              className="px-2.5 py-1 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white text-[11px] font-mono flex items-center gap-1.5 transition-colors cursor-pointer border border-stone-700"
+              title="Inspect AI model architecture, ImageNet classes, and NBAGR registry"
+            >
+              <Info className="w-3.5 h-3.5 text-amber-400" />
+              <span>{showModelInspector ? 'Hide Model Info' : 'Inspect Model & Classes'}</span>
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-3 text-xs">
+            {/* 1. Predicted Animal Category */}
+            <div className="bg-stone-900/90 rounded-xl p-3 border border-stone-800">
+              <span className="text-[10px] font-semibold text-stone-400 uppercase tracking-wider block">
+                Animal Category
+              </span>
+              <p className="font-bold text-amber-200 mt-0.5 text-sm">
+                {result.isUnsupportedAnimal
+                  ? (result.unsupportedAnimalType ? `Unsupported (${result.unsupportedAnimalType})` : 'Unsupported Subject')
+                  : result.category}
+              </p>
+              <span className="text-[10px] text-stone-400 font-mono block mt-0.5">
+                {result.isUnsupportedAnimal ? 'Outside Scope' : result.scientificName}
+              </span>
+            </div>
+
+            {/* 2. Predicted Breed */}
+            <div className="bg-stone-900/90 rounded-xl p-3 border border-stone-800">
+              <span className="text-[10px] font-semibold text-stone-400 uppercase tracking-wider block">
+                Predicted Breed
+              </span>
+              <p className="font-bold text-white mt-0.5 text-sm truncate" title={result.predictedBreed}>
+                {result.predictedBreed}
+              </p>
+              <span className="text-[10px] text-stone-400 font-mono block mt-0.5 truncate">
+                {result.stateOfOrigin}
+              </span>
+            </div>
+
+            {/* 3. Confidence Score */}
+            <div className="bg-stone-900/90 rounded-xl p-3 border border-stone-800">
+              <span className="text-[10px] font-semibold text-stone-400 uppercase tracking-wider block">
+                Model Confidence
+              </span>
+              <div className="flex items-baseline gap-2 mt-0.5">
+                <span className="font-extrabold text-amber-300 text-lg font-mono">
+                  {result.confidence}%
+                </span>
+                <span className="text-[10px] text-stone-400 font-mono">
+                  (Min: {threshold}%)
+                </span>
+              </div>
+              <span className={`text-[10px] font-bold block ${isUncertain ? 'text-yellow-400' : 'text-emerald-400'}`}>
+                {isUncertain ? 'Below Threshold' : 'Passes Threshold'}
+              </span>
+            </div>
+
+            {/* 4. Identification Status */}
+            <div className="bg-stone-900/90 rounded-xl p-3 border border-stone-800">
+              <span className="text-[10px] font-semibold text-stone-400 uppercase tracking-wider block">
+                Identification Status
+              </span>
+              <p className="font-bold text-amber-100 mt-0.5 text-xs truncate">
+                {statusBadge.label}
+              </p>
+              <span className={`text-[10px] font-mono block mt-0.5 ${result.isIndigenouslyRegistered ? 'text-emerald-400' : 'text-amber-400'}`}>
+                {result.isIndigenouslyRegistered ? 'ICAR-NBAGR Registered' : 'Non-NBAGR Specimen'}
+              </span>
+            </div>
+          </div>
+
+          {/* 5. Supported or Unsupported Breed Message */}
+          <div className={`mt-3.5 p-3 rounded-xl border flex items-start gap-2.5 text-xs ${
+            result.isUnsupportedAnimal
+              ? 'bg-rose-950/60 border-rose-600/50 text-rose-200'
+              : result.isForeignBreed
+              ? 'bg-amber-950/60 border-amber-600/50 text-amber-200'
+              : isUncertain
+              ? 'bg-yellow-950/60 border-yellow-600/50 text-yellow-200'
+              : result.isUnknownBreed
+              ? 'bg-stone-900/80 border-stone-700 text-stone-300'
+              : 'bg-emerald-950/60 border-emerald-600/50 text-emerald-200'
+          }`}>
+            <Info className="w-4 h-4 shrink-0 mt-0.5 text-amber-400" />
+            <div>
+              <strong className="font-semibold block mb-0.5">Breed Scope & Verification Message:</strong>
+              <p className="leading-relaxed">{supportedMessage}</p>
+            </div>
+          </div>
+
+          {/* Interactive Model & Supported Classes Inspector Drawer */}
+          {showModelInspector && (
+            <div className="mt-4 pt-4 border-t border-stone-800 space-y-3 animate-fadeIn text-xs text-stone-300">
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-amber-300 uppercase tracking-wider text-[11px]">
+                  Model Architecture & Open-Set Taxonomy Inspector
+                </span>
+                <span className="text-[10px] text-stone-400 font-mono">
+                  Engine: {result.aiModelInfo?.modelName || 'Dual-Engine Vision Pipeline'}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div className="bg-stone-900 p-3 rounded-xl border border-stone-800">
+                  <span className="font-bold text-white block mb-1">1. Supported Indigenous Classes</span>
+                  <p className="text-[11px] text-stone-400 leading-relaxed">
+                    Certified ICAR-NBAGR national registry: <strong>132 breeds</strong> total (53 Indian Cattle, 20 River Buffalo, 39 Indigenous Goat, 20 Native Dog). Formally registered with national accession codes.
+                  </p>
+                </div>
+
+                <div className="bg-stone-900 p-3 rounded-xl border border-stone-800">
+                  <span className="font-bold text-amber-400 block mb-1">2. Foreign / Exotic Classes</span>
+                  <p className="text-[11px] text-stone-400 leading-relaxed">
+                    ImageNet includes 120+ foreign dog breeds (Rottweiler, German Shepherd, Golden Retriever, etc.) and Bos taurus cattle (Holstein Friesian, Jersey). Identified as Foreign Breeds, NEVER forced into Indian breeds.
+                  </p>
+                </div>
+
+                <div className="bg-stone-900 p-3 rounded-xl border border-stone-800">
+                  <span className="font-bold text-rose-400 block mb-1">3. Non-Target Scope Detection</span>
+                  <p className="text-[11px] text-stone-400 leading-relaxed">
+                    ImageNet includes 800+ other classes (Cat, Horse, Elephant, Zebra, Camel, Bird, etc.). Multi-stage open-set validation detects non-target subjects and outputs "Unsupported Animal".
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
             {/* Cropped Preview Thumbnail */}

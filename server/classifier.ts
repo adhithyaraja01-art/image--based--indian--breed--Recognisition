@@ -149,19 +149,43 @@ const bovineClassificationSchema = {
     },
     foreignBreedName: {
       type: Type.STRING,
-      description: 'The specific name of the identified foreign breed (e.g. Holstein Friesian, German Shepherd, Jersey, Golden Retriever, Boer Goat, etc.).'
+      description: 'The specific name of the identified foreign breed (e.g. Holstein Friesian, German Shepherd, Jersey, Golden Retriever, Boer Goat, Rottweiler, etc.).'
     },
     foreignOriginCountry: {
       type: Type.STRING,
       description: 'The foreign country or geographic region of origin (e.g. Netherlands / Germany, Germany, United Kingdom, South Africa, Switzerland, etc.).'
     },
+    isUnsupportedAnimal: {
+      type: Type.BOOLEAN,
+      description: 'Set to TRUE if the image depicts an animal or subject outside the four supported categories of Cattle, Buffalo, Goat, or Dog (e.g. Cat, Horse, Elephant, Camel, Zebra, Lion, Bird, Vehicle, etc.).'
+    },
+    unsupportedAnimalType: {
+      type: Type.STRING,
+      description: 'If isUnsupportedAnimal is true, the specific animal/object name (e.g. "Cat", "Horse", "Elephant", "Camel", "Bird").'
+    },
+    isUnknownBreed: {
+      type: Type.BOOLEAN,
+      description: 'Set to TRUE if the animal belongs to Cattle, Buffalo, Goat, or Dog, but does NOT match any recognized Indian registered breed or standardized foreign breed (e.g. mixed mutt, nondescript crossbred).'
+    },
+    isUncertain: {
+      type: Type.BOOLEAN,
+      description: 'Set to TRUE if the image is too blurry, dark, distant, or ambiguous to achieve high identification confidence.'
+    },
+    identificationStatus: {
+      type: Type.STRING,
+      description: 'Strictly one of: "identified_indigenous", "identified_foreign", "uncertain_breed", "unknown_breed", "unsupported_breed", "unsupported_animal".'
+    },
+    statusMessage: {
+      type: Type.STRING,
+      description: 'User-facing status message explaining identification outcome and breed status.'
+    },
     distinguishingNotice: {
       type: Type.STRING,
-      description: 'How to distinguish this breed from crossbred (e.g. HF cross, Jersey cross) or related breeds'
+      description: 'How to distinguish this breed from crossbred or related breeds, or note foreign/unsupported status.'
     },
     nonBovineWarning: {
       type: Type.STRING,
-      description: 'If the image does not show an Indian cattle or buffalo, explain that this academic system strictly classifies Indian Cattle and Buffalo breeds only.'
+      description: 'If the image does not show a registered Indian livestock or canine breed, explain the scope limitation.'
     }
   },
   required: [
@@ -194,7 +218,8 @@ export async function classifyIndianBreed(
   imageBase64: string,
   mimeType: string = 'image/jpeg',
   optionalHint?: string,
-  targetCategory?: string
+  targetCategory?: string,
+  minConfidenceThreshold = 60
 ): Promise<ClassificationResult> {
   const ai = getGeminiClient();
 
@@ -228,7 +253,7 @@ export async function classifyIndianBreed(
 
     const categoryDirective = targetCategory && targetCategory !== 'All'
       ? `USER TARGET CATEGORY: "${targetCategory}". The user specifically selected the animal category "${targetCategory}". Please identify the specimen within this category if consistent with the image.`
-      : `CATEGORY AUTO-DETECTION: Determine whether the specimen is Cattle, Buffalo, Goat, or Dog.`;
+      : `CATEGORY AUTO-DETECTION: Determine whether the specimen is Cattle, Buffalo, Goat, or Dog, or an Unsupported Animal.`;
 
     const promptText = `
 You are the Lead Scientific Taxonomist for an ICAR-NBAGR College Project in Animal Biotechnology & AI Computer Vision.
@@ -245,24 +270,43 @@ Your project objective: Classify and document strictly INDIAN INDIGENOUS LIVESTO
 ${categoryDirective}
 ${optionalHint ? `Student Field Hint: "${optionalHint}"` : ''}
 
-PRIORITY 1 - IMMEDIATE CHECK FOR FOREIGN / EXOTIC BREEDS:
-First, check whether the animal in the image is a foreign/exotic breed that does not belong to the ICAR-NBAGR Indian Indigenous Registry:
-- Foreign Dogs: Rottweiler, German Shepherd, Golden Retriever, Labrador Retriever, Siberian Husky, Doberman Pinscher, Beagle, Bulldog, Poodle, Boxer, Dachshund, Great Dane, Chihuahua, Pomeranian, Shih Tzu, etc.
-- Foreign Cattle: Holstein Friesian (HF), Jersey, Guernsey, Ayrshire, Brown Swiss, Angus, Hereford, Charolais, Simmental, etc.
-- Foreign Goats: Boer Goat, Saanen, Alpine, Toggenburg, Anglo-Nubian, etc.
-IF THE SPECIMEN IS A FOREIGN BREED (such as Rottweiler, German Shepherd, Holstein Friesian, etc.):
-  1. Set "predictedBreed": the exact foreign breed name (e.g. "Rottweiler", "German Shepherd", "Holstein Friesian"). DO NOT force or misclassify it as an Indian breed (like Mudhol Hound, Bully Kutta, or Gir)!
-  2. Set "isForeignBreed": true.
-  3. Set "isIndigenouslyRegistered": false.
-  4. Set "foreignBreedNotice": "This uploaded image is identified as Foreign Breed".
-  5. Set "foreignBreedName": the identified foreign breed name (e.g. "Rottweiler").
-  6. Set "foreignOriginCountry": country/region of origin (e.g. "Germany", "Netherlands / Germany", "United Kingdom", "South Africa").
-  7. Set "nbagrCode": "EXOTIC_NON_NBAGR".
-  8. Set "nbagrStatus": "Exotic / Foreign Breed (Not Registered under ICAR-NBAGR)".
-  9. Set "summary": "This uploaded image is identified as Foreign Breed (" + foreignBreedName + "). Originating from " + foreignOriginCountry + ", it is an exotic non-indigenous breed outside the ICAR-NBAGR Indian National Registry."
-  10. Set "distinguishingNotice": "This uploaded image is identified as Foreign Breed. It does not carry ICAR-NBAGR indigenous registration."
+CRITICAL TAXONOMIC VALIDATION RULES (DO NOT INVENT PREDICTIONS):
 
-If the uploaded image shows an animal outside these categories, explain so in distinguishingNotice/nonBovineWarning.
+RULE 1 - UNSUPPORTED ANIMAL DETECTION:
+If the uploaded image depicts an animal outside Cattle, Buffalo, Goat, or Dog (e.g. Cat, Horse, Elephant, Camel, Zebra, Lion, Tiger, Bird, Human, Vehicle, etc.):
+- Set "isUnsupportedAnimal": true
+- Set "unsupportedAnimalType": exact animal name (e.g. "Cat", "Horse", "Elephant")
+- Set "predictedBreed": "Unsupported Animal (" + unsupportedAnimalType + ")"
+- Set "identificationStatus": "unsupported_animal"
+- Set "statusMessage": "Unsupported Animal: This application strictly classifies Indian Indigenous Cattle, Buffalo, Goat, and Dog breeds. The detected subject is outside supported categories."
+- DO NOT force it into an Indian cattle/dog breed!
+
+RULE 2 - FOREIGN / EXOTIC BREED IDENTIFICATION:
+If the specimen is a foreign or exotic breed (e.g. Rottweiler, German Shepherd, Golden Retriever, Labrador, Siberian Husky, Doberman, Beagle, Bulldog, Holstein Friesian, Jersey, Angus, Boer Goat, Saanen):
+- Set "predictedBreed": the exact foreign breed name (e.g. "Rottweiler", "Holstein Friesian", "German Shepherd")
+- Set "isForeignBreed": true
+- Set "isIndigenouslyRegistered": false
+- Set "identificationStatus": "identified_foreign"
+- Set "foreignBreedNotice": "This uploaded image is identified as Foreign Breed"
+- Set "foreignBreedName": exact foreign breed name
+- Set "foreignOriginCountry": foreign country of origin (e.g. "Germany", "Netherlands / Germany", "United Kingdom")
+- Set "nbagrCode": "EXOTIC_NON_NBAGR"
+- Set "statusMessage": "This uploaded image is identified as Foreign Breed. It is not an Indian indigenous breed registered by ICAR-NBAGR."
+- DO NOT force it into an Indian breed!
+
+RULE 3 - UNKNOWN / UNSUPPORTED BREED:
+If the animal belongs to Cattle, Buffalo, Goat, or Dog, but does NOT match any registered Indian breed or standard foreign breed (e.g. mixed mutt, nondescript mongrel):
+- Set "isUnknownBreed": true
+- Set "predictedBreed": "Unknown / Unsupported Breed"
+- Set "identificationStatus": "unknown_breed"
+- Set "statusMessage": "Unsupported Breed: The specimen does not match certified ICAR-NBAGR indigenous accession standards or recognized breed morphology."
+
+RULE 4 - CONFIDENCE & UNCERTAINTY:
+If the image is blurry, distant, or confidence < ${minConfidenceThreshold}:
+- Set "isUncertain": true
+- Set "identificationStatus": "uncertain_breed"
+- Set "statusMessage": "Breed identification is uncertain. Please upload a clearer image."
+
 Output strictly valid JSON conforming to the schema.`;
 
     const startTime = Date.now();

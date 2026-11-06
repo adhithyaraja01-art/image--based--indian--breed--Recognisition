@@ -57,6 +57,14 @@ export interface BreedInfo {
   tags: string[];
 }
 
+export type IdentificationStatus =
+  | 'identified_indigenous'
+  | 'identified_foreign'
+  | 'uncertain_breed'
+  | 'unknown_breed'
+  | 'unsupported_breed'
+  | 'unsupported_animal';
+
 export interface ClassificationResult {
   predictedBreed: string;
   vernacularName: string;
@@ -86,6 +94,14 @@ export interface ClassificationResult {
   distinguishingNotice?: string;
   nonBovineWarning?: string;
   categorySupported?: boolean;
+  identificationStatus?: IdentificationStatus;
+  statusMessage?: string;
+  isUnknownBreed?: boolean;
+  isUnsupportedBreed?: boolean;
+  isUnsupportedAnimal?: boolean;
+  isUncertain?: boolean;
+  unsupportedAnimalType?: string;
+  confidenceThresholdUsed?: number;
   aiModelInfo?: {
     modelName: string;
     modelType: 'On-Device MobileNet v2' | 'Cloud Gemini Vision' | 'Pre-Trained Deep Learning Vision';

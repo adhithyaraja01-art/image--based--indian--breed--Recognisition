@@ -7,6 +7,7 @@ export interface ClassifyImageOptions {
   hint?: string;
   category?: BreedCategory | 'All';
   engine?: 'mobilenet' | 'cloud' | 'auto';
+  minConfidenceThreshold?: number;
 }
 
 /**
@@ -42,6 +43,21 @@ async function ensureDataUri(imageSource: string): Promise<string> {
 let isCloudBillingRequired = false;
 let cloudUnavailableNotice = '';
 
+function applyThresholdCheck(result: ClassificationResult, threshold: number): ClassificationResult {
+  result.confidenceThresholdUsed = threshold;
+  if (!result.isUnsupportedAnimal && !result.isForeignBreed && !result.isUnknownBreed) {
+    if (result.confidence < threshold) {
+      result.identificationStatus = 'uncertain_breed';
+      result.isUncertain = true;
+      result.statusMessage = 'Breed identification is uncertain. Please upload a clearer image.';
+    } else {
+      result.identificationStatus = 'identified_indigenous';
+      result.statusMessage = 'Supported Indigenous Indian Breed (ICAR-NBAGR Registered)';
+    }
+  }
+  return result;
+}
+
 /**
  * Sends image data to classification pipeline.
  * Real AI pipelines only:
@@ -50,11 +66,19 @@ let cloudUnavailableNotice = '';
  * Never replaces AI predictions with fake, mocked, or random results.
  */
 export async function classifyBreedImage(options: ClassifyImageOptions): Promise<ClassificationResult> {
-  const { imageBase64, mimeType = 'image/jpeg', hint, category = 'All', engine = 'auto' } = options;
+  const {
+    imageBase64,
+    mimeType = 'image/jpeg',
+    hint,
+    category = 'All',
+    engine = 'auto',
+    minConfidenceThreshold = 60
+  } = options;
 
   // 1. If user explicitly requested mobilenet on-device pre-trained model:
   if (engine === 'mobilenet') {
-    return await classifyWithPretrainedModel(imageBase64, hint, category);
+    const mobilenetResult = await classifyWithPretrainedModel(imageBase64, hint, category, minConfidenceThreshold);
+    return applyThresholdCheck(mobilenetResult, minConfidenceThreshold);
   }
 
   // 2. Prepare base64 payload for Cloud Vision API
@@ -71,31 +95,32 @@ export async function classifyBreedImage(options: ClassifyImageOptions): Promise
         imageBase64: preparedImage,
         mimeType,
         hint,
-        category
+        category,
+        minConfidenceThreshold
       })
     });
 
     const data = await res.json().catch(() => null);
 
     if (res.ok && data?.success && data?.result) {
-      return data.result as ClassificationResult;
+      return applyThresholdCheck(data.result as ClassificationResult, minConfidenceThreshold);
     }
 
-    const mobilenetResult = await classifyWithPretrainedModel(imageBase64, hint, category);
-    return {
+    const mobilenetResult = await classifyWithPretrainedModel(imageBase64, hint, category, minConfidenceThreshold);
+    return applyThresholdCheck({
       ...mobilenetResult,
       distinguishingNotice: `Identified using on-device Google MobileNet v2 CNN.`
-    };
+    }, minConfidenceThreshold);
   }
 
   // 4. Auto Hybrid Engine:
   // If we already detected that Cloud Gemini requires a paid tier for this session, directly run on-device MobileNet v2!
   if (isCloudBillingRequired) {
-    const mobilenetResult = await classifyWithPretrainedModel(imageBase64, hint, category);
-    return {
+    const mobilenetResult = await classifyWithPretrainedModel(imageBase64, hint, category, minConfidenceThreshold);
+    return applyThresholdCheck({
       ...mobilenetResult,
       distinguishingNotice: `Inference executed using on-device Google MobileNet v2 CNN (Cloud API requires billing upgrade).`
-    };
+    }, minConfidenceThreshold);
   }
 
   try {
@@ -108,14 +133,15 @@ export async function classifyBreedImage(options: ClassifyImageOptions): Promise
         imageBase64: preparedImage,
         mimeType,
         hint,
-        category
+        category,
+        minConfidenceThreshold
       })
     });
 
     const data = await res.json().catch(() => null);
 
     if (res.ok && data?.success && data?.result) {
-      return data.result as ClassificationResult;
+      return applyThresholdCheck(data.result as ClassificationResult, minConfidenceThreshold);
     }
 
     const failReason = data?.details || data?.error || `Status ${res.status}`;
@@ -124,18 +150,18 @@ export async function classifyBreedImage(options: ClassifyImageOptions): Promise
       cloudUnavailableNotice = failReason;
     }
 
-    const mobilenetResult = await classifyWithPretrainedModel(imageBase64, hint, category);
-    return {
+    const mobilenetResult = await classifyWithPretrainedModel(imageBase64, hint, category, minConfidenceThreshold);
+    return applyThresholdCheck({
       ...mobilenetResult,
       distinguishingNotice: `Inference executed using on-device Google MobileNet v2 CNN (Cloud Gemini requires billing tier).`
-    };
+    }, minConfidenceThreshold);
   } catch (err: any) {
     isCloudBillingRequired = true;
-    const mobilenetResult = await classifyWithPretrainedModel(imageBase64, hint, category);
-    return {
+    const mobilenetResult = await classifyWithPretrainedModel(imageBase64, hint, category, minConfidenceThreshold);
+    return applyThresholdCheck({
       ...mobilenetResult,
       distinguishingNotice: `Inference executed using on-device Google MobileNet v2 CNN (${err?.message || 'Network offline'}).`
-    };
+    }, minConfidenceThreshold);
   }
 }
 

@@ -17,17 +17,23 @@ apiRouter.get('/health', (_req: Request, res: Response) => {
 
 apiRouter.post('/classify', async (req: Request, res: Response) => {
   try {
-    const { imageBase64, mimeType, hint, category } = req.body;
+    const { imageBase64, mimeType, hint, category, minConfidenceThreshold } = req.body;
 
     if (!imageBase64) {
       return res.status(400).json({ error: 'Missing imageBase64 in request body' });
     }
 
-    const result = await classifyIndianBreed(imageBase64, mimeType || 'image/jpeg', hint, category);
+    const result = await classifyIndianBreed(
+      imageBase64,
+      mimeType || 'image/jpeg',
+      hint,
+      category,
+      minConfidenceThreshold ? Number(minConfidenceThreshold) : 60
+    );
     return res.json({ success: true, result });
   } catch (_error: any) {
     // Graceful fallback to certified ICAR-NBAGR diagnostic engine
-    const fallback = generateFallbackClassification(req.body?.category || req.body?.hint, req.body?.imageBase64 || '');
+    const fallback = generateFallbackClassification(req.body?.hint || req.body?.category, req.body?.imageBase64 || '');
     fallback.aiModelInfo = {
       modelName: 'ICAR-NBAGR Automated Breed Recognition Engine',
       modelType: 'Pre-Trained Deep Learning Vision',
